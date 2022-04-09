@@ -26,7 +26,7 @@ final as (
 
     select
         customer.customer_key,
-        order.order_key,
+        orders.order_key,
         product.product_key,
         sales_data.quantity,
         sales_data.price,
