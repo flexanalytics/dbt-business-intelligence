@@ -1,5 +1,318 @@
 version: 2
 
+models:
+  - name: fact_sales
+    #description: "{{ doc('test1') }}"
+    meta:
+      label: Sales Fact
+    columns:
+      - name: customer_key
+        meta:
+          hidden: true
+        tests:
+          - not_null
+          - relationships: #JOINS the dbt integrity way
+              to: ref('dim_customer')
+              field: customer_key
+      - name: order_key
+        meta:
+          hidden: true
+        tests:
+          - not_null
+          - relationships: #JOINS the dbt integrity way
+              to: ref('dim_order')
+              field: order_key
+      - name: product_key
+        meta:
+          hidden: true
+        tests:
+          - not_null
+          - relationships: #JOINS the dbt integrity way
+              to: ref('dim_product')
+              field: product_key
+      - name: date_key
+        meta:
+          hidden: true
+        tests:
+          - not_null
+          - relationships: #JOINS the dbt integrity way
+              to: ref('dim_date')
+              field: date_key
+
+  - name: dim_customer
+    meta:
+      label: Customer
+    columns:
+      - name: customer_key
+        meta:
+          label: customer_key
+          hidden: true
+      - name: customer_name
+        meta:
+          label: Customer Name
+      - name: phone
+        meta:
+          label: Phone
+      - name: address_line_1
+        meta:
+          label: Address Line 1
+      - name: address_line_2
+        meta:
+          label: Address Line 2
+      - name: city
+        meta:
+          label: City
+      - name: state
+        meta:
+          label: State
+      - name: postal_code
+        meta:
+          label: Postal Code
+      - name: country
+        meta:
+          label: Country
+      - name: territory
+        meta:
+          label: Territory
+      - name: contact_last_name
+        meta:
+          label: Contact Last Name
+      - name: contact_first_name
+        meta:
+          label: Contact First Name
+
+  - name: dim_order
+    meta:
+      label: Order
+    columns:
+      - name: order_key
+        meta:
+          label: order_key
+          hidden: true
+      - name: order_number
+        meta:
+          label: Order Number
+      - name: order_line_number
+        meta:
+          label: Order Line Number
+      - name: order_date
+        meta:
+          label: Order Date
+      - name: status
+        meta:
+          label: Order Status
+
+  - name: dim_product
+    meta:
+      label: Product
+    columns:
+      - name: product_key
+        meta:
+          label: product_key
+          hidden: true
+      - name: product_code
+        meta:
+          label: Product Code
+      - name: product_name
+        meta:
+          label: Product Name
+      - name: product_category
+        meta:
+          label: Product Category
+      - name: msrp
+        meta:
+          label: MSRP
+
+  #use FlexIt autoname and then convert to YAML
+  - name: dim_date
+    meta:
+      label: Order Date
+    columns:
+      - name: date_key
+        meta:
+          label: date_key
+          hidden: true
+      - name: date_day
+        meta:
+          label: Date Day
+      - name: prior_date_day
+        meta:
+          label: Prior Date Day
+      - name: next_date_day
+        meta:
+          label: Next Date Day
+      - name: prior_year_date_day
+        meta:
+          label: Prior Year Date Day
+      - name: prior_year_over_year_date_day
+        meta:
+          label: Prior Year Over Year Date Day
+      - name: day_of_week
+        meta:
+          label: Day Of Week
+      - name: day_of_week_iso
+        meta:
+          label: Day Of Week Iso
+      - name: day_of_week_name
+        meta:
+          label: Day Of Week Name
+      - name: day_of_week_name_short
+        meta:
+          label: Day Of Week Name Short
+      - name: day_of_month
+        meta:
+          label: Day Of Month
+      - name: day_of_year
+        meta:
+          label: Day Of Year
+      - name: week_start_date
+        meta:
+          label: Week Start Date
+      - name: week_end_date
+        meta:
+          label: Week End Date
+      - name: prior_year_week_start_date
+        meta:
+          label: Prior Year Week Start Date
+      - name: prior_year_week_end_date
+        meta:
+          label: Prior Year Week End Date
+      - name: week_of_year
+        meta:
+          label: Week Of Year
+      - name: iso_week_start_date
+        meta:
+          label: Iso Week Start Date
+      - name: iso_week_end_date
+        meta:
+          label: Iso Week End Date
+      - name: prior_year_iso_week_start_date
+        meta:
+          label: Prior Year Iso Week Start Date
+      - name: prior_year_iso_week_end_date
+        meta:
+          label: Prior Year Iso Week End Date
+      - name: iso_week_of_year
+        meta:
+          label: Iso Week Of Year
+      - name: prior_year_week_of_year
+        meta:
+          label: Prior Year Week Of Year
+      - name: prior_year_iso_week_of_year
+        meta:
+          label: Prior Year Iso Week Of Year
+      - name: month_of_year
+        meta:
+          label: Month Of Year
+      - name: month_name
+        meta:
+          label: Month Name
+      - name: month_name_short
+        meta:
+          label: Month Name Short
+      - name: month_start_date
+        meta:
+          label: Month Start Date
+      - name: month_end_date
+        meta:
+          label: Month End Date
+      - name: prior_year_month_start_date
+        meta:
+          label: Prior Year Month Start Date
+      - name: prior_year_month_end_date
+        meta:
+          label: Prior Year Month End Date
+      - name: quarter_of_year
+        meta:
+          label: Quarter Of Year
+      - name: quarter_start_date
+        meta:
+          label: Quarter Start Date
+      - name: quarter_end_date
+        meta:
+          label: Quarter End Date
+      - name: year_number
+        meta:
+          label: Year Number
+      - name: year_start_date
+        meta:
+          label: Year Start Date
+      - name: year_end_date
+        meta:
+          label: Year End Date
+
+  - name: stg_customer
+    meta:
+      hidden: true
+  - name: stg_order
+    meta:
+      hidden: true
+  - name: stg_product
+    meta:
+      hidden: true
+  - name: stg_date_dimension
+    meta:
+      hidden: true
+  - name: stg_sales_data
+    meta:
+      hidden: true
+
+metrics:
+  - name: quantity
+    label: Quantity
+    model: ref('fact_sales')
+    description: "Sum of quantity sold"
+    type: sum
+    sql: quantity
+
+  - name: price
+    label: Price
+    model: ref('fact_sales')
+    description: "Average price"
+    type: average
+    sql: price
+
+  - name: sales
+    label: Sales
+    model: ref('fact_sales')
+    description: "Sum of total sales revenue"
+    type: sum
+    sql: sales
+
+  - name: target
+    label: Target
+    model: ref('fact_sales')
+    description: "Sum of target sales revenue"
+    type: sum
+    sql: target
+
+  - name: row_count
+    label: Row Count
+    model: ref('fact_sales')
+    description: "A non-distinct count of rows"
+    type: count
+
+  - name: customer_count
+    label: Customer Count
+    model: ref('fact_sales')
+    description: "A `distinct_count` of customers"
+    type: count_distinct
+    sql: customer_key
+
+  - name: product_count
+    label: Product Count
+    model: ref('fact_sales')
+    description: "A `distinct_count` of products"
+    type: count_distinct
+    sql: product_key
+
+  - name: order_count
+    label: Order Count
+    model: ref('fact_sales')
+    description: "A `distinct_count` of orders"
+    type: count_distinct
+    sql: order_key
+
 sources:
   - name: salesforce
     database: dbt-advanced

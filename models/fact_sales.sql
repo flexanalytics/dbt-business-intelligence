@@ -16,6 +16,12 @@ product as (
 
 ),
 
+dim_date as (
+
+    select * from {{ ref('dim_date') }}
+
+),
+
 sales_data as (
 
     select * from {{ ref('stg_sales_data') }}
@@ -28,6 +34,7 @@ final as (
         customer.customer_key,
         orders.order_key,
         product.product_key,
+        dim_date.date_key,
         sales_data.quantity,
         sales_data.price,
         sales_data.sales,
@@ -41,6 +48,8 @@ final as (
                 and orders.order_line_number = sales_data.order_line_number
         inner join product
             on product.product_code = sales_data.product_code
+        inner join dim_date
+            on dim_date.date_day = sales_data.order_date
 
 )
 
