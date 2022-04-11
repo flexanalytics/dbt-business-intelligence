@@ -47,6 +47,8 @@ models:
         meta:
           label: customer_key
           hidden: true
+        tests:
+          - unique
       - name: customer_name
         meta:
           label: Customer Name
@@ -89,6 +91,8 @@ models:
         meta:
           label: order_key
           hidden: true
+        tests:
+          - unique
       - name: order_number
         meta:
           label: Order Number
@@ -101,6 +105,9 @@ models:
       - name: status
         meta:
           label: Order Status
+        tests:
+          - accepted_values:
+              values: ['Cancelled','Disputed','In Process','On Hold','Resolved','Shipped']
 
   - name: dim_product
     meta:
@@ -110,6 +117,8 @@ models:
         meta:
           label: product_key
           hidden: true
+        tests:
+          - unique
       - name: product_code
         meta:
           label: Product Code
@@ -132,6 +141,8 @@ models:
         meta:
           label: date_key
           hidden: true
+        tests:
+          - unique
       - name: date_day
         meta:
           label: Date Day
