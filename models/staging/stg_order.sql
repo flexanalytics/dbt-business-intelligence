@@ -1,5 +1,3 @@
-{{ config(schema='staging') }}
-
 select distinct
     order_number,
     order_line_number,

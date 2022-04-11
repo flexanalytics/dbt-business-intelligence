@@ -1,5 +1,3 @@
-{{ config(schema='staging') }}
-
 select distinct
     customer_name,
     phone,

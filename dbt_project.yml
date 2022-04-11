@@ -38,6 +38,9 @@ models:
   dbt_advanced:
     # Config indicated by + and applies to all files under models/example/
     +materialized: table
+    staging:
+      +schema: staging
+      +materialized: view
 
 seeds:
   dbt_advanced:
