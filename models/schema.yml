@@ -327,7 +327,7 @@ metrics:
 sources:
   - name: salesforce
     database: dbt-advanced
-    schema: sales_schema
+    schema: sales_schema_staging
     freshness:
       warn_after: {count: 12, period: hour}
       error_after: {count: 24, period: hour}
