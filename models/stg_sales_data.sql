@@ -1,3 +1,5 @@
+{{ config(schema='staging') }}
+
 select
     {{ dbt_utils.surrogate_key(['order_number','order_line_number']) }} id,
     *,

@@ -1,3 +1,5 @@
+{{ config(schema='staging') }}
+
 select distinct
     product_code,
     product_name,

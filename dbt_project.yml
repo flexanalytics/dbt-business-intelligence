@@ -38,3 +38,7 @@ models:
   dbt_advanced:
     # Config indicated by + and applies to all files under models/example/
     +materialized: table
+
+seeds:
+  dbt_advanced:
+    schema: staging # all seeds in this project will use the mapping schema by default

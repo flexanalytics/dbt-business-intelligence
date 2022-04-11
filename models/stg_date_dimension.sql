@@ -1,3 +1,5 @@
+{{ config(schema='staging') }}
+
 -- depends_on: {{ ref('stg_sales_data') }}
 
 {%- call statement('date_range_query', fetch_result=True) -%}
