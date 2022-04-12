@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: fact_sales
-    #description: "{{ doc('test1') }}"
+    description: "{{ doc('fact_sales') }}"
     meta:
       label: Sales Fact
       display_index: 1
@@ -41,6 +41,7 @@ models:
               field: date_key
 
   - name: dim_customer
+    description: "{{ doc('dim_customer') }}"
     meta:
       label: Customer
       display_index: 4
@@ -86,6 +87,7 @@ models:
           label: Contact First Name
 
   - name: dim_order
+    description: "{{ doc('dim_order') }}"
     meta:
       label: Order
       display_index: 2
@@ -103,9 +105,11 @@ models:
         meta:
           label: Order Line Number
       - name: order_date
+        description: "Date of the order after {{ var('company_name') }} started on {{ var('company_start_date') }}"
         meta:
           label: Order Date
       - name: status
+        description: "Status can be one of the following values: 'Cancelled','Disputed','In Process','On Hold','Resolved','Shipped'"
         meta:
           label: Order Status
         tests:
@@ -113,6 +117,7 @@ models:
               values: ['Cancelled','Disputed','In Process','On Hold','Resolved','Shipped']
 
   - name: dim_product
+    description: "{{ doc('dim_product') }}"
     meta:
       label: Product
       display_index: 3
@@ -132,12 +137,14 @@ models:
       - name: product_category
         meta:
           label: Product Category
+        description: 'Hello world ![Alt text](https://learn.flexitanalytics.com/img/Flex-X-small.png)'
       - name: msrp
         meta:
           label: MSRP
 
   #use FlexIt autoname and then convert to YAML
   - name: dim_date
+    description: The Order Date dimension allows you to analyze metrics across time periods at many levels of granularity (year, quarter, month, day).
     meta:
       label: Order Date
       display_index: 5

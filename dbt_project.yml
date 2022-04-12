@@ -26,7 +26,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 vars:
   # The `start_date` variable will be accessible in all resources
-  testvar: 'Hello Test Variable'
+  company_name: 'Bigstore Enterprises'
+  company_start_date: '2019-01-01'
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models

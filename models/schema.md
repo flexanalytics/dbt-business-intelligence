@@ -1,23 +1,29 @@
-{% docs test1 %}
-This model represents one record per month, per account (months have been filled
-in to include any periods of inactivity).
+{% docs fact_sales %}
 
-This model classifies each month as one of: `new`, `reactivation`, `upgrade`,
-`downgrade`, or `churn`.
+| Metric         | Definition                                       |
+|----------------|--------------------------------------------------|
+| quantity       | Sum of quantity sold                             |
+| price          | Average price for an ordered product             |
+| sales          | Sum of total sales revenue                       |
+| target         | Sum of target sales revenue                      |
 
 {% enddocs %}
 
+{% docs dim_customer %}
+Customer (sometimes known as a client, buyer, or purchaser) is the recipient of a good, service, product or an idea - obtained from a seller, vendor, or supplier via a financial transaction or exchange for money or some other valuable consideration. [Click here](https://en.wikipedia.org/wiki/Customer) for more information.
+{% enddocs %}
 
-{% docs test2 %}
+{% docs dim_order %}
+Detailed information about a customer purchase of product(s) such as order date and status
+{% enddocs %}
 
-| Category       | Definition                                                                                              |
-|----------------|---------------------------------------------------------------------------------------------------------|
-| new            | The customer is a new customer that has not had a previous subscription                                 |
-| churn          | Last month the customer paid for a subscription, but this month is not. A customer can churn many times |
-| upgrade        | The customer has increased their usage and is now paying you more money per month                       |
-| downgrade      | The customer has decreased their usage and is now paying you less money per month                       |
-| reactivation   | A previously churned customer has started subscribing again                                             |
-| (null)         | No change compared to last month                                                                        |
-
-
+{% docs dim_product %}
+Detailed information about products in the following categories:
+* Classic Cars
+* Motorcycles
+* Planes
+* Ships
+* Trains
+* Trucks and Buses
+* Vintage Cars
 {% enddocs %}
