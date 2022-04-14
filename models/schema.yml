@@ -141,6 +141,10 @@ models:
       - name: msrp
         meta:
           label: MSRP
+          format:
+            type: number
+            decimalPlaces: 2
+            prefix: "$"
 
   #use FlexIt autoname and then convert to YAML
   - name: dim_date
@@ -161,6 +165,9 @@ models:
       - name: prior_date_day
         meta:
           label: Prior Date Day
+          format:
+            type: date
+            pattern: 'MMM D, YYYY'
       - name: next_date_day
         meta:
           label: Next Date Day
@@ -267,18 +274,55 @@ models:
   - name: stg_customer
     meta:
       hidden: true
+
   - name: stg_order
     meta:
       hidden: true
+
   - name: stg_product
     meta:
       hidden: true
+
   - name: stg_date_dimension
     meta:
       hidden: true
+
   - name: stg_sales_data
     meta:
       hidden: true
+      joins:
+        - to: stg_customer
+          type: left #inner, left, right, full
+          join_on: #allows for multiple columns
+            - from_field: customer_name
+              exp: '=' #optional; default '='; '=','<>'
+              to_field: customer_name
+            - to_field: phone
+              exp: '='
+              from_value: 'phone'
+              operator: OR #optional; default 'AND'; 'AND', 'OR' 'NOT'; TODO: grouping
+        - to: stg_order
+          type: right
+          join_on:
+            - from_field: order_number
+              exp: '='
+              to_field: order_number
+            - to_field: order_line_number
+              exp: '='
+              from_value: order_line_number
+              operator: AND
+        - to: stg_product
+          type: inner
+          join_on:
+            - from_field: product_code
+              exp: '='
+              to_field: product_code
+        - to: stg_date_dimension
+          type: full
+          join_on:
+            - from_field: order_date
+              exp: '='
+              to_field: date_day
 
 metrics:
   - name: quantity
@@ -301,6 +345,11 @@ metrics:
     description: "Sum of total sales revenue"
     type: sum
     sql: sales
+    meta:
+      synonym: # for business searching and natural language processing
+        - Revenue
+        - Proceeds
+        - Receipts
 
   - name: target
     label: Target
@@ -348,3 +397,89 @@ sources:
     tables:
       - name: stg_sales_data
         description: 'Sales data from the master system'
+
+exposures:
+  - name: Bullet Chart
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/bullet-chart
+    description: ''
+    depends_on:
+      - ref('dim_product')
+      - ref('fact_sales')
+    owner:
+      name: Fake User
+      email: info@flexitanalytics.com
+    meta:
+      tool: flexit
+  - name: Calendar Heatmap
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/calendar-heatmap
+    description: ''
+    depends_on:
+      - ref('dim_order')
+      - ref('fact_sales')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
+  - name: Heatmap
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/59a58f9f-8be0-4669-a18e-ddf4fa351f5e
+    description: ''
+    depends_on:
+      - ref('dim_customer')
+      - ref('dim_product')
+      - ref('fact_sales')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
+  - name: Histogram
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/histogram-chart
+    description: ''
+    depends_on:
+      - ref('dim_order')
+      - ref('fact_sales')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
+  - name: Timeseries
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/timeseries
+    description: ''
+    depends_on:
+      - ref('dim_order')
+      - ref('fact_sales')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
+  - name: I'm a Dead Exposure
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/fake-uuid-here
+    description: This is a documented analysis that no longer exists in FlexIt
+    depends_on:
+      - ref('dim_customer')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
+  - name: I'm a Tableau Report
+    type: analysis
+    url: https://public.tableau.com/views/OlympicSports_16208578270630/Sheet1?:language=en-US&:display_count=n&:origin=viz_share_link
+    description: This is a documented report in Tableau Public
+    depends_on:
+      - ref('dim_order')
+      - ref('fact_sales')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: tableau
