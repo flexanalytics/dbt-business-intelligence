@@ -137,7 +137,9 @@ models:
       - name: product_category
         meta:
           label: Product Category
-        description: 'Hello world ![Alt text](https://learn.flexitanalytics.com/img/Flex-X-small.png)'
+          alias: # for business searching and natural language processing
+            - Product Type
+            - Product Line
       - name: msrp
         meta:
           label: MSRP
@@ -346,7 +348,7 @@ metrics:
     type: sum
     sql: sales
     meta:
-      synonym: # for business searching and natural language processing
+      alias: # for business searching and natural language processing
         - Revenue
         - Proceeds
         - Receipts
@@ -397,89 +399,3 @@ sources:
     tables:
       - name: stg_sales_data
         description: 'Sales data from the master system'
-
-exposures:
-  - name: Bullet Chart
-    type: analysis
-    url: https://cloud.flexitanalytics.com/#analysis/bullet-chart
-    description: ''
-    depends_on:
-      - ref('dim_product')
-      - ref('fact_sales')
-    owner:
-      name: Fake User
-      email: info@flexitanalytics.com
-    meta:
-      tool: flexit
-  - name: Calendar Heatmap
-    type: analysis
-    url: https://cloud.flexitanalytics.com/#analysis/calendar-heatmap
-    description: ''
-    depends_on:
-      - ref('dim_order')
-      - ref('fact_sales')
-    owner:
-      name: unknown
-      email: unknown
-    meta:
-      tool: flexit
-  - name: Heatmap
-    type: analysis
-    url: https://cloud.flexitanalytics.com/#analysis/59a58f9f-8be0-4669-a18e-ddf4fa351f5e
-    description: ''
-    depends_on:
-      - ref('dim_customer')
-      - ref('dim_product')
-      - ref('fact_sales')
-    owner:
-      name: unknown
-      email: unknown
-    meta:
-      tool: flexit
-  - name: Histogram
-    type: analysis
-    url: https://cloud.flexitanalytics.com/#analysis/histogram-chart
-    description: ''
-    depends_on:
-      - ref('dim_order')
-      - ref('fact_sales')
-    owner:
-      name: unknown
-      email: unknown
-    meta:
-      tool: flexit
-  - name: Timeseries
-    type: analysis
-    url: https://cloud.flexitanalytics.com/#analysis/timeseries
-    description: ''
-    depends_on:
-      - ref('dim_order')
-      - ref('fact_sales')
-    owner:
-      name: unknown
-      email: unknown
-    meta:
-      tool: flexit
-  - name: I'm a Dead Exposure
-    type: analysis
-    url: https://cloud.flexitanalytics.com/#analysis/fake-uuid-here
-    description: This is a documented analysis that no longer exists in FlexIt
-    depends_on:
-      - ref('dim_customer')
-    owner:
-      name: unknown
-      email: unknown
-    meta:
-      tool: flexit
-  - name: I'm a Tableau Report
-    type: analysis
-    url: https://public.tableau.com/views/OlympicSports_16208578270630/Sheet1?:language=en-US&:display_count=n&:origin=viz_share_link
-    description: This is a documented report in Tableau Public
-    depends_on:
-      - ref('dim_order')
-      - ref('fact_sales')
-    owner:
-      name: unknown
-      email: unknown
-    meta:
-      tool: tableau
