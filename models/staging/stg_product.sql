@@ -1,3 +1,5 @@
+-- depends_on: {{ ref('stg_sales_data') }}
+
 select distinct
     product_code,
     product_name,

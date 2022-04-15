@@ -389,7 +389,7 @@ metrics:
 
 sources:
   - name: salesforce
-    database: dbt-advanced
+    # database: dbname/project, uses project database if not specified
     schema: sales_schema_staging
     freshness:
       warn_after: {count: 12, period: hour}
