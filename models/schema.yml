@@ -124,7 +124,6 @@ models:
     columns:
       - name: product_key
         meta:
-          label: product_key
           hidden: true
         tests:
           - unique
@@ -163,33 +162,41 @@ models:
           - unique
       - name: date_day
         meta:
-          label: Date Day
+          label: Order Date
       - name: prior_date_day
         meta:
           label: Prior Date Day
+          hidden: true
           format:
             type: date
             pattern: 'MMM D, YYYY'
       - name: next_date_day
         meta:
+          hidden: true
           label: Next Date Day
       - name: prior_year_date_day
         meta:
+          hidden: true
           label: Prior Year Date Day
       - name: prior_year_over_year_date_day
         meta:
+          hidden: true
           label: Prior Year Over Year Date Day
       - name: day_of_week
         meta:
+          hidden: true
           label: Day Of Week
       - name: day_of_week_iso
         meta:
+          hidden: true
           label: Day Of Week Iso
       - name: day_of_week_name
         meta:
+          hidden: true
           label: Day Of Week Name
       - name: day_of_week_name_short
         meta:
+          hidden: true
           label: Day Of Week Name Short
       - name: day_of_month
         meta:
@@ -199,39 +206,51 @@ models:
           label: Day Of Year
       - name: week_start_date
         meta:
+          hidden: true
           label: Week Start Date
       - name: week_end_date
         meta:
+          hidden: true
           label: Week End Date
       - name: prior_year_week_start_date
         meta:
+          hidden: true
           label: Prior Year Week Start Date
       - name: prior_year_week_end_date
         meta:
+          hidden: true
           label: Prior Year Week End Date
       - name: week_of_year
         meta:
+          hidden: true
           label: Week Of Year
       - name: iso_week_start_date
         meta:
+          hidden: true
           label: Iso Week Start Date
       - name: iso_week_end_date
         meta:
+          hidden: true
           label: Iso Week End Date
       - name: prior_year_iso_week_start_date
         meta:
+          hidden: true
           label: Prior Year Iso Week Start Date
       - name: prior_year_iso_week_end_date
         meta:
+          hidden: true
           label: Prior Year Iso Week End Date
       - name: iso_week_of_year
         meta:
+          hidden: true
           label: Iso Week Of Year
       - name: prior_year_week_of_year
         meta:
+          hidden: true
           label: Prior Year Week Of Year
       - name: prior_year_iso_week_of_year
         meta:
+          hidden: true
           label: Prior Year Iso Week Of Year
       - name: month_of_year
         meta:
@@ -244,33 +263,41 @@ models:
           label: Month Name Short
       - name: month_start_date
         meta:
+          hidden: true
           label: Month Start Date
       - name: month_end_date
         meta:
+          hidden: true
           label: Month End Date
       - name: prior_year_month_start_date
         meta:
+          hidden: true
           label: Prior Year Month Start Date
       - name: prior_year_month_end_date
         meta:
+          hidden: true
           label: Prior Year Month End Date
       - name: quarter_of_year
         meta:
           label: Quarter Of Year
       - name: quarter_start_date
         meta:
+          hidden: true
           label: Quarter Start Date
       - name: quarter_end_date
         meta:
+          hidden: true
           label: Quarter End Date
       - name: year_number
         meta:
           label: Year Number
       - name: year_start_date
         meta:
+          hidden: true
           label: Year Start Date
       - name: year_end_date
         meta:
+          hidden: true
           label: Year End Date
 
   - name: stg_customer
