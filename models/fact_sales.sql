@@ -1,3 +1,11 @@
+{{
+  config(
+    indexes=[
+      {'columns': ['customer_key', 'order_key', 'product_key', 'date_key'], 'unique': True},
+    ]
+  )
+}}
+
 with customer as (
 
     select * from {{ ref('dim_customer') }}
