@@ -7,6 +7,7 @@ This project shows how to structure dbt to enable a business intelligence tool f
 dbt client, run the following commands:
 
 First run:
+* `dbt deps`
 * `dbt seed`
 
 Schedule:
