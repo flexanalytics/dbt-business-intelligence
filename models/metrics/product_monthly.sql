@@ -1,3 +1,5 @@
+ -- depends_on: {{ ref('fact_sales') }}
+
 with product_metrics as (
 
     select *
