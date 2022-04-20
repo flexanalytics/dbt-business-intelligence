@@ -422,6 +422,8 @@ metrics:
     description: "Sum of quantity sold"
     type: sum
     sql: quantity
+    timestamp: date_day
+    time_grains: [day, week, month, year]
 
   - name: price
     label: Price
@@ -429,6 +431,8 @@ metrics:
     description: "Average price"
     type: average
     sql: price
+    timestamp: date_day
+    time_grains: [day, week, month, year]
 
   - name: sales
     label: Sales
@@ -450,12 +454,16 @@ metrics:
     description: "Sum of target sales revenue"
     type: sum
     sql: target
+    timestamp: date_day
+    time_grains: [day, week, month, year]
 
   - name: row_count
     label: Row Count
     model: ref('fact_sales')
     description: "A non-distinct count of rows"
     type: count
+    timestamp: date_day
+    time_grains: [day, week, month, year]
 
   - name: customer_count
     label: Customer Count
@@ -463,6 +471,8 @@ metrics:
     description: "A `distinct_count` of customers"
     type: count_distinct
     sql: customer_key
+    timestamp: date_day
+    time_grains: [day, week, month, year]
 
   - name: product_count
     label: Product Count
@@ -470,6 +480,8 @@ metrics:
     description: "A `distinct_count` of products"
     type: count_distinct
     sql: product_key
+    timestamp: date_day
+    time_grains: [day, week, month, year]
 
   - name: order_count
     label: Order Count
@@ -477,6 +489,8 @@ metrics:
     description: "A `distinct_count` of orders"
     type: count_distinct
     sql: order_key
+    timestamp: date_day
+    time_grains: [day, week, month, year]
 
 sources:
   - name: salesforce
