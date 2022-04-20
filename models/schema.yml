@@ -39,6 +39,9 @@ models:
           - relationships: #JOINS the dbt integrity way
               to: ref('dim_date')
               field: date_key
+      - name: date_day
+        meta:
+          hidden: true
 
   - name: dim_customer
     description: "{{ doc('dim_customer') }}"
@@ -374,6 +377,8 @@ metrics:
     description: "Sum of total sales revenue"
     type: sum
     sql: sales
+    timestamp: date_day
+    time_grains: [day, week, month, year]
     meta:
       synonyms: # for business searching and natural language processing
         - Revenue

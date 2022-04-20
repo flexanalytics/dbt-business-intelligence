@@ -25,7 +25,7 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 vars:
-  # The `start_date` variable will be accessible in all resources
+  dbt_metrics_calendar_model: ref('dim_date')
   company_name: 'Bigstore Enterprises'
   company_start_date: '2019-01-01'
 

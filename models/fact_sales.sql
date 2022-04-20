@@ -43,6 +43,7 @@ final as (
         orders.order_key,
         product.product_key,
         dim_date.date_key,
+        dim_date.date_day,
         sales_data.quantity,
         sales_data.price,
         sales_data.sales,
