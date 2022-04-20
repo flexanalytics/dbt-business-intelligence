@@ -1,15 +1,19 @@
-Welcome to your new dbt project!
+# dbt Business Intelligence
 
-### Using the starter project
+This project shows how to structure dbt to enable a business intelligence tool for reporting and dashboarding.
 
-Try running the following commands:
-- dbt run
-- dbt test
+## Getting started
 
+dbt client, run the following commands:
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+First run:
+* `dbt seed`
+
+Schedule:
+* `dbt run`
+* `dbt source freshness`
+
+Docs:
+* `dbt docs generate`
+* `dbt docs serve`
+
