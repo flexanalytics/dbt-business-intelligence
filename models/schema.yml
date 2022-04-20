@@ -139,7 +139,7 @@ models:
       - name: product_category
         meta:
           label: Product Category
-          alias: # for business searching and natural language processing
+          synonyms: # for business searching and natural language processing
             - Product Type
             - Product Line
       - name: msrp
@@ -380,7 +380,7 @@ metrics:
     timestamp: date_day
     time_grains: [day, week, month, year]
     meta:
-      alias: # for business searching and natural language processing
+      synonyms: # for business searching and natural language processing
         - Revenue
         - Proceeds
         - Receipts
