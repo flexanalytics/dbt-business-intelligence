@@ -150,7 +150,6 @@ models:
             decimalPlaces: 2
             prefix: "$"
 
-  #use FlexIt autoname and then convert to YAML
   - name: dim_date
     description: The Order Date dimension allows you to analyze metrics across time periods at many levels of granularity (year, quarter, month, day).
     meta:
@@ -207,7 +206,7 @@ models:
       - name: day_of_year
         meta:
           label: Day Of Year
-      - name: week_start_date
+      - name: date_week # week_start_date
         meta:
           hidden: true
           label: Week Start Date
@@ -264,7 +263,7 @@ models:
       - name: month_name_short
         meta:
           label: Month Name Short
-      - name: month_start_date
+      - name: date_month # month_start_date
         meta:
           hidden: true
           label: Month Start Date
@@ -283,7 +282,7 @@ models:
       - name: quarter_of_year
         meta:
           label: Quarter Of Year
-      - name: quarter_start_date
+      - name: date_quarter # quarter_start_date
         meta:
           hidden: true
           label: Quarter Start Date
@@ -294,7 +293,7 @@ models:
       - name: year_number
         meta:
           label: Year Number
-      - name: year_start_date
+      - name: date_year # year_start_date
         meta:
           hidden: true
           label: Year Start Date
@@ -302,6 +301,62 @@ models:
         meta:
           hidden: true
           label: Year End Date
+
+  - name: product_monthly
+    description: "{{ doc('product_monthly') }}"
+    meta:
+      label: Product Monthly
+      hidden: true
+    columns:
+      - name: PRODUCT_CATEGORY
+        description: ''
+        meta:
+          label: Product Category
+      - name: PRODUCT_NAME
+        description: ''
+        meta:
+          label: Product Name
+      - name: PERIOD
+        description: ''
+        meta:
+          label: Period
+      - name: PRODUCT_KEY
+        description: ''
+        meta:
+          hidden: true
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_key
+      - name: SALES
+        description: ''
+        meta:
+          label: Sales
+      - name: RATIO_TO_1_MONTH_AGO
+        description: ''
+        meta:
+          label: Ratio To 1 Month Ago
+      - name: DIFFERENCE_TO_1_MONTH_AGO
+        description: ''
+        meta:
+          label: Difference To 1 Month Ago
+      - name: AVERAGE_FOR_MONTH
+        description: ''
+        meta:
+          label: Average For Month
+      - name: SUM_FOR_YEAR
+        description: ''
+        meta:
+          label: Sum For Year
+      - name: ROLLING_AVERAGE_6_MONTH
+        description: ''
+        meta:
+          label: Rolling Average 6 Month
+      - name: ROLLING_MIN_6_MONTH
+        description: ''
+        meta:
+          label: Rolling Min 6 Month
 
   - name: stg_customer
     meta:
@@ -316,6 +371,10 @@ models:
       hidden: true
 
   - name: stg_date_dimension
+    meta:
+      hidden: true
+
+  - name: dbt_metrics_default_calendar
     meta:
       hidden: true
 

@@ -27,3 +27,9 @@ Detailed information about products in the following categories:
 * Trucks and Buses
 * Vintage Cars
 {% enddocs %}
+
+{% docs product_monthly %}
+
+Monthly product metrics using **Period over Period**, **Period to Date**, and **Rolling** secondary calculations from the the `dbt_metrics` package
+
+{% enddocs %}
