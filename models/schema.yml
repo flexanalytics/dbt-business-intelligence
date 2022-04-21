@@ -165,6 +165,7 @@ models:
       - name: date_day
         meta:
           label: Order Date
+          display_index: 1
       - name: prior_date_day
         meta:
           label: Prior Date Day
@@ -208,7 +209,6 @@ models:
           label: Day Of Year
       - name: date_week # week_start_date
         meta:
-          hidden: true
           label: Week Start Date
       - name: week_end_date
         meta:
@@ -256,7 +256,7 @@ models:
           label: Prior Year Iso Week Of Year
       - name: month_of_year
         meta:
-          label: Month Of Year
+          label: Month Num
       - name: month_name
         meta:
           label: Month Name
@@ -265,7 +265,6 @@ models:
           label: Month Name Short
       - name: date_month # month_start_date
         meta:
-          hidden: true
           label: Month Start Date
       - name: month_end_date
         meta:
@@ -281,10 +280,9 @@ models:
           label: Prior Year Month End Date
       - name: quarter_of_year
         meta:
-          label: Quarter Of Year
+          label: Quarter Num
       - name: date_quarter # quarter_start_date
         meta:
-          hidden: true
           label: Quarter Start Date
       - name: quarter_end_date
         meta:
@@ -292,10 +290,10 @@ models:
           label: Quarter End Date
       - name: year_number
         meta:
-          label: Year Number
+          label: Year Num
+          display_index: 2
       - name: date_year # year_start_date
         meta:
-          hidden: true
           label: Year Start Date
       - name: year_end_date
         meta:
