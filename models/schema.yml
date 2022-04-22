@@ -6,6 +6,29 @@ models:
     meta:
       label: Sales Fact
       display_index: 1
+      # columns.tests.relationships will override meta.joins, but tests are not available in the cloud Metadata API
+      joins:
+        - to: dim_customer
+          type: inner #inner, left, right, full; default 'inner'
+          join_on:
+            - from_field: customer_key
+              exp: '=' #optional; default '='; '=','<>'
+              to_field: customer_key
+        - to: dim_order
+          type: inner
+          join_on:
+            - from_field: order_key
+              to_field: order_key
+        - to: dim_product
+          type: inner
+          join_on:
+            - from_field: product_key
+              to_field: product_key
+        - to: dim_date
+          type: inner
+          join_on:
+            - from_field: date_key
+              to_field: date_key
     columns:
       - name: customer_key
         meta:
@@ -20,7 +43,7 @@ models:
           hidden: true
         tests:
           - not_null
-          - relationships: #JOINS the dbt integrity way
+          - relationships:
               to: ref('dim_order')
               field: order_key
       - name: product_key
@@ -28,7 +51,7 @@ models:
           hidden: true
         tests:
           - not_null
-          - relationships: #JOINS the dbt integrity way
+          - relationships:
               to: ref('dim_product')
               field: product_key
       - name: date_key
@@ -36,7 +59,7 @@ models:
           hidden: true
         tests:
           - not_null
-          - relationships: #JOINS the dbt integrity way
+          - relationships:
               to: ref('dim_date')
               field: date_key
       - name: date_day
@@ -379,6 +402,7 @@ models:
   - name: stg_sales_data
     meta:
       hidden: true
+      # these joins are only to demonstrate the possibilities; the stg models will be hidden in BI tool;
       joins:
         - to: stg_customer
           type: left #inner, left, right, full
