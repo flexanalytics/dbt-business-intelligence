@@ -1,16 +1,42 @@
 version: 2
 
 exposures:
+  - name: Area Chart (100% Stacked)
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/area-stacked-100
+    description: ''
+    depends_on:
+      - ref('dim_order')
+      - ref('dim_product')
+      - ref('fact_sales')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
+  - name: Bar Race
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/bar-race-sales
+    description: ''
+    depends_on:
+      - ref('dim_order')
+      - ref('dim_product')
+      - ref('fact_sales')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
   - name: Bullet Chart
     type: analysis
-    url: https://cloud.flexitanalytics.com/#analysis/bullet-chart
+    url: https://cloud.flexitanalytics.com/#analysis/bullet-sales
     description: ''
     depends_on:
       - ref('dim_product')
       - ref('fact_sales')
     owner:
-      name: Fake User
-      email: info@flexitanalytics.com
+      name: unknown
+      email: unknown
     meta:
       tool: flexit
   - name: Calendar Heatmap
@@ -27,7 +53,7 @@ exposures:
       tool: flexit
   - name: Heatmap
     type: analysis
-    url: https://cloud.flexitanalytics.com/#analysis/59a58f9f-8be0-4669-a18e-ddf4fa351f5e
+    url: https://cloud.flexitanalytics.com/#analysis/heatmap-sales
     description: ''
     depends_on:
       - ref('dim_customer')
@@ -40,7 +66,7 @@ exposures:
       tool: flexit
   - name: Histogram
     type: analysis
-    url: https://cloud.flexitanalytics.com/#analysis/histogram-chart
+    url: https://cloud.flexitanalytics.com/#analysis/histogram-sales
     description: ''
     depends_on:
       - ref('dim_order')
@@ -50,9 +76,71 @@ exposures:
       email: unknown
     meta:
       tool: flexit
+  - name: KPI (Repeater)
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/kpi-sales
+    description: ''
+    depends_on:
+      - ref('dim_product')
+      - ref('fact_sales')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
+  - name: Sankey
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/sankey-unshipped
+    description: ''
+    depends_on:
+      - ref('dim_order')
+      - ref('dim_product')
+      - ref('fact_sales')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
+  - name: Scatter Plot (quarterly growth)
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/scatter-quarterly
+    description: ''
+    depends_on:
+      - ref('dim_order')
+      - ref('dim_product')
+      - ref('fact_sales')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
+  - name: Scatter Plot (with regression, size)
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/scatter-regression
+    description: ''
+    depends_on:
+      - ref('fact_sales')
+      - ref('dim_product')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
   - name: Timeseries
     type: analysis
-    url: https://cloud.flexitanalytics.com/#analysis/timeseries
+    url: https://cloud.flexitanalytics.com/#analysis/timeseries-month-grain
+    description: ''
+    depends_on:
+      - ref('dim_order')
+      - ref('fact_sales')
+    owner:
+      name: unknown
+      email: unknown
+    meta:
+      tool: flexit
+  - name: Waterfall
+    type: analysis
+    url: https://cloud.flexitanalytics.com/#analysis/waterfall-sales
     description: ''
     depends_on:
       - ref('dim_order')
