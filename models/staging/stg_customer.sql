@@ -1,15 +1,14 @@
 -- depends_on: {{ ref('stg_sales_data') }}
 
 select distinct
+    customer_code,
     customer_name,
-    phone,
-    address_line_1,
-    address_line_2,
-    city,
-    state,
+    address,
     postal_code,
     country,
-    territory,
-    contact_last_name,
-    contact_first_name
+    {{ dbt_utils.split_part('latlng', "','", 1) }} latitude,
+    {{ dbt_utils.split_part('latlng', "','", 2) }} longitude,
+    contact_name,
+    phone,
+    email
 from {{ source('salesforce', 'stg_sales_data') }}

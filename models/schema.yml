@@ -78,39 +78,36 @@ models:
           hidden: true
         tests:
           - unique
+      - name: customer_code
+        meta:
+          label: Customer Id
       - name: customer_name
         meta:
           label: Customer Name
-      - name: phone
+      - name: address
         meta:
-          label: Phone
-      - name: address_line_1
-        meta:
-          label: Address Line 1
-      - name: address_line_2
-        meta:
-          label: Address Line 2
-      - name: city
-        meta:
-          label: City
-      - name: state
-        meta:
-          label: State
+          label: Address
       - name: postal_code
         meta:
           label: Postal Code
       - name: country
         meta:
           label: Country
-      - name: territory
+      - name: latitude
         meta:
-          label: Territory
-      - name: contact_last_name
+          label: Latitude
+      - name: longitude
         meta:
-          label: Contact Last Name
-      - name: contact_first_name
+          label: Longitude
+      - name: contact_name
         meta:
-          label: Contact First Name
+          label: Contact Name
+      - name: phone
+        meta:
+          label: Phone
+      - name: email
+        meta:
+          label: Email
 
   - name: dim_order
     description: "{{ doc('dim_order') }}"
