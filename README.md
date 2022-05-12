@@ -1,6 +1,8 @@
 # dbt Business Intelligence
 
-This project shows how to structure dbt to enable analytics in a business intelligence (BI) tool for reporting and dashboarding without the need for defining metadata in the BI tool.
+**Business Intelligence Standards for integrating with dbt**
+
+This project shows how to structure dbt to enable analytics in a business intelligence (BI) tool for reporting and dashboarding without the need for defining metadata in the BI tool ("Metadata-less BI"). In short, remove the "black box" of BI with dbt and allow all BI tools to speak the same language and offer a standardized metadata-less BI experience.
 
 The project has been tested on both **dbt Core** and **dbt Cloud** versions 1.0+. The project is also database agnostic and has been tested with the **Postgres**, **BigQuery**, **Snowflake**, and **Redshift** [adapters](https://docs.getdbt.com/docs/available-adapters).
 
@@ -43,9 +45,11 @@ The project has been tested on both **dbt Core** and **dbt Cloud** versions 1.0+
 * **Best Practices** - follow [dbt Best Practices](https://docs.getdbt.com/docs/guides/best-practices)
 
 
-### BI Concepts
+### Business Intelligence Concepts
 
 * **Metadata-less BI** - bypass defining metadata models at the BI semantic layer
+
+* **Data Literacy** - create a full data dictionary with source controlled definitions using dbt documentation
 
 * **Lineage** - instantly see upstream model and source dependencies with the ability to view and run upstream SQL
 
@@ -61,43 +65,83 @@ The project has been tested on both **dbt Core** and **dbt Cloud** versions 1.0+
 
 * **Report dependencies** - define model dependencies for reports and dashboards using Exposures
 
-* **Documentation** - create a full data dictionary with source controlled definitions
 
+## Create dbt Project
 
-## Getting started
-
-If you're just getting started learning dbt, then you may want to look at Getting Started with [dbt Core](https://docs.getdbt.com/tutorial/learning-more/getting-started-dbt-core) or [dbt Cloud](https://docs.getdbt.com/tutorial/getting-started) first. The concepts in this tutorial may be a bit more difficult.
+If you're just getting started learning dbt, then you may want to look at Getting Started with [dbt Core](https://docs.getdbt.com/tutorial/learning-more/getting-started-dbt-core) or [dbt Cloud](https://docs.getdbt.com/tutorial/getting-started) first.
 
 
 ### Choose a database
 
-[BigQuery](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-bigquery#operation/get-account-run)
+* **BigQuery** - follow these [dbt BigQuery instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-bigquery#operation/get-account-run) for setting up a *free* BigQuery account and connecting it to your dbt environment
 
-[Snowflake](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-snowflake) - TODO issues with server name and location
+* **Snowflake** - follow these [dbt Snowflake instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-snowflake) for setting up a Snowflake trial account and connecting it to your dbt environment
 
-[Redshift](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-redshift)
+* **Redshift** - follow these [dbt Redshift instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-redshift) for setting up a Redshift trial account and connecting it to your dbt environment
 
-[Postgres](heroku.com) - TODO show how to set up free hosted Postgres database on Heroku
-
+* **Postgres** - follow these [instructions](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1) for setting up a free Postgres instance on Heroku
 
 
 ### dbt Client
 
-run the following commands:
+To run this project (assuming you have dbt installed):
 
-First run:
-* `dbt deps`
-* `dbt seed`
-
-Schedule:
-* `dbt run`
-* `dbt source freshness`
-
-Docs:
-* `dbt docs generate`
-* `dbt docs serve`
+1. Clone this repo
+2. [Set up a profile](https://docs.getdbt.com/reference/profiles.yml) to connect to your database
+3. Run `dbt deps`
+4. Run `dbt seed`
+5. Run `dbt run`
+6. Run `dbt source freshness`
+7. Run `dbt docs generate`
+8. Run `dbt docs serve` (if you want to run a local docs server)
 
 ### dbt Cloud
 
-instructions for cloud accounts
+1. [Login to dbt](https://cloud.getdbt.com/login) or [Signup for a new](https://cloud.getdbt.com/signup/) dbt Account
+    
+    > Team Account ([free trial](https://www.getdbt.com/pricing/)) is required for BI tools to use the Metadata API
 
+    > First time using dbt Cloud? Review the [dbt Cloud Quickstart](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart) guide
+
+2. Create a new project
+
+    a. **New** accounts create a new project immediately
+
+    b. **Existing** accounts need to go to "Account Settings > Projects" and click **New Project**
+
+3. Give the project a name, e.g. "Sales Project"
+
+4. [Create a connection](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-a-connection) to either Snowflake, BigQuery, PostgreSQL or Redshift
+
+5. [Connect a repository](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#connect-a-repository) with either **Git Clone** or **Github**
+
+    a. **Git Clone** - enter *Git URL* as `https://github.com/flexanalytics/dbt-business-intelligence`
+
+    b. **Github** - fork this repo, set up a [dbt GitHub connection](https://docs.getdbt.com/docs/dbt-cloud/cloud-configuring-dbt-cloud/cloud-installing-the-github-application), and then choose the forked repository
+
+6. Click **Start developing** to enter the *develop* portal in dbt Cloud
+
+7. In the command line at the bottom, run `dbt deps`
+
+8. Run `dbt seed`
+
+9. Run `dbt run`
+
+10. Run `dbt source freshness`
+
+11. If all runs OK, then [Set up an Environment](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-an-environment)
+
+    > Make sure it is a **deployment** environment
+
+12. [Create a new Job](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-a-new-job)
+
+    > In *Execution Settings*, check **Generate Docs** and **Run Source Freshness**
+
+13. Run the new job
+
+
+## Connect Business Intelligence tool
+
+To see how a Business Intelligence tool can leverage dbt for "metadata-less BI", check out the instructions for FlexIt Analytics:
+
+[https://learn.flexitanalytics.com/docs/dbt](https://learn.flexitanalytics.com/docs/dbt)
