@@ -201,6 +201,7 @@ models:
         meta:
           hidden: true
           label: Prior Year Date Day
+          grain: off # time interval grain; values 'off', 'day', 'week', 'month', 'quarter', 'year'
       - name: prior_year_over_year_date_day
         meta:
           hidden: true
