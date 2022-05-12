@@ -1,6 +1,6 @@
 # dbt Business Intelligence
 
-**Business Intelligence Standards for integrating with dbt**
+**Business Intelligence standards for integrating with dbt**
 
 This project shows how to structure dbt to enable analytics in a business intelligence (BI) tool for reporting and dashboarding without the need for defining metadata in the BI tool ("Metadata-less BI"). In short, remove the "black box" of BI with dbt and allow all BI tools to speak the same language and offer a standardized metadata-less BI experience.
 
@@ -68,18 +68,18 @@ The project has been tested on both **dbt Core** and **dbt Cloud** versions 1.0+
 
 ## Create dbt Project
 
-If you're just getting started learning dbt, then you may want to look at Getting Started with [dbt Core](https://docs.getdbt.com/tutorial/learning-more/getting-started-dbt-core) or [dbt Cloud](https://docs.getdbt.com/tutorial/getting-started) first.
+If you're just getting started learning dbt, then you may want to look at Getting Started with [dbt Core](https://docs.getdbt.com/tutorial/learning-more/getting-started-dbt-core) or [dbt Cloud](https://docs.getdbt.com/tutorial/getting-started)
 
 
 ### Choose a database
 
-* **BigQuery** - follow these [dbt BigQuery instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-bigquery#operation/get-account-run) for setting up a *free* BigQuery account and connecting it to your dbt environment
+* **BigQuery** - follow the [dbt BigQuery instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-bigquery#operation/get-account-run) to set up a BigQuery account and connect dbt
 
-* **Snowflake** - follow these [dbt Snowflake instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-snowflake) for setting up a Snowflake trial account and connecting it to your dbt environment
+* **Snowflake** - follow the [dbt Snowflake instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-snowflake) to set up a Snowflake trial account and connect dbt
 
-* **Redshift** - follow these [dbt Redshift instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-redshift) for setting up a Redshift trial account and connecting it to your dbt environment
+* **Redshift** - follow the [dbt Redshift instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-redshift) to set up a Redshift trial account and connect dbt
 
-* **Postgres** - follow these [instructions](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1) for setting up a free Postgres instance on Heroku
+* **Postgres** - follow these [instructions](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1) to set up a free Postgres instance on Heroku
 
 
 ### dbt Client
@@ -142,6 +142,15 @@ To run this project (assuming you have dbt installed):
 
 ## Connect Business Intelligence tool
 
-To see how a Business Intelligence tool can leverage dbt for "metadata-less BI", check out the instructions for FlexIt Analytics:
+To see how a Business Intelligence tool can leverage dbt for "metadata-less BI", check out FlexIt Analytics:
 
 [https://learn.flexitanalytics.com/docs/dbt](https://learn.flexitanalytics.com/docs/dbt)
+
+
+## Let's Collaborate
+
+With **Business Intelligence standards for integrating with dbt**, we can enable all BI tools to speak the same language and offer a 100% metadata-less BI experience. Join us in creating those standards!
+
+**Self-service = clean data + modern BI + data literacy**
+
+**Self-service = dbt + BI**
