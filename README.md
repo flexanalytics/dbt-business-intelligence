@@ -2,7 +2,7 @@
 
 **Business Intelligence standards for integrating with dbt**
 
-This project shows how to structure dbt to enable analytics in a business intelligence (BI) tool for reporting and dashboarding without the need for defining metadata in the BI tool ("Metadata-less BI"). In short, remove the "black box" of BI with dbt and allow all BI tools to speak the same language and offer a standardized metadata-less BI experience.
+This project shows how to structure dbt to enable analytics in a business intelligence (BI) tool for reporting and dashboarding without the need for defining metadata in the BI tool ("Metadata-less BI"). In short, remove the "black box" of BI by pushing the semantic layer down to dbt and enabling all BI tools to speak the same language in a standardized metadata-less BI experience.
 
 The project has been tested on both **dbt Core** and **dbt Cloud** versions 1.0+. The project is also database agnostic and has been tested with the **Postgres**, **BigQuery**, **Snowflake**, and **Redshift** [adapters](https://docs.getdbt.com/docs/available-adapters).
 

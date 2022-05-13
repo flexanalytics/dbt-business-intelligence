@@ -132,12 +132,12 @@ models:
         meta:
           label: Order Date
       - name: status
-        description: "Status can be one of the following values: 'Cancelled','Disputed','In Process','On Hold','Resolved','Shipped'"
+        description: "Status can be one of the following values: 'Cancelled', 'Delivered', 'Shipped'"
         meta:
           label: Order Status
         tests:
           - accepted_values:
-              values: ['Cancelled','Disputed','In Process','On Hold','Resolved','Shipped']
+              values: ['Cancelled','Delivered','Shipped']
 
   - name: dim_product
     description: "{{ doc('dim_product') }}"
