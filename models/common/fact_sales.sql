@@ -6,31 +6,7 @@
   )
 }}
 
-with customer as (
-
-    select * from {{ ref('dim_customer') }}
-
-),
-
-orders as (
-
-    select * from {{ ref('dim_order') }}
-
-),
-
-product as (
-
-    select * from {{ ref('dim_product') }}
-
-),
-
-dim_date as (
-
-    select * from {{ ref('dim_date') }}
-
-),
-
-sales_data as (
+with sales_data as (
 
     select * from {{ ref('stg_sales_data') }}
 
@@ -39,26 +15,16 @@ sales_data as (
 final as (
 
     select
-        customer.customer_key,
-        orders.order_key,
-        product.product_key,
-        dim_date.date_key,
-        dim_date.date_day,
+        {{ dbt_utils.surrogate_key(['customer_code']) }} customer_key,
+        {{ dbt_utils.surrogate_key(['order_number','order_line_number']) }} order_key,
+        {{ dbt_utils.surrogate_key(['product_code']) }} product_key,
+        {{ dbt_utils.surrogate_key(['order_date']) }} date_key,
+        sales_data.order_date date_day,
         sales_data.quantity,
         sales_data.price,
         sales_data.sales,
         sales_data.target
     from sales_data
-        inner join customer
-            on customer.customer_name = sales_data.customer_name
-                and customer.phone = sales_data.phone
-        inner join orders
-            on orders.order_number = sales_data.order_number
-                and orders.order_line_number = sales_data.order_line_number
-        inner join product
-            on product.product_code = sales_data.product_code
-        inner join dim_date
-            on dim_date.date_day = sales_data.order_date
 
 )
 
