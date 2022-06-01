@@ -2,7 +2,7 @@
 
 **Business Intelligence standards for integrating with dbt**
 
-This project shows how to structure dbt to enable analytics in a business intelligence (BI) tool for reporting and dashboarding without the need for defining metadata in the BI tool ("Metadata-less BI"). In short, remove the "black box" of BI by pushing the semantic layer down to dbt and enabling all BI tools to speak the same language in a standardized metadata-less BI experience.
+This project shows how to structure dbt to enable analytics in a business intelligence (BI) tool for reporting and dashboarding without the need for defining metadata in the BI tool ("Semantic-free BI"). In short, remove the "black box" of BI by pushing the semantic layer down to dbt and enabling all BI tools to speak the same language in a standardized semantic-free BI experience.
 
 The project also highlights dimensional modeling (star schema) techniques using the Kimball methodology.
 
@@ -91,7 +91,7 @@ To see how a Business Intelligence tool can integrate with dbt using these stand
 
 ## BI Standards
 
-BI vendors and dbt projects should follow these standards to "speak the same langauge" for a metadata-less BI experience. The following sections highlight how these standards should be applied to dbt projects.
+BI vendors and dbt projects should follow these standards to "speak the same langauge" for a semantic-free BI experience. The following sections highlight how these standards should be applied to dbt projects.
 
 ### Lineage
 
@@ -400,7 +400,7 @@ Here is a list of concepts that were covered in this repo.
 
 ### Business Intelligence Concepts
 
-* **Metadata-less BI** - bypass defining metadata models at the BI semantic layer
+* **Semantic-free BI** - bypass defining metadata models at the BI semantic layer
 
 * **Data Literacy** - create a full data dictionary with source controlled definitions using dbt documentation
 
@@ -421,4 +421,4 @@ Here is a list of concepts that were covered in this repo.
 
 ## Let's Collaborate
 
-With **Business Intelligence standards for integrating with dbt**, we can enable all BI tools to speak the same language and offer a 100% metadata-less BI experience. Join us in creating those standards!
+With **Business Intelligence standards for integrating with dbt**, we can enable all BI tools to speak the same language and offer a 100% semantic-free BI experience. Join us in creating those standards!
