@@ -25,7 +25,7 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 vars:
-  dbt_metrics_calendar_model: ref('dim_date')
+  dbt_metrics_calendar_model: dim_date
   company_name: 'Bigstore Enterprises'
   company_start_date: '2019-01-01'
 
@@ -45,9 +45,7 @@ models:
   metrics:
     dbt_metrics_default_calendar:
       +schema: staging
-      # Issue needs to be fixed: https://github.com/dbt-labs/dbt_metrics/issues/29
-      #+enabled: false
-      post-hook: "drop table {{ this }}"
+      +enabled: false
 
 seeds:
   dbt_business_intelligence:
