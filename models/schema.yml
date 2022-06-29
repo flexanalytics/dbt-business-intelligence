@@ -400,10 +400,6 @@ models:
     meta:
       hidden: true
 
-  - name: dbt_metrics_default_calendar
-    meta:
-      hidden: true
-
   - name: stg_sales_data
     meta:
       hidden: true
