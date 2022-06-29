@@ -26,7 +26,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 vars:
   dbt_metrics_calendar_model: dim_date
-  dbt_constraints_enabled: true
+  dbt_constraints_enabled: false
   company_name: 'Bigstore Enterprises'
   company_start_date: '2019-01-01'
 
