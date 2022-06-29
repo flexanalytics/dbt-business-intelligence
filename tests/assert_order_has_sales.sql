@@ -5,4 +5,4 @@ select
     sum(sales) as total_sales
 from {{ ref('fact_sales' )}}
 group by 1
-having not(total_sales >= 0)
+having not(sum(sales) >= 0)
