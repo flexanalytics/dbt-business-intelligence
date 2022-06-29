@@ -1,11 +1,3 @@
-{{
-  config(
-    indexes=[
-      {'columns': ['customer_key', 'order_key', 'product_key', 'date_key'], 'unique': True},
-    ]
-  )
-}}
-
 with sales_data as (
 
     select * from {{ ref('stg_sales_data') }}

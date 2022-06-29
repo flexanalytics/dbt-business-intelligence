@@ -3,6 +3,13 @@ version: 2
 models:
   - name: fact_sales
     description: "{{ doc('fact_sales') }}"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - customer_key
+            - order_key
+            - product_key
+            - date_key
     meta:
       label: Sales Fact
       display_index: 1

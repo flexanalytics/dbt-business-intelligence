@@ -19,7 +19,7 @@ If you're just getting started learning dbt, then you may want to look at Gettin
 
 * **Snowflake** - follow the [dbt Snowflake instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-snowflake) to set up a Snowflake trial account and connect dbt
 
-* **Redshift** - follow the [dbt Redshift instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-redshift) to set up a Redshift trial account and connect dbt
+* **Redshift** - follow the [dbt Redshift instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-redshift) to set up a Redshift trial account and connect dbt. You can use specific [dbt Redshift configurations](https://docs.getdbt.com/reference/resource-configs/redshift-configs). Pay special attention to [recommended distribution styles](https://docs.aws.amazon.com/redshift/latest/dg/t_designating_distribution_styles.html) for dimensional modeling on Redshift.
 
 * **Postgres** - follow these [instructions](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1) to set up a free Postgres instance on Heroku
 
@@ -33,9 +33,10 @@ To run this project (assuming you have dbt installed):
 3. Run `dbt deps`
 4. Run `dbt seed`
 5. Run `dbt run`
-6. Run `dbt source freshness`
-7. Run `dbt docs generate`
-8. Run `dbt docs serve` (if you want to run a local docs server)
+6. Run `dbt test` (tests and add constraints)
+7. Run `dbt source freshness`
+8. Run `dbt docs generate`
+9. Run `dbt docs serve` (if you want to run a local docs server)
 
 ### dbt Cloud
 
@@ -377,7 +378,10 @@ Here is a list of concepts that were covered in this repo.
 
 * **Tests** - how to use singular and generic [tests](https://docs.getdbt.com/docs/building-a-dbt-project/tests), including relationships tests for referential integrity
 
-* **Packages** - using packages such as [`dbt-date`](https://github.com/calogica/dbt-date#get_date_dimensionstart_date-end_date) and [`dbt-utils`](https://github.com/dbt-labs/dbt-utils)
+* **Packages**
+  * [`dbt-date`](https://github.com/calogica/dbt-date#get_date_dimensionstart_date-end_date)
+  * [`dbt-utils`](https://github.com/dbt-labs/dbt-utils)
+  * [`dbt_constraints`](https://github.com/Snowflake-Labs/dbt_constraints)
 
 * **Jinja & Macros** - using [Jinja & Macros](https://docs.getdbt.com/docs/building-a-dbt-project/jinja-macros) to create re-usable code
 
