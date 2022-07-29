@@ -413,7 +413,7 @@ models:
               to_field: customer_name
             - to_field: phone
               exp: '='
-              from_value: 'phone'
+              from_field: 'phone'
               operator: OR #optional; default 'AND'; 'AND', 'OR' 'NOT'; TODO: grouping
         - to: stg_order
           type: right
@@ -423,7 +423,7 @@ models:
               to_field: order_number
             - to_field: order_line_number
               exp: '='
-              from_value: order_line_number
+              from_field: order_line_number
               operator: AND
         - to: stg_product
           type: inner
