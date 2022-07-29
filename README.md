@@ -1,19 +1,18 @@
-# dbt Business Intelligence
+# dbt - Dimensional Modeling, Semantic Layer and Business Intelligence
 
-**Business Intelligence standards for integrating with dbt**
+This dbt project is database agnostic, requires no data sources, and focuses on the following concepts:
+1. **Dimensional Modeling** - dbt data transformations that highlight multi-dimensional (star schema) modeling concepts using the Kimball methodology
+2. **Semantic Layer** - leverage dbt as a semantic layer to define metrics, dimensions, aggregations, calculations, data relationships, business-friendly names and descriptions, synonyms, formatting and other data catalog attributes
+3. **Business Intelligence** - connect Business Intelligence tools to the dbt semantic layer for analysis, focusing on standards for ["Semantic-free" BI](https://towardsdatascience.com/semantic-free-is-the-future-of-business-intelligence-27aae1d11563) integration with dbt that enables BI tools to "speak the same language"
 
-This project shows how to structure dbt to enable analytics in a business intelligence (BI) tool for reporting and dashboarding without the need for defining metadata in the BI tool ("Semantic-free BI"). In short, remove the "black box" of BI by pushing the semantic layer down to dbt and enabling all BI tools to speak the same language in a standardized semantic-free BI experience.
-
-The project also highlights dimensional modeling (star schema) techniques using the Kimball methodology.
-
-Tested on both **dbt Core** and **dbt Cloud** versions 1.0+. Database agnostic and has been tested with the **Postgres**, **BigQuery**, **Snowflake**, and **Redshift** [adapters](https://docs.getdbt.com/docs/available-adapters).
+> Tested on both **dbt Core** and **dbt Cloud** versions 1.0+. Database agnostic and has been tested with the **Postgres**, **BigQuery**, **Snowflake**, and **Redshift** [adapters](https://docs.getdbt.com/docs/available-adapters).
 
 ## Create dbt Project
 
 If you're just getting started learning dbt, then you may want to look at Getting Started with [dbt Core](https://docs.getdbt.com/tutorial/learning-more/getting-started-dbt-core) or [dbt Cloud](https://docs.getdbt.com/tutorial/getting-started)
 
 
-### Choose a database
+### Choose a data warehouse
 
 * **BigQuery** - follow the [dbt BigQuery instructions](https://docs.getdbt.com/tutorial/getting-set-up/setting-up-bigquery#operation/get-account-run) to set up a BigQuery account and connect dbt
 
@@ -33,10 +32,11 @@ To run this project (assuming you have dbt installed):
 3. Run `dbt deps`
 4. Run `dbt seed`
 5. Run `dbt run`
-6. Run `dbt test` (tests and add constraints)
-7. Run `dbt source freshness`
-8. Run `dbt docs generate`
-9. Run `dbt docs serve` (if you want to run a local docs server)
+6. Run `dbt snapshot`
+7. Run `dbt test` (tests and add constraints)
+8. Run `dbt source freshness`
+9. Run `dbt docs generate`
+10. Run `dbt docs serve` (if you want to run a local docs server)
 
 ### dbt Cloud
 
@@ -70,17 +70,19 @@ To run this project (assuming you have dbt installed):
 
 9. Run `dbt run`
 
-10. Run `dbt source freshness`
+10. Run `dbt snapshot`
 
-11. If all runs OK, then [Set up an Environment](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-an-environment)
+11. Run `dbt source freshness`
+
+12. If all runs OK, then [Set up an Environment](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-an-environment)
 
     > Make sure it is a **deployment** environment
 
-12. [Create a new Job](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-a-new-job)
+13. [Create a new Job](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-a-new-job)
 
     > In *Execution Settings*, check **Generate Docs** and **Run Source Freshness**
 
-13. Run the new job
+14. Run the new job
 
 
 ## Connect Business Intelligence tool
@@ -92,7 +94,7 @@ To see how a Business Intelligence tool can integrate with dbt using these stand
 
 ## BI Standards
 
-BI vendors and dbt projects should follow these standards to "speak the same langauge" for a semantic-free BI experience. The following sections highlight how these standards should be applied to dbt projects.
+BI vendors and dbt projects should follow these standards to "speak the same language" for a semantic-free BI experience. The following sections highlight how these standards should be applied to dbt projects.
 
 ### Lineage
 
@@ -421,6 +423,17 @@ Here is a list of concepts that were covered in this repo.
 * **Natural Language Query (NLQ)** - define model `meta.synonyms` (a.k.a aliases) to be used by natural language query or generic searching
 
 * **Report dependencies** - define model dependencies for reports and dashboards using Exposures
+
+
+### Dimensional Modeling Concepts
+
+* **Slowly Changing Dimensions (SCD)** - shows type 0, type 1 and type 2 slowly changing dimensions
+
+* **Surrogate Keys** - how to create surrogate keys using md5() hash
+
+* **Date Dimension** - build a full-featured Date Dimension
+
+* **Fact and Dimension tables** - create standard fact (measure) and dimension tables with constraints
 
 
 ## Let's Collaborate
