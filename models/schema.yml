@@ -238,6 +238,7 @@ models:
       - name: date_week # week_start_date
         meta:
           label: Week Start Date
+          grain: off
       - name: week_end_date
         meta:
           hidden: true
@@ -294,6 +295,7 @@ models:
       - name: date_month # month_start_date
         meta:
           label: Month Start Date
+          grain: off
       - name: month_end_date
         meta:
           hidden: true
@@ -312,6 +314,7 @@ models:
       - name: date_quarter # quarter_start_date
         meta:
           label: Quarter Start Date
+          grain: off
       - name: quarter_end_date
         meta:
           hidden: true
@@ -323,6 +326,7 @@ models:
       - name: date_year # year_start_date
         meta:
           label: Year Start Date
+          grain: off
       - name: year_end_date
         meta:
           hidden: true
