@@ -522,7 +522,7 @@ metrics:
 sources:
   - name: salesforce
     # database: dbname/project, uses project database if not specified
-    schema: sales_schema_staging
+    schema: "{{ target.schema }}_staging"
     freshness:
       warn_after: {count: 12, period: hour}
       error_after: {count: 24, period: hour}
