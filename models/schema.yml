@@ -91,6 +91,9 @@ models:
       - name: customer_name
         meta:
           label: Customer Name
+          synonyms: # for business searching and natural language processing
+            - Customer
+            - Who
       - name: address
         meta:
           label: Address
@@ -163,6 +166,9 @@ models:
       - name: product_name
         meta:
           label: Product Name
+          synonyms: # for business searching and natural language processing
+            - Product
+            - What
       - name: product_category
         meta:
           label: Product Category
