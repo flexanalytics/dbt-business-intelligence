@@ -3,8 +3,10 @@
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
 name: 'dbt_business_intelligence'
-version: '1.0.0'
+version: '1.3.0'
 config-version: 2
+
+require-dbt-version: ">=1.3.0"
 
 # This setting configures which "profile" dbt uses for this project.
 profile: 'dbt_business_intelligence'
@@ -43,6 +45,8 @@ models:
     staging:
       +schema: staging
       +materialized: view
+    metrics:
+      +enabled: "{{ false if target.type == 'sqlserver' else true }}" # sqlserver does not allow nested CTE's, which metrics require
   metrics:
     dbt_metrics_default_calendar:
       +schema: staging

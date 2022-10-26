@@ -50,3 +50,7 @@
 {% macro bigquery__truncate_relation(relation) -%}
     {#- TODO -#}
 {% endmacro %}
+
+{% macro bigquery__create_not_null() -%}
+    {#- TODO -#}
+{% endmacro %}

@@ -1,7 +1,8 @@
 version: 2
 
 exposures:
-  - name: Area Chart (100% Stacked)
+  - name: area_chart
+    label: Area Chart (100% Stacked)
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/area-stacked-100
     description: ''
@@ -14,7 +15,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: Bar Race
+  - name: bar_race
+    label: Bar Race
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/bar-race-sales
     description: ''
@@ -27,7 +29,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: Bullet Chart
+  - name: bullet_chart
+    label: Bullet Chart
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/bullet-sales
     description: ''
@@ -39,7 +42,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: Calendar Heatmap
+  - name: calendar_heatmap
+    label: Calendar Heatmap
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/calendar-heatmap
     description: ''
@@ -51,7 +55,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: Heatmap
+  - name: heatmap
+    label: Heatmap
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/heatmap-sales
     description: ''
@@ -64,7 +69,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: Histogram
+  - name: histogram
+    label: Histogram
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/histogram-sales
     description: ''
@@ -76,7 +82,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: KPI (Repeater)
+  - name: kpi
+    label: KPI (Repeater)
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/kpi-sales
     description: ''
@@ -88,7 +95,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: Sankey
+  - name: sankey
+    label: Sankey
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/sankey-unshipped
     description: ''
@@ -101,7 +109,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: Scatter Plot (quarterly growth)
+  - name: scatter
+    label: Scatter Plot (quarterly growth)
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/scatter-quarterly
     description: ''
@@ -114,7 +123,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: Scatter Plot (with regression, size)
+  - name: scatter_regression
+    label: Scatter Plot (with regression, size)
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/scatter-regression
     description: ''
@@ -126,7 +136,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: Timeseries
+  - name: timeseries
+    label: Timeseries
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/timeseries-month-grain
     description: ''
@@ -138,7 +149,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: Waterfall
+  - name: waterfall
+    label: Waterfall
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/waterfall-sales
     description: ''
@@ -150,7 +162,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: I'm a Dead Exposure
+  - name: na
+    label: I'm a Dead Exposure
     type: analysis
     url: https://cloud.flexitanalytics.com/#analysis/fake-uuid-here
     description: This is a documented analysis that no longer exists in FlexIt
@@ -161,7 +174,8 @@ exposures:
       email: unknown
     meta:
       tool: flexit
-  - name: I'm a Tableau Report
+  - name: tableau
+    label: I'm a Tableau Report
     type: analysis
     url: https://public.tableau.com/views/OlympicSports_16208578270630/Sheet1?:language=en-US&:display_count=n&:origin=viz_share_link
     description: This is a documented report in Tableau Public

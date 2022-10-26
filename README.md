@@ -1,11 +1,13 @@
-# dbt - Dimensional Modeling, Semantic Layer and Business Intelligence
+# dbt - Dimensional Modeling, Semantic Layer, Metrics and Business Intelligence
 
 This dbt project is database agnostic, requires no data sources, and focuses on the following concepts:
 1. **Dimensional Modeling** - dbt data transformations that highlight multi-dimensional (star schema) modeling concepts using the Kimball methodology
 2. **Semantic Layer** - leverage dbt as a semantic layer to define metrics, dimensions, aggregations, calculations, data relationships, business-friendly names and descriptions, synonyms, formatting and other data catalog attributes
 3. **Business Intelligence** - connect Business Intelligence tools to the dbt semantic layer for analysis, focusing on standards for ["Semantic-free" BI](https://towardsdatascience.com/semantic-free-is-the-future-of-business-intelligence-27aae1d11563) integration with dbt that enables BI tools to "speak the same language"
 
-> Tested on both **dbt Core** and **dbt Cloud** versions 1.0+. Database agnostic and has been tested with the **Postgres**, **BigQuery**, **Snowflake**, and **Redshift** [adapters](https://docs.getdbt.com/docs/available-adapters).
+> Tested on both **dbt Core** and **dbt Cloud** versions 1.0+. Database agnostic and has been tested with the **Postgres**, **BigQuery**, **Snowflake**, **SQL Server**, and **Redshift** [adapters](https://docs.getdbt.com/docs/available-adapters).
+
+> **dbt 1.3+** - this project requires dbt and dbt_metrics versions 1.3+. If you'd like to try with dbt < 1.3, then use previous releases of this project.
 
 ## Create dbt Project
 
@@ -54,7 +56,7 @@ To run this project (assuming you have dbt installed):
 
 3. Give the project a name, e.g. "Sales Project"
 
-4. [Create a connection](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-a-connection) to either Snowflake, BigQuery, PostgreSQL or Redshift
+4. [Create a connection](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-a-connection) to either Snowflake, BigQuery, PostgreSQL, SQL Server, or Redshift
 
 5. [Connect a repository](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#connect-a-repository) with either **Git Clone** or **Github**
 

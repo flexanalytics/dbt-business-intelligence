@@ -453,8 +453,8 @@ metrics:
     label: Quantity
     model: ref('fact_sales')
     description: "Sum of quantity sold"
-    type: sum
-    sql: quantity
+    calculation_method: sum
+    expression: quantity
     timestamp: date_day
     time_grains: [day, week, month, year]
 
@@ -462,8 +462,8 @@ metrics:
     label: Price
     model: ref('fact_sales')
     description: "Average price"
-    type: average
-    sql: price
+    calculation_method: average
+    expression: price
     timestamp: date_day
     time_grains: [day, week, month, year]
 
@@ -471,10 +471,12 @@ metrics:
     label: Sales
     model: ref('fact_sales')
     description: "Sum of total sales revenue"
-    type: sum
-    sql: sales
+    calculation_method: sum
+    expression: sales
     timestamp: date_day
     time_grains: [day, week, month, year]
+    dimensions:
+      - product_key
     meta:
       synonyms: # for business searching and natural language processing
         - Revenue
@@ -485,8 +487,8 @@ metrics:
     label: Target
     model: ref('fact_sales')
     description: "Sum of target sales revenue"
-    type: sum
-    sql: target
+    calculation_method: sum
+    expression: target
     timestamp: date_day
     time_grains: [day, week, month, year]
 
@@ -494,7 +496,8 @@ metrics:
     label: Row Count
     model: ref('fact_sales')
     description: "A non-distinct count of rows"
-    type: count
+    calculation_method: count
+    expression: order_key
     timestamp: date_day
     time_grains: [day, week, month, year]
 
@@ -502,8 +505,8 @@ metrics:
     label: Customer Count
     model: ref('fact_sales')
     description: "A `distinct_count` of customers"
-    type: count_distinct
-    sql: customer_key
+    calculation_method: count_distinct
+    expression: customer_key
     timestamp: date_day
     time_grains: [day, week, month, year]
 
@@ -511,8 +514,8 @@ metrics:
     label: Product Count
     model: ref('fact_sales')
     description: "A `distinct_count` of products"
-    type: count_distinct
-    sql: product_key
+    calculation_method: count_distinct
+    expression: product_key
     timestamp: date_day
     time_grains: [day, week, month, year]
 
@@ -520,8 +523,8 @@ metrics:
     label: Order Count
     model: ref('fact_sales')
     description: "A `distinct_count` of orders"
-    type: count_distinct
-    sql: order_key
+    calculation_method: count_distinct
+    expression: order_key
     timestamp: date_day
     time_grains: [day, week, month, year]
 

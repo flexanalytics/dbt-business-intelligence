@@ -5,8 +5,8 @@ with product_metrics as (
     select *
     from
     {{ 
-        metrics.metric(
-            metric_name='sales',
+        metrics.calculate(
+            metric('sales'),
             grain='month',
             dimensions=['product_key'],
             secondary_calculations=[

@@ -4,5 +4,5 @@ select
     order_key,
     sum(sales) as total_sales
 from {{ ref('fact_sales' )}}
-group by 1
+group by order_key
 having not(sum(sales) >= 0)

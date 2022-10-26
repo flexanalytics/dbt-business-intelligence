@@ -6,8 +6,8 @@ select distinct
     address,
     postal_code,
     country,
-    {{ dbt_utils.split_part('latlng', "','", 1) }} latitude,
-    {{ dbt_utils.split_part('latlng', "','", 2) }} longitude,
+    {{ split_part('latlng', "','", 1) }} latitude,
+    {{ split_part('latlng', "','", 2) }} longitude,
     contact_name,
     phone,
     email

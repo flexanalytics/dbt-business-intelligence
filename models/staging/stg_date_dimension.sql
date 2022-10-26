@@ -3,7 +3,7 @@
 {%- call statement('date_range_query', fetch_result=True) -%}
     select
         min(order_date) min_date,
-        {{ dbt_utils.dateadd(datepart='day', interval=1, from_date_or_timestamp="max(order_date)") }} max_date
+        cast({{ dateadd(datepart='day', interval=1, from_date_or_timestamp="max(order_date)") }} as date) max_date
     from {{ ref('stg_sales_data') }}
 {%- endcall -%}
 
