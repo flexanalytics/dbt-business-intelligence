@@ -457,6 +457,10 @@ metrics:
     expression: quantity
     timestamp: date_day
     time_grains: [day, week, month, year]
+    dimensions:
+      - order_key
+      - customer_key
+      - product_key
 
   - name: price
     label: Price
@@ -466,6 +470,10 @@ metrics:
     expression: price
     timestamp: date_day
     time_grains: [day, week, month, year]
+    dimensions:
+      - order_key
+      - customer_key
+      - product_key
 
   - name: sales
     label: Sales
@@ -476,6 +484,8 @@ metrics:
     timestamp: date_day
     time_grains: [day, week, month, year]
     dimensions:
+      - order_key
+      - customer_key
       - product_key
     meta:
       synonyms: # for business searching and natural language processing
@@ -491,6 +501,10 @@ metrics:
     expression: target
     timestamp: date_day
     time_grains: [day, week, month, year]
+    dimensions:
+      - order_key
+      - customer_key
+      - product_key
 
   - name: row_count
     label: Row Count
@@ -500,6 +514,10 @@ metrics:
     expression: order_key
     timestamp: date_day
     time_grains: [day, week, month, year]
+    dimensions:
+      - order_key
+      - customer_key
+      - product_key
 
   - name: customer_count
     label: Customer Count
@@ -509,6 +527,10 @@ metrics:
     expression: customer_key
     timestamp: date_day
     time_grains: [day, week, month, year]
+    dimensions:
+      - order_key
+      - customer_key
+      - product_key
 
   - name: product_count
     label: Product Count
@@ -518,6 +540,10 @@ metrics:
     expression: product_key
     timestamp: date_day
     time_grains: [day, week, month, year]
+    dimensions:
+      - order_key
+      - customer_key
+      - product_key
 
   - name: order_count
     label: Order Count
@@ -527,6 +553,10 @@ metrics:
     expression: order_key
     timestamp: date_day
     time_grains: [day, week, month, year]
+    dimensions:
+      - order_key
+      - customer_key
+      - product_key
 
 sources:
   - name: salesforce
