@@ -4,6 +4,15 @@ models:
   - name: fact_sales
     description: "{{ doc('fact_sales') }}"
     tests:
+      - elementary.table_anomalies:
+          config:
+            severity: warn
+      - elementary.all_columns_anomalies:
+          config:
+            severity: warn
+      - elementary.schema_changes:
+          config:
+            severity: warn
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
             - customer_key

@@ -5,3 +5,5 @@ packages:
     version: 1.3.0
   - git: "https://github.com/flexanalytics/dbt_constraints.git"
     revision: main
+  - package: elementary-data/elementary
+    version: 0.5.4

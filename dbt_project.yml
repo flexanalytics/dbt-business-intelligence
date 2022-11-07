@@ -51,6 +51,11 @@ models:
     dbt_metrics_default_calendar:
       +schema: staging
       +enabled: false
+  elementary:
+    +schema: 'elementary'
+
+tests:
+  +severity: warn  # all tests
 
 seeds:
   dbt_business_intelligence:
