@@ -11,7 +11,7 @@ This dbt project is database agnostic, requires no data sources, and focuses on 
 
 ## Create dbt Project
 
-If you're just getting started learning dbt, then you may want to look at Getting Started with [dbt Core](https://docs.getdbt.com/tutorial/learning-more/getting-started-dbt-core) or [dbt Cloud](https://docs.getdbt.com/tutorial/getting-started)
+If you're just getting started learning dbt, then you may want to look at Getting Started with [dbt Core](https://docs.getdbt.com/docs/get-started/getting-started-dbt-core) or [dbt Cloud](https://docs.getdbt.com/docs/get-started/getting-started/set-up-dbt-cloud)
 
 
 ### Choose a data warehouse
