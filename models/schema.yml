@@ -182,6 +182,12 @@ models:
             type: number
             decimalPlaces: 2
             prefix: "$"
+      - name: recent_order_date
+        meta:
+          label: Recent Order Date
+      - name: first_order_date
+        meta:
+          label: First Order Date
 
   - name: dim_date
     description: The Order Date dimension allows you to analyze metrics across time periods at many levels of granularity (year, quarter, month, day).
