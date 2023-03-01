@@ -51,6 +51,13 @@ models:
     dbt_metrics_default_calendar:
       +schema: staging
       +enabled: false
+  dbt_observability:
+    +enabled: false
+    +schema: observability
+    sources:
+      +enabled: true
+
+on-run-end: "{{ dbt_observability.upload_results(results) }}"
 
 seeds:
   dbt_business_intelligence:

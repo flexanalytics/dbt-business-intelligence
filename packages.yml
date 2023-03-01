@@ -4,4 +4,6 @@ packages:
   - package: dbt-labs/metrics
     version: 1.3.0
   - git: "https://github.com/flexanalytics/dbt_constraints.git"
-    revision: main
+    revision: 1.0.0
+  - git: "https://github.com/flexanalytics/dbt_observability.git"
+    revision: 1.0.0
