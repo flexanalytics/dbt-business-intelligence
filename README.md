@@ -32,13 +32,10 @@ To run this project (assuming you have dbt installed):
 1. Clone this repo
 2. [Set up a profile](https://docs.getdbt.com/reference/profiles.yml) to connect to your database
 3. Run `dbt deps`
-4. Run `dbt seed`
-5. Run `dbt run`
-6. Run `dbt snapshot`
-7. Run `dbt test` (tests and add constraints)
-8. Run `dbt source freshness`
-9. Run `dbt docs generate`
-10. Run `dbt docs serve` (if you want to run a local docs server)
+4. Run `dbt build`, which does the following: seed, test, run, snapshot
+5. Run `dbt source freshness`
+6. Run `dbt docs generate`
+7. Run `dbt docs serve` (if you want to run a local docs server)
 
 ### dbt Cloud
 
@@ -68,23 +65,19 @@ To run this project (assuming you have dbt installed):
 
 7. In the command line at the bottom, run `dbt deps`
 
-8. Run `dbt seed`
+8. Run `dbt build`
 
-9. Run `dbt run`
+9. Run `dbt source freshness`
 
-10. Run `dbt snapshot`
-
-11. Run `dbt source freshness`
-
-12. If all runs OK, then [Set up an Environment](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-an-environment)
+10. If all runs OK, then [Set up an Environment](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-an-environment)
 
     > Make sure it is a **deployment** environment
 
-13. [Create a new Job](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-a-new-job)
+11. [Create a new Job](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-a-new-job)
 
     > In *Execution Settings*, check **Generate Docs** and **Run Source Freshness**
 
-14. Run the new job
+12. Run the new job
 
 
 ## Connect Business Intelligence tool
