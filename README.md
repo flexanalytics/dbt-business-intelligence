@@ -32,13 +32,10 @@ To run this project (assuming you have dbt installed):
 1. Clone this repo
 2. [Set up a profile](https://docs.getdbt.com/reference/profiles.yml) to connect to your database
 3. Run `dbt deps`
-4. Run `dbt seed`
-5. Run `dbt run`
-6. Run `dbt snapshot`
-7. Run `dbt test` (tests and add constraints)
-8. Run `dbt source freshness`
-9. Run `dbt docs generate`
-10. Run `dbt docs serve` (if you want to run a local docs server)
+4. Run `dbt build`, which does the following: seed, test, run, snapshot
+5. Run `dbt source freshness`
+6. Run `dbt docs generate`
+7. Run `dbt docs serve` (if you want to run a local docs server)
 
 ### dbt Cloud
 
@@ -68,23 +65,19 @@ To run this project (assuming you have dbt installed):
 
 7. In the command line at the bottom, run `dbt deps`
 
-8. Run `dbt seed`
+8. Run `dbt build`
 
-9. Run `dbt run`
+9. Run `dbt source freshness`
 
-10. Run `dbt snapshot`
-
-11. Run `dbt source freshness`
-
-12. If all runs OK, then [Set up an Environment](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-an-environment)
+10. If all runs OK, then [Set up an Environment](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-an-environment)
 
     > Make sure it is a **deployment** environment
 
-13. [Create a new Job](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-a-new-job)
+11. [Create a new Job](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart#create-a-new-job)
 
     > In *Execution Settings*, check **Generate Docs** and **Run Source Freshness**
 
-14. Run the new job
+12. Run the new job
 
 
 ## Connect Business Intelligence tool
@@ -259,6 +252,12 @@ models:
               field: customer_key
 ```
 
+Another way for tools to derive joins from dbt models is by defining primary and foreign keys. While many columnar databases (e.g. Snowflake) do not enfore referential integrity (primary and foreign keys), they can still be defined so that tools can pick them up. For traditional relational databases, it can be important to define primary and foreign keys for performance reasons as well.
+
+> Important: to use primary and foreign key constraints, set the dbt_project.yml variable "dbt_constraints_enabled: true"
+
+> Note: dbt 1.5+ supports primary_key and foreign_key [constraints](https://docs.getdbt.com/reference/resource-properties/constraints). However, as of dbt-core v1.5.2, constraints require [contracts](https://docs.getdbt.com/reference/resource-configs/contract) to be enabled. The catch-22 is that contracts then require ALL model columns to define data_type, but data_type is database-specific, so you lose the incredible database agnostic features of dbt. For this reason, we use the [`dbt_constraints`](https://github.com/Snowflake-Labs/dbt_constraints) package to enable cross-database support for primary and foreign keys. The issue will be tracked [here](https://github.com/flexanalytics/dbt-business-intelligence/issues/11).
+
 ### Data Freshness
 
 BI tools should use dbt's built in run/job update timestamps and [source freshness](https://docs.getdbt.com/reference/resource-properties/freshness) to display data freshness information to end users.
@@ -386,6 +385,9 @@ Here is a list of concepts that were covered in this repo.
   * [`dbt-date`](https://github.com/calogica/dbt-date#get_date_dimensionstart_date-end_date)
   * [`dbt-utils`](https://github.com/dbt-labs/dbt-utils)
   * [`dbt_constraints`](https://github.com/Snowflake-Labs/dbt_constraints)
+  * [`metrics`](https://github.com/dbt-labs/metrics)
+
+> **WARNING**: dbt_metrics is going to be deprecated in dbt-core 1.6 in July 2023 as part of the migration to MetricFlow. This package will continue to work with dbt-core 1.5 but a 1.6 version will not be released. If you have any questions, please join us in the #dbt-core-metrics in the dbt Community Slack.
 
 * **Jinja & Macros** - using [Jinja & Macros](https://docs.getdbt.com/docs/building-a-dbt-project/jinja-macros) to create re-usable code
 
