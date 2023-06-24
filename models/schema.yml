@@ -10,6 +10,12 @@ models:
             - order_key
             - product_key
             - date_key
+      - dbt_constraints.primary_key:
+          column_names:
+            - customer_key
+            - order_key
+            - product_key
+            - date_key
     meta:
       label: Sales Fact
       display_index: 1
@@ -85,6 +91,7 @@ models:
           hidden: true
         tests:
           - unique
+          - dbt_constraints.primary_key
       - name: customer_code
         meta:
           label: Customer Id
@@ -131,6 +138,7 @@ models:
           hidden: true
         tests:
           - unique
+          - dbt_constraints.primary_key
       - name: order_number
         meta:
           label: Order Number
@@ -160,6 +168,7 @@ models:
           hidden: true
         tests:
           - unique
+          - dbt_constraints.primary_key
       - name: product_code
         meta:
           label: Product Code
@@ -201,6 +210,7 @@ models:
           hidden: true
         tests:
           - unique
+          - dbt_constraints.primary_key
       - name: date_day
         meta:
           label: Order Date

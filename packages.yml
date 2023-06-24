@@ -2,7 +2,7 @@ packages:
   - package: calogica/dbt_date
     version: 0.6.2
   - package: dbt-labs/metrics
-    version: 1.4.1
+    version: 1.5.0
   - package: Snowflake-Labs/dbt_constraints
     version: 0.6.0
   - package: dbt-msft/tsql_utils

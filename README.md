@@ -252,6 +252,12 @@ models:
               field: customer_key
 ```
 
+Another way for tools to derive joins from dbt models is by defining primary and foreign keys. While many columnar databases (e.g. Snowflake) do not enfore referential integrity (primary and foreign keys), they can still be defined so that tools can pick them up. For traditional relational databases, it can be important to define primary and foreign keys for performance reasons as well.
+
+> Important: to use primary and foreign key constraints, set the dbt_project.yml variable "dbt_constraints_enabled: true"
+
+> Note: dbt 1.5+ supports primary_key and foreign_key [constraints](https://docs.getdbt.com/reference/resource-properties/constraints). However, as of dbt-core v1.5.2, constraints require [contracts](https://docs.getdbt.com/reference/resource-configs/contract) to be enabled. The catch-22 is that contracts then require ALL model columns to define data_type, but data_type is database-specific, so you lose the incredible database agnostic features of dbt. For this reason, we use the [`dbt_constraints`](https://github.com/Snowflake-Labs/dbt_constraints) package to enable cross-database support for primary and foreign keys. The issue will be tracked [here](https://github.com/flexanalytics/dbt-business-intelligence/issues/11).
+
 ### Data Freshness
 
 BI tools should use dbt's built in run/job update timestamps and [source freshness](https://docs.getdbt.com/reference/resource-properties/freshness) to display data freshness information to end users.
@@ -379,6 +385,9 @@ Here is a list of concepts that were covered in this repo.
   * [`dbt-date`](https://github.com/calogica/dbt-date#get_date_dimensionstart_date-end_date)
   * [`dbt-utils`](https://github.com/dbt-labs/dbt-utils)
   * [`dbt_constraints`](https://github.com/Snowflake-Labs/dbt_constraints)
+  * [`metrics`](https://github.com/dbt-labs/metrics)
+
+> **WARNING**: dbt_metrics is going to be deprecated in dbt-core 1.6 in July 2023 as part of the migration to MetricFlow. This package will continue to work with dbt-core 1.5 but a 1.6 version will not be released. If you have any questions, please join us in the #dbt-core-metrics in the dbt Community Slack.
 
 * **Jinja & Macros** - using [Jinja & Macros](https://docs.getdbt.com/docs/building-a-dbt-project/jinja-macros) to create re-usable code
 

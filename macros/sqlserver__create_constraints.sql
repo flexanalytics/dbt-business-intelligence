@@ -1,5 +1,5 @@
 {# SQL Server specific implementation to create a primary key #}
-{%- macro sqlserver__create_primary_key(table_relation, column_names, verify_permissions, quote_columns=false) -%}
+{%- macro sqlserver__create_primary_key(table_relation, column_names, verify_permissions, quote_columns=false, constraint_name=none, lookup_cache=none) -%}
     {%- set constraint_name = (table_relation.identifier ~ "_" ~ column_names|join('_') ~ "_PK") | upper -%}
 
     {%- if constraint_name|length > 63 %}
@@ -36,7 +36,7 @@
 
 
 {# SQL Server specific implementation to create a unique key #}
-{%- macro sqlserver__create_unique_key(table_relation, column_names, verify_permissions, quote_columns=false) -%}
+{%- macro sqlserver__create_unique_key(table_relation, column_names, verify_permissions, quote_columns=false, constraint_name=none, lookup_cache=none) -%}
     {%- set constraint_name = (table_relation.identifier ~ "_" ~ column_names|join('_') ~ "_UK") | upper -%}
 
     {%- if constraint_name|length > 63 %}
@@ -71,7 +71,7 @@
 {%- endmacro -%}
 
 {# SQL Server specific implementation to create a not null constraint #}
-{%- macro sqlserver__create_not_null(table_relation, column_names, verify_permissions, quote_columns=false) -%}
+{%- macro sqlserver__create_not_null(table_relation, column_names, verify_permissions, quote_columns=false, lookup_cache=none) -%}
     {%- set columns_list = dbt_constraints.get_quoted_column_list(column_names, quote_columns) -%}
 
     {%- if dbt_constraints.have_ownership_priv(table_relation, verify_permissions) -%}
@@ -93,7 +93,7 @@
 {%- endmacro -%}
 
 {# SQL Server specific implementation to create a foreign key #}
-{%- macro sqlserver__create_foreign_key(pk_table_relation, pk_column_names, fk_table_relation, fk_column_names, verify_permissions, quote_columns=true) -%}
+{%- macro sqlserver__create_foreign_key(pk_table_relation, pk_column_names, fk_table_relation, fk_column_names, verify_permissions, quote_columns=true, constraint_name=none, lookup_cache=none) -%}
     {%- set constraint_name = (fk_table_relation.identifier ~ "_" ~ fk_column_names|join('_') ~ "_FK") | upper -%}
 
     {%- if constraint_name|length > 63 %}
@@ -136,7 +136,7 @@
 
 {#- This macro is used in create macros to avoid duplicate PK/UK constraints
     and to skip FK where no PK/UK constraint exists on the parent table -#}
-{%- macro sqlserver__unique_constraint_exists(table_relation, column_names) -%}
+{%- macro sqlserver__unique_constraint_exists(table_relation, column_names, lookup_cache=none) -%}
     {%- set lookup_query -%}
     select c.oid as constraint_name
         , upper(col.attname) as column_name
@@ -170,7 +170,7 @@
 
 
 {#- This macro is used in create macros to avoid duplicate FK constraints -#}
-{%- macro sqlserver__foreign_key_exists(table_relation, column_names) -%}
+{%- macro sqlserver__foreign_key_exists(table_relation, column_names, lookup_cache=none) -%}
     {%- set lookup_query -%}
     select c.oid as fk_name
         , upper(col.attname) as fk_column_name
