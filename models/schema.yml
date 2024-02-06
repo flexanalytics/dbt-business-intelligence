@@ -3,6 +3,10 @@ version: 2
 models:
   - name: fact_sales
     description: "{{ doc('fact_sales') }}"
+    access: public
+    config:
+      contract:
+        enforced: true
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
@@ -44,6 +48,7 @@ models:
               to_field: date_key
     columns:
       - name: customer_key
+        data_type: text
         meta:
           hidden: true
         tests:
@@ -52,6 +57,7 @@ models:
               to: ref('dim_customer')
               field: customer_key
       - name: order_key
+        data_type: text
         meta:
           hidden: true
         tests:
@@ -60,6 +66,7 @@ models:
               to: ref('dim_order')
               field: order_key
       - name: product_key
+        data_type: text
         meta:
           hidden: true
         tests:
@@ -68,6 +75,7 @@ models:
               to: ref('dim_product')
               field: product_key
       - name: date_key
+        data_type: text
         meta:
           hidden: true
         tests:
@@ -76,16 +84,38 @@ models:
               to: ref('dim_date')
               field: date_key
       - name: date_day
+        data_type: date
+        meta:
+          hidden: true
+      - name: price
+        data_type: float
+        meta:
+          hidden: true
+      - name: quantity
+        data_type: integer
+        meta:
+          hidden: true
+      - name: sales
+        data_type: float
+        meta:
+          hidden: true
+      - name: target
+        data_type: float
         meta:
           hidden: true
 
   - name: dim_customer
     description: "{{ doc('dim_customer') }}"
+    access: public
+    config:
+      contract:
+        enforced: true
     meta:
       label: Customer
       display_index: 4
     columns:
       - name: customer_key
+        data_type: text
         meta:
           label: customer_key
           hidden: true
@@ -93,46 +123,61 @@ models:
           - unique
           - dbt_constraints.primary_key
       - name: customer_code
+        data_type: text
         meta:
           label: Customer Id
       - name: customer_name
+        data_type: text
         meta:
           label: Customer Name
           synonyms: # for business searching and natural language processing
             - Customer
             - Who
       - name: address
+        data_type: text
         meta:
           label: Address
       - name: postal_code
+        data_type: text
         meta:
           label: Postal Code
       - name: country
+        data_type: text
         meta:
           label: Country
       - name: latitude
+        data_type: text
         meta:
           label: Latitude
       - name: longitude
+        data_type: text
         meta:
           label: Longitude
       - name: contact_name
+        data_type: text
         meta:
           label: Contact Name
       - name: phone
+        data_type: text
         meta:
           label: Phone
       - name: email
+        data_type: text
         meta:
           label: Email
 
   - name: dim_order
     description: "{{ doc('dim_order') }}"
+    access: public
+    config:
+      contract:
+        enforced: true
     meta:
       label: Order
       display_index: 2
     columns:
       - name: order_key
+        data_type: text
         meta:
           label: order_key
           hidden: true
@@ -140,16 +185,20 @@ models:
           - unique
           - dbt_constraints.primary_key
       - name: order_number
+        data_type: integer
         meta:
           label: Order Number
       - name: order_line_number
+        data_type: integer
         meta:
           label: Order Line Number
       - name: order_date
+        data_type: date
         description: "Date of the order after {{ var('company_name') }} started on {{ var('company_start_date') }}"
         meta:
           label: Order Date
       - name: status
+        data_type: text
         description: "Status can be one of the following values: 'Cancelled', 'Delivered', 'Shipped'"
         meta:
           label: Order Status
@@ -159,32 +208,41 @@ models:
 
   - name: dim_product
     description: "{{ doc('dim_product') }}"
+    access: public
+    config:
+      contract:
+        enforced: true
     meta:
       label: Product
       display_index: 3
     columns:
       - name: product_key
+        data_type: text
         meta:
           hidden: true
         tests:
           - unique
           - dbt_constraints.primary_key
       - name: product_code
+        data_type: text
         meta:
           label: Product Code
       - name: product_name
+        data_type: text
         meta:
           label: Product Name
           synonyms: # for business searching and natural language processing
             - Product
             - What
       - name: product_category
+        data_type: text
         meta:
           label: Product Category
           synonyms: # for business searching and natural language processing
             - Product Type
             - Product Line
       - name: msrp
+        data_type: integer
         meta:
           label: MSRP
           format:
@@ -192,19 +250,26 @@ models:
             decimalPlaces: 2
             prefix: "$"
       - name: recent_order_date
+        data_type: date
         meta:
           label: Recent Order Date
       - name: first_order_date
+        data_type: date
         meta:
           label: First Order Date
 
   - name: dim_date
     description: The Order Date dimension allows you to analyze metrics across time periods at many levels of granularity (year, quarter, month, day).
+    access: public
+    config:
+      contract:
+        enforced: true
     meta:
       label: Order Date
       display_index: 5
     columns:
       - name: date_key
+        data_type: text
         meta:
           label: date_key
           hidden: true
@@ -212,10 +277,12 @@ models:
           - unique
           - dbt_constraints.primary_key
       - name: date_day
+        data_type: date
         meta:
           label: Order Date
           display_index: 1
       - name: prior_date_day
+        data_type: date
         meta:
           label: Prior Date Day
           hidden: true
@@ -223,133 +290,162 @@ models:
             type: date
             pattern: 'MMM D, YYYY'
       - name: next_date_day
+        data_type: date
         meta:
           hidden: true
           label: Next Date Day
       - name: prior_year_date_day
+        data_type: date
         meta:
           hidden: true
           label: Prior Year Date Day
           grain: off # time interval grain; values 'off', 'day', 'week', 'month', 'quarter', 'year'
       - name: prior_year_over_year_date_day
+        data_type: date
         meta:
           hidden: true
           label: Prior Year Over Year Date Day
       - name: day_of_week
+        data_type: integer
         meta:
           hidden: true
           label: Day Of Week
-      - name: day_of_week_iso
-        meta:
-          hidden: true
-          label: Day Of Week Iso
       - name: day_of_week_name
+        data_type: text
         meta:
           hidden: true
           label: Day Of Week Name
       - name: day_of_week_name_short
+        data_type: text
         meta:
           hidden: true
           label: Day Of Week Name Short
       - name: day_of_month
+        data_type: float
         meta:
           label: Day Of Month
       - name: day_of_year
+        data_type: bigint
         meta:
           label: Day Of Year
       - name: date_week # week_start_date
+        data_type: date
         meta:
           label: Week Start Date
           grain: off
       - name: week_end_date
+        data_type: date
         meta:
           hidden: true
           label: Week End Date
       - name: prior_year_week_start_date
+        data_type: date
         meta:
           hidden: true
           label: Prior Year Week Start Date
       - name: prior_year_week_end_date
+        data_type: date
         meta:
           hidden: true
           label: Prior Year Week End Date
       - name: week_of_year
+        data_type: integer
         meta:
           hidden: true
           label: Week Of Year
       - name: iso_week_start_date
+        data_type: date
         meta:
           hidden: true
           label: Iso Week Start Date
       - name: iso_week_end_date
+        data_type: date
         meta:
           hidden: true
           label: Iso Week End Date
       - name: prior_year_iso_week_start_date
+        data_type: date
         meta:
           hidden: true
           label: Prior Year Iso Week Start Date
       - name: prior_year_iso_week_end_date
+        data_type: date
         meta:
           hidden: true
           label: Prior Year Iso Week End Date
       - name: iso_week_of_year
+        data_type: integer
         meta:
           hidden: true
           label: Iso Week Of Year
       - name: prior_year_week_of_year
+        data_type: integer
         meta:
           hidden: true
           label: Prior Year Week Of Year
       - name: prior_year_iso_week_of_year
+        data_type: integer
         meta:
           hidden: true
           label: Prior Year Iso Week Of Year
       - name: month_of_year
+        data_type: integer
         meta:
           label: Month Num
       - name: month_name
+        data_type: text
         meta:
           label: Month Name
       - name: month_name_short
+        data_type: text
         meta:
           label: Month Name Short
       - name: date_month # month_start_date
+        data_type: date
         meta:
           label: Month Start Date
           grain: off
       - name: month_end_date
+        data_type: date
         meta:
           hidden: true
           label: Month End Date
       - name: prior_year_month_start_date
+        data_type: date
         meta:
           hidden: true
           label: Prior Year Month Start Date
       - name: prior_year_month_end_date
+        data_type: date
         meta:
           hidden: true
           label: Prior Year Month End Date
       - name: quarter_of_year
+        data_type: integer
         meta:
           label: Quarter Num
       - name: date_quarter # quarter_start_date
+        data_type: date
         meta:
           label: Quarter Start Date
           grain: off
       - name: quarter_end_date
+        data_type: date
         meta:
           hidden: true
           label: Quarter End Date
       - name: year_number
+        data_type: integer
         meta:
           label: Year Num
           display_index: 2
       - name: date_year # year_start_date
+        data_type: date
         meta:
           label: Year Start Date
           grain: off
       - name: year_end_date
+        data_type: date
         meta:
           hidden: true
           label: Year End Date
@@ -463,126 +559,3 @@ models:
             - from_field: order_date
               exp: '='
               to_field: date_day
-
-metrics:
-  - name: quantity
-    label: Quantity
-    model: ref('fact_sales')
-    description: "Sum of quantity sold"
-    calculation_method: sum
-    expression: quantity
-    timestamp: date_day
-    time_grains: [day, week, month, year]
-    dimensions:
-      - order_key
-      - customer_key
-      - product_key
-
-  - name: price
-    label: Price
-    model: ref('fact_sales')
-    description: "Average price"
-    calculation_method: average
-    expression: price
-    timestamp: date_day
-    time_grains: [day, week, month, year]
-    dimensions:
-      - order_key
-      - customer_key
-      - product_key
-
-  - name: sales
-    label: Sales
-    model: ref('fact_sales')
-    description: "Sum of total sales revenue"
-    calculation_method: sum
-    expression: sales
-    timestamp: date_day
-    time_grains: [day, week, month, year]
-    dimensions:
-      - order_key
-      - customer_key
-      - product_key
-    meta:
-      synonyms: # for business searching and natural language processing
-        - Revenue
-        - Proceeds
-        - Receipts
-
-  - name: target
-    label: Target
-    model: ref('fact_sales')
-    description: "Sum of target sales revenue"
-    calculation_method: sum
-    expression: target
-    timestamp: date_day
-    time_grains: [day, week, month, year]
-    dimensions:
-      - order_key
-      - customer_key
-      - product_key
-
-  - name: row_count
-    label: Row Count
-    model: ref('fact_sales')
-    description: "A non-distinct count of rows"
-    calculation_method: count
-    expression: order_key
-    timestamp: date_day
-    time_grains: [day, week, month, year]
-    dimensions:
-      - order_key
-      - customer_key
-      - product_key
-
-  - name: customer_count
-    label: Customer Count
-    model: ref('fact_sales')
-    description: "A `distinct_count` of customers"
-    calculation_method: count_distinct
-    expression: customer_key
-    timestamp: date_day
-    time_grains: [day, week, month, year]
-    dimensions:
-      - order_key
-      - customer_key
-      - product_key
-
-  - name: product_count
-    label: Product Count
-    model: ref('fact_sales')
-    description: "A `distinct_count` of products"
-    calculation_method: count_distinct
-    expression: product_key
-    timestamp: date_day
-    time_grains: [day, week, month, year]
-    dimensions:
-      - order_key
-      - customer_key
-      - product_key
-
-  - name: order_count
-    label: Order Count
-    model: ref('fact_sales')
-    description: "A `distinct_count` of orders"
-    calculation_method: count_distinct
-    expression: order_key
-    timestamp: date_day
-    time_grains: [day, week, month, year]
-    dimensions:
-      - order_key
-      - customer_key
-      - product_key
-
-sources:
-  - name: salesforce
-    # database: dbname/project, uses project database if not specified
-    schema: "{{ target.schema }}_staging"
-    freshness:
-      warn_after: {count: 12, period: hour}
-      error_after: {count: 24, period: hour}
-    loaded_at_field: data_loaded_at
-    description: Data loaded from source systems
-    tables:
-      - name: stg_sales_data
-        description: 'Sales data from the master system'

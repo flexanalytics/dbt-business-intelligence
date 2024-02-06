@@ -1,4 +1,7 @@
  -- depends_on: {{ ref('fact_sales') }}
+{{ config(
+  enabled=false
+) }}
 
 with product_metrics as (
 

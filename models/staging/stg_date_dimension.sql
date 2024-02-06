@@ -7,7 +7,8 @@
     from {{ ref('stg_sales_data') }}
 {%- endcall -%}
 
-{%- set start_date = load_result('date_range_query')['data'][0][0] -%}
-{%- set end_date = load_result('date_range_query')['data'][0][1] -%}
+{%- set dates = load_result('date_range_query') -%}
+{%- set start_date = dates['data'][0][0] -%}
+{%- set end_date = dates['data'][0][1] -%}
 
 {{ dbt_date.get_date_dimension(start_date, end_date) }}
