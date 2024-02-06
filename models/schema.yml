@@ -81,6 +81,10 @@ models:
 
   - name: dim_customer
     description: "{{ doc('dim_customer') }}"
+    config:
+      dbt_observability:
+        column_stats_type: "DOC" # NONE (no stats), ALL (all columns), PICK (cols in column_stats_cols), METRIC (only metrics), DOC (all documented columns, not hidden)
+        column_values_max: 20 # maximum number of values to show
     meta:
       label: Customer
       display_index: 4
