@@ -30,6 +30,6 @@ Detailed information about products in the following categories:
 
 {% docs product_monthly %}
 
-Monthly product metrics using **Period over Period**, **Period to Date**, and **Rolling** secondary calculations from the the `dbt_metrics` package
+Monthly product metrics using **Period over Period**, **Period to Date**, and **Rolling** secondary calculations
 
 {% enddocs %}

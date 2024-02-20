@@ -7,7 +7,7 @@ This dbt project is database agnostic, requires no data sources, and focuses on 
 
 > Tested on both **dbt Core** and **dbt Cloud** versions 1.0+. Database agnostic and has been tested with the **Postgres**, **BigQuery**, **Snowflake**, **SQL Server**, and **Redshift** [adapters](https://docs.getdbt.com/docs/available-adapters).
 
-> **dbt 1.3+** - this project requires dbt and dbt_metrics versions 1.3+. If you'd like to try with dbt < 1.3, then use previous releases of this project.
+> **dbt 1.7+** - this project requires dbt versions 1.7+. If you'd like to try with dbt < 1.7, then use previous releases of this project.
 
 ## Create dbt Project
 
@@ -375,8 +375,6 @@ Here is a list of concepts that were covered in this repo.
 
 * **Metrics** - how to define [Metrics](https://docs.getdbt.com/docs/building-a-dbt-project/metrics)
 
-* **Metrics Package** - how to use the [dbt_metrics](https://github.com/dbt-labs/dbt_metrics) package to generate queries.
-
 * **Meta** - using the [meta config](https://docs.getdbt.com/reference/resource-configs/meta) for downstream BI tools to handle joins, formatting, aliases, model and column order, hide/display columns and models, and more
 
 * **Tests** - how to use singular and generic [tests](https://docs.getdbt.com/docs/building-a-dbt-project/tests), including relationships tests for referential integrity
@@ -387,7 +385,7 @@ Here is a list of concepts that were covered in this repo.
   * [`dbt_constraints`](https://github.com/Snowflake-Labs/dbt_constraints)
   * [`metrics`](https://github.com/dbt-labs/metrics)
 
-> **WARNING**: dbt_metrics is going to be deprecated in dbt-core 1.6 in July 2023 as part of the migration to MetricFlow. This package will continue to work with dbt-core 1.5 but a 1.6 version will not be released. If you have any questions, please join us in the #dbt-core-metrics in the dbt Community Slack.
+> **WARNING**: dbt_metrics is deprecated as of dbt-core 1.6 in July 2023 as part of the migration to MetricFlow.
 
 * **Jinja & Macros** - using [Jinja & Macros](https://docs.getdbt.com/docs/building-a-dbt-project/jinja-macros) to create re-usable code
 

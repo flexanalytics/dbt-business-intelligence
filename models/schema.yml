@@ -14,12 +14,6 @@ models:
             - order_key
             - product_key
             - date_key
-      - dbt_constraints.primary_key:
-          column_names:
-            - customer_key
-            - order_key
-            - product_key
-            - date_key
     meta:
       label: Sales Fact
       display_index: 1
@@ -47,10 +41,19 @@ models:
             - from_field: date_key
               to_field: date_key
     columns:
+      - name: fact_sales_key
+        data_type: text
+        meta:
+          hidden: true
+        constraints:
+          - type: not_null
+          - type: primary_key
       - name: customer_key
         data_type: text
         meta:
           hidden: true
+        constraints:
+          - type: not_null
         tests:
           - not_null
           - relationships: #JOINS the dbt integrity way
@@ -60,8 +63,9 @@ models:
         data_type: text
         meta:
           hidden: true
+        constraints:
+          - type: not_null
         tests:
-          - not_null
           - relationships:
               to: ref('dim_order')
               field: order_key
@@ -69,8 +73,9 @@ models:
         data_type: text
         meta:
           hidden: true
+        constraints:
+          - type: not_null
         tests:
-          - not_null
           - relationships:
               to: ref('dim_product')
               field: product_key
@@ -78,8 +83,9 @@ models:
         data_type: text
         meta:
           hidden: true
+        constraints:
+          - type: not_null
         tests:
-          - not_null
           - relationships:
               to: ref('dim_date')
               field: date_key
@@ -90,19 +96,51 @@ models:
       - name: price
         data_type: float
         meta:
-          hidden: true
+          metrics:
+            price:
+              label: 'Price'
+              type: average
+              description: "Average price"
+              format:
+                type: number
+                decimalPlaces: 2
       - name: quantity
         data_type: integer
         meta:
-          hidden: true
+          metrics:
+            quantity:
+              label: 'Quantity'
+              type: sum
+              description: "Sum of quantity sold"
+              format:
+                type: number
+                decimalPlaces: 0
       - name: sales
         data_type: float
         meta:
-          hidden: true
+          metrics:
+            sales:
+              label: 'Sales'
+              type: sum
+              description: "Sum of total sales revenue"
+              format:
+                type: number
+                decimalPlaces: 2
+              synonyms: # for business searching and natural language processing
+                - Revenue
+                - Proceeds
+                - Receipts
       - name: target
         data_type: float
         meta:
-          hidden: true
+          metrics:
+            target:
+              label: 'Target'
+              type: sum
+              description: "Sum of target sales revenue"
+              format:
+                type: number
+                decimalPlaces: 2
 
   - name: dim_customer
     description: "{{ doc('dim_customer') }}"
@@ -119,9 +157,9 @@ models:
         meta:
           label: customer_key
           hidden: true
-        tests:
-          - unique
-          - dbt_constraints.primary_key
+        constraints:
+          - type: not_null
+          - type: primary_key
       - name: customer_code
         data_type: text
         meta:
@@ -181,9 +219,9 @@ models:
         meta:
           label: order_key
           hidden: true
-        tests:
-          - unique
-          - dbt_constraints.primary_key
+        constraints:
+          - type: not_null
+          - type: primary_key
       - name: order_number
         data_type: integer
         meta:
@@ -220,9 +258,9 @@ models:
         data_type: text
         meta:
           hidden: true
-        tests:
-          - unique
-          - dbt_constraints.primary_key
+        constraints:
+          - type: not_null
+          - type: primary_key
       - name: product_code
         data_type: text
         meta:
@@ -273,9 +311,9 @@ models:
         meta:
           label: date_key
           hidden: true
-        tests:
-          - unique
-          - dbt_constraints.primary_key
+        constraints:
+          - type: not_null
+          - type: primary_key
       - name: date_day
         data_type: date
         meta:
