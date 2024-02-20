@@ -1,5 +1,5 @@
 select
-    {{ dbt_utils.surrogate_key(['date_day']) }} date_key,
+    {{ dbt_utils.generate_surrogate_key(['date_day']) }} date_key,
     week_start_date as date_week,
     month_start_date as date_month,
     quarter_start_date as date_quarter,
