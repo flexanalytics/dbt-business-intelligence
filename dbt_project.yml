@@ -40,6 +40,7 @@ models:
   dbt_business_intelligence:
     # Config indicated by + and applies to all files under models/example/
     +materialized: table
+    +access: public    
     staging:
       +schema: staging
       +materialized: view
