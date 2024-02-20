@@ -48,6 +48,7 @@ models:
         constraints:
           - type: not_null
           - type: primary_key
+            warn_unenforced: false
       - name: customer_key
         data_type: text
         meta:
@@ -160,6 +161,7 @@ models:
         constraints:
           - type: not_null
           - type: primary_key
+            warn_unenforced: false
       - name: customer_code
         data_type: text
         meta:
@@ -222,6 +224,7 @@ models:
         constraints:
           - type: not_null
           - type: primary_key
+            warn_unenforced: false
       - name: order_number
         data_type: integer
         meta:
@@ -261,6 +264,7 @@ models:
         constraints:
           - type: not_null
           - type: primary_key
+            warn_unenforced: false
       - name: product_code
         data_type: text
         meta:
@@ -314,6 +318,7 @@ models:
         constraints:
           - type: not_null
           - type: primary_key
+            warn_unenforced: false
       - name: date_day
         data_type: date
         meta:
