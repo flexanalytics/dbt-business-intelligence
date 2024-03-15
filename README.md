@@ -113,23 +113,7 @@ from {{ source('salesforce', 'stg_sales_data') }}
 
 ### Metrics
 
-Metrics can be defined two ways
-
-1. Using the recommended dbt [Metrics](https://docs.getdbt.com/docs/building-a-dbt-project/metrics) definition
-
-```yaml
-metrics:
-  - name: quantity
-    label: Quantity
-    model: ref('fact_sales')
-    description: "Sum of quantity sold"
-    type: sum
-    sql: quantity
-    timestamp: date_day
-    time_grains: [day, week, month, year]
-```
-
-2. Using the `meta` tag
+Define metrics using the `meta` tag
 
 ```yaml
 models:
@@ -142,19 +126,14 @@ models:
               label: 'Total Quantity'
               type: sum # sum, average, count, count_distinct, min, max
               description: "Sum of quantity sold"
+              format:
+                type: number
+                decimalPlaces: 0
 ```
 
 ### Business (Friendly) Names
 
-Metrics allow for a `label` attribute to create business friendly names.
-
-```yaml
-metrics:
-  - name: quantity
-    label: Quantity
-```
-
-All models and model columns will need to use the `meta` tag and define a `label` attribute, as such:
+Models and model columns use the `meta` tag and define a `label` attribute, as such:
 
 ```yaml
 models:
@@ -373,8 +352,6 @@ Here is a list of concepts that were covered in this repo.
 
 * **Date Dimension** - build a database agnostic date dimension using the [`dbt-date`](https://github.com/calogica/dbt-date#get_date_dimensionstart_date-end_date) package.
 
-* **Metrics** - how to define [Metrics](https://docs.getdbt.com/docs/building-a-dbt-project/metrics)
-
 * **Meta** - using the [meta config](https://docs.getdbt.com/reference/resource-configs/meta) for downstream BI tools to handle joins, formatting, aliases, model and column order, hide/display columns and models, and more
 
 * **Tests** - how to use singular and generic [tests](https://docs.getdbt.com/docs/building-a-dbt-project/tests), including relationships tests for referential integrity
@@ -383,9 +360,6 @@ Here is a list of concepts that were covered in this repo.
   * [`dbt-date`](https://github.com/calogica/dbt-date#get_date_dimensionstart_date-end_date)
   * [`dbt-utils`](https://github.com/dbt-labs/dbt-utils)
   * [`dbt_constraints`](https://github.com/Snowflake-Labs/dbt_constraints)
-  * [`metrics`](https://github.com/dbt-labs/metrics)
-
-> **WARNING**: dbt_metrics is deprecated as of dbt-core 1.6 in July 2023 as part of the migration to MetricFlow.
 
 * **Jinja & Macros** - using [Jinja & Macros](https://docs.getdbt.com/docs/building-a-dbt-project/jinja-macros) to create re-usable code
 
@@ -419,8 +393,6 @@ Here is a list of concepts that were covered in this repo.
 * **Formatting** - define universal formatting for number, string, date and other data types
 
 * **Data Freshness** - from reports and models, view model refresh date/time and source data freshness
-
-* **Metrics** - use dbt Metrics for complex calculations and aggregation
 
 * **Natural Language Query (NLQ)** - define model `meta.synonyms` (a.k.a aliases) to be used by natural language query or generic searching
 
