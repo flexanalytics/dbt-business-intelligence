@@ -5,3 +5,5 @@ packages:
     version: 0.10.0
   - package: dbt-msft/tsql_utils
     version: 0.9.0
+  - git: "https://github.com/flexanalytics/flex_observability.git"
+    revision: v0.2.0

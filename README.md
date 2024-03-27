@@ -40,7 +40,7 @@ To run this project (assuming you have dbt installed):
 ### dbt Cloud
 
 1. [Login to dbt](https://cloud.getdbt.com/login) or [Signup for a new](https://cloud.getdbt.com/signup/) dbt Account
-    
+
     > Team Account ([free trial](https://www.getdbt.com/pricing/)) is required for BI tools to use the Metadata API
 
     > First time using dbt Cloud? Review the [dbt Cloud Quickstart](https://docs.getdbt.com/docs/dbt-cloud/cloud-quickstart) guide
@@ -409,6 +409,32 @@ Here is a list of concepts that were covered in this repo.
 
 * **Fact and Dimension tables** - create standard fact (measure) and dimension tables with constraints
 
+
+## [beta] Observability
+
+This project includes [observability](https://www.ibm.com/topics/data-observability) via the new [flex_observability](https://github.com/flexanalytics/flex_observability) package, which is built on top of the robust [elementary](https://www.elementary-data.com/) observability environment. This is disabled by default, but can be enabled by changing `enabled` to `true` in the `dbt_project.yml` file. The schemas can also be modified to fit your project's needs.
+
+```yml
+...
+  observability:
+    +enabled: true # <- enable here
+    tags: ['observability']
+    materialized: table
+    schema: observability
+    staging:
+      materialized: table
+      schema: observability_staging
+    views:
+      materialized: view
+      schema: observability_views
+  elementary:
+    +enabled: true # <- enable here
+    tags: ['observability']
+    schema: observability_base
+...
+```
+
+This will enable elementary base tables to get metadata on your dbt models, tests, seeds, snapshots, and runs. `flex_observability` then creates a set of staging tables and kimball-style dimension and fact tables as well as canned observability reports via views which can be built upon for your own observability reporting. Make sure to keep an eye on new releases from [flex_observability](https://github.com/flexanalytics/flex_observability/releases) as new (and potentially breaking) changes are introduced.
 
 ## Let's Collaborate
 
