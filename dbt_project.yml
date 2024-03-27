@@ -45,7 +45,7 @@ models:
       +schema: staging
       +materialized: view
   observability:
-    +enabled: false
+    +enabled: true
     tags: ['observability']
     materialized: table
     schema: observability
@@ -56,7 +56,7 @@ models:
       materialized: view
       schema: observability_views
   elementary:
-    +enabled: false
+    +enabled: true
     tags: ['observability']
     schema: observability_base
 
