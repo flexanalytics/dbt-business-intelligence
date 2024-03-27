@@ -1,6 +1,31 @@
 with sales_data as (
 
-    select * from {{ ref('stg_sales_data') }}
+    select
+        id,
+        order_number,
+        order_line_number,
+        order_date,
+        status,
+        product_category,
+        product_code,
+        product_name,
+        msrp,
+        customer_code,
+        customer_name,
+        address,
+        postal_code,
+        region,
+        country,
+        contact_name,
+        phone,
+        email,
+        latlng,
+        quantity,
+        price,
+        sales,
+        target,
+        data_loaded_at
+    from {{ ref('stg_sales_data') }}
 
 ),
 
