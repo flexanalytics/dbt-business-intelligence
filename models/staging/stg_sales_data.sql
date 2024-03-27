@@ -9,7 +9,11 @@
 }}
 
 select
-    {{ dbt_utils.generate_surrogate_key(['order_number','order_line_number']) }} id,
+    {{
+        dbt_utils.generate_surrogate_key(
+            ['order_number','order_line_number']
+        )
+    }} id,
     order_number,
     order_line_number,
     order_date,
@@ -36,5 +40,5 @@ select
 from {{ ref('sales_data_raw') }}
 
 {% if is_incremental() %}
-  where order_date >= (select max(order_date) from {{ this }})
+    where order_date >= (select max(order_date) from {{ this }})
 {% endif %}
