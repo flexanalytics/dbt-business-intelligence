@@ -66,6 +66,8 @@ semantic_models:
     dimensions:
       - name: date_day
         type: time
+        type_params:
+          time_granularity: day
 
   - name: dim_customer
     description: "{{ doc('dim_customer') }}"
