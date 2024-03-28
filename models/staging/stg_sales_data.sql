@@ -1,5 +1,3 @@
-{{ config(schema='staging', materialized='table') }}
-
 select
     {{ dbt_utils.generate_surrogate_key(['order_number','order_line_number']) }} id,
     *,
