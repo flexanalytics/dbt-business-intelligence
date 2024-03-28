@@ -375,6 +375,8 @@ Here is a list of concepts that were covered in this repo.
 
 * **Snapshots** - use [Snapshots](https://docs.getdbt.com/docs/building-a-dbt-project/snapshots) to maintain a history of record changes in a table over time
 
+* **Incremental Models** - use dbt's [incremental materialization](https://docs.getdbt.com/docs/build/incremental-models) where possible to reduce build time (can be overridden by passing the `--full-refresh` flag)
+
 * **Pre-hook & Post-hook** - use [post-hooks](https://docs.getdbt.com/reference/resource-configs/pre-hook-post-hook) to run SQL after a model is built. For example, to create indexes, primary/foreign keys, grant permissions.
 
 * **Best Practices** - follow [dbt Best Practices](https://docs.getdbt.com/docs/guides/best-practices)
