@@ -113,7 +113,6 @@ saved_queries:
         - TimeDimension('date_day', 'day')
       where:
         - "{{TimeDimension('date_day')}} > current_timestamp - interval '1 month'"
-         - ... # Additional where clauses
     exports:
       - name: order_metrics
         config:
