@@ -110,9 +110,9 @@ saved_queries:
         - sales
         - target
       group_by:
-        - TimeDimension('date_day', 'day')
+        - Dimension('date_key__date_day')
       where:
-        - "{{TimeDimension('date_day')}} > current_timestamp - interval '1 month'"
+        - "{{Dimension('date_key__date_day')}} > current_timestamp - interval '1 month'"
     exports:
       - name: order_metrics
         config:
