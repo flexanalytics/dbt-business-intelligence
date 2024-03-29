@@ -111,8 +111,8 @@ saved_queries:
         - target
       group_by:
         - TimeDimension('fact_sales_key__date_day', 'day')
-      where:
-        - "{{TimeDimension('fact_sales_key__date_day')}} > current_timestamp - interval '1 month'"
+      # where:
+      #   - "{{TimeDimension('fact_sales_key__date_day')}} > current_timestamp - interval '1 month'"
     exports:
       - name: order_metrics
         config:
