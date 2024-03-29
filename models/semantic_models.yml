@@ -97,3 +97,26 @@ metrics:
     description: Percentage of actual sales to target sales
     type_params:
       measure: sales_to_target
+
+saved_queries:
+  - name: order_metrics
+    description: Relevant order metrics
+    query_params:
+      metrics:
+        - sales_to_target
+        - order_count
+        - product_count
+        - customer_count
+        - sales
+        - target
+      group_by:
+        - TimeDimension('date_day', 'day')
+      where:
+        - "{{TimeDimension('date_day')}} > current_timestamp - interval '1 month'"
+         - ... # Additional where clauses
+    exports:
+      - name: order_metrics
+        config:
+          export_as: view # Options available: table, view
+          schema: dev # Optional - defaults to deployment schema
+          alias: order_summary # Optional - defaults to Export name
