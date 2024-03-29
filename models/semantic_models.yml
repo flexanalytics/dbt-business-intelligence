@@ -1,5 +1,7 @@
 semantic_models:
   - name: fact_sales
+    defaults:
+      agg_time_dimension: date_day
     description: "{{ doc('fact_sales') }}"
     model: ref('fact_sales')
     #Entities. These usually corespond to keys in the table.
@@ -14,60 +16,61 @@ semantic_models:
         type: foreign
       - name: date_key
         type: foreign
-    #Measures. These are the aggregations on the columns in the table.
-    measures: 
-      - name: price
-        label: Price
-        description: Price paid on this order
-        agg: average
-        agg_time_dimension: date_day
-      - name: quantity
-        label: Quantity
-        expr: 1
-        agg: sum
-        agg_time_dimension: date_day
-      - name: sales
-        label: Sales
-        description: The total tax paid on each order. 
-        agg: sum
-        agg_time_dimension: date_day
-      - name: target
-        label: Target
-        description: Distinct count of customers placing orders
-        agg: sum
-        agg_time_dimension: date_day
-      - name: row_count
-        label: Rowcount
-        expr: 1
-        agg: sum
-        agg_time_dimension: date_day
-      - name: customer_count
-        label: Customer Count
-        description: Distinct count of customers
-        agg: count_distinct
-        agg_time_dimension: date_day
-      - name: product_count
-        label: Product Count
-        description: Distinct count of products
-        agg: count_distinct
-        agg_time_dimension: date_day
-      - name: order_count
-        label: Order Count
-        description: Distinct count of orders
-        agg: count_distinct
-        agg_time_dimension: date_day
-      - name: sales_to_target
-        label: Sales to Target %
-        description: Percentage of actual sales to target sales
-        expr: sales / target
-        agg: average
-        agg_time_dimension: date_day
-    #Dimensions. Either categorical or time. These add additional context to metrics. The typical querying pattern is Metric by Dimension.  
+
+    #Dimensions. Either categorical or time. These add additional context to metrics. The typical querying pattern is Metric by Dimension.
     dimensions:
       - name: date_day
         type: time
         type_params:
           time_granularity: day
+
+    #Measures. These are the aggregations on the columns in the table.
+    measures:
+      - name: price
+        label: Price
+        description: Price paid on this order
+        agg: average
+        create_metric: True
+      - name: quantity
+        label: Quantity
+        expr: 1
+        agg: sum
+        create_metric: True
+      - name: sales
+        label: Sales
+        description: The total tax paid on each order.
+        agg: sum
+        create_metric: True
+      - name: target
+        label: Target
+        description: Distinct count of customers placing orders
+        agg: sum
+        create_metric: True
+      - name: row_count
+        label: Rowcount
+        expr: 1
+        agg: sum
+        create_metric: True
+      - name: customer_count
+        label: Customer Count
+        description: Distinct count of customers
+        agg: count_distinct
+        create_metric: True
+      - name: product_count
+        label: Product Count
+        description: Distinct count of products
+        agg: count_distinct
+        create_metric: True
+      - name: order_count
+        label: Order Count
+        description: Distinct count of orders
+        agg: count_distinct
+        create_metric: True
+      - name: sales_to_target
+        label: Sales to Target %
+        description: Percentage of actual sales to target sales
+        expr: sales / target
+        agg: average
 
   - name: dim_customer
     description: "{{ doc('dim_customer') }}"
