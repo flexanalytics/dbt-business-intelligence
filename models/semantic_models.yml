@@ -26,12 +26,6 @@ semantic_models:
         type: time
         type_params:
           time_granularity: day
-      - name: sales_dim
-        type: categorical
-        expr: sales
-      - name: row_count_dim
-        type: categorical
-        expr: row_count
     #Measures. These are the aggregations on the columns in the table.
     measures:
       - name: price
@@ -113,6 +107,9 @@ semantic_models:
       - name: product_category_dim
         type: categorical
         expr: product_category
+      - name: is_aviation_order
+        type: categorical
+        expr: case when product_category = 'Aviaiton' then 1 else 0 end
 
   - name: dim_order
     description: "{{ doc('dim_order') }}"
@@ -124,6 +121,12 @@ semantic_models:
       - name: order_status_dim
         type: categorical
         expr: status
+      - name: is_cancelled_order
+        type: categorical
+        expr: case when status = 'Cancelled' then 1 else 0 end
+      - name: is_large_order
+        type: categorical
+        expr: case when status = 'Cancelled' then 1 else 0 end
 
 metrics:
   - name: sales_to_target
@@ -132,30 +135,6 @@ metrics:
     description: Percentage of actual sales to target sales
     type_params:
       measure: sales_to_target
-  - name: large_orders
-    description: "Count of orders with order total over 20."
-    type: simple
-    label: Large Orders
-    type_params:
-      measure: order_count
-    filter: |
-      {{ Dimension('fact_sales_key__row_count_dim') }} >= 5
-  - name: cancelled_orders
-    description: "Count of orders with status of cancelled"
-    type: simple
-    label: Cancelled Orders
-    type_params:
-      measure: order_count
-    filter: |
-      {{ Dimension('order_key__order_status_dim') }} == 'Cancelled'
-  - name: aviation_orders
-    description: "Count of orders for aviation products"
-    type: simple
-    label: Aviation Orders
-    type_params:
-      measure: order_count
-    filter: |
-      {{ Dimension('product_key__product_category_dim') }} == 'Aviation'
 
 saved_queries:
   - name: order_metrics
