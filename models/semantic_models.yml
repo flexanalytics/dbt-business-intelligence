@@ -46,7 +46,7 @@ semantic_models:
         create_metric: true
       - name: sales
         label: Sales
-        description: The total tax paid on each order.
+        description: The total revenue for each order.
         agg: sum
         agg_time_dimension: date_day
         expr: sales
@@ -132,7 +132,7 @@ metrics:
     type_params:
       measure: order_count
     filter: |
-      {{ Dimension('order_key__row_count') }} >= 5
+      {{ Dimension('fact_sales__row_count') }} >= 5
   - name: cancelled_orders
     description: "Count of orders with status of cancelled"
     type: simple
@@ -140,7 +140,7 @@ metrics:
     type_params:
       measure: order_count
     filter: |
-      {{ Dimension('order_key__status') }} == 'Cancelled'
+      {{ Dimension('dim_order__status') }} == 'Cancelled'
   - name: aviation_orders
     description: "Count of orders for aviation products"
     type: simple
@@ -148,7 +148,7 @@ metrics:
     type_params:
       measure: order_count
     filter: |
-      {{ Dimension('product_key__product_category') }} == 'Aviation'
+      {{ Dimension('dim_product__product_category') }} == 'Aviation'
 
 saved_queries:
   - name: order_metrics
