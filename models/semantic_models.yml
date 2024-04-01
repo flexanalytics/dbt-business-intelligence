@@ -1,19 +1,34 @@
 semantic_models:
   - name: fact_sales
+    defaults:
+      agg_time_dimension: date_day
     description: "{{ doc('fact_sales') }}"
     model: ref('fact_sales')
     #Entities. These usually corespond to keys in the table.
     entities:
       - name: fact_sales_key
         type: primary
-      - name: customer_key
+      - name: customer
         type: foreign
-      - name: order_key
+        expr: customer_key
+      - name: order
         type: foreign
-      - name: product_key
+        expr: order_key
+      - name: product
         type: foreign
-      - name: date_key
+        expr: product_key
+      - name: date
         type: foreign
+        expr: date_key
+    #Dimensions. Either categorical or time. These add additional context to metrics. The typical querying pattern is Metric by Dimension.
+    dimensions:
+      - name: date_day
+        type: time
+        type_params:
+          time_granularity: day
+      - name: sales_dim
+        type: categorical
+        expr: sales
     #Measures. These are the aggregations on the columns in the table.
     measures:
       - name: price
@@ -76,12 +91,7 @@ semantic_models:
         expr: sales / target
         agg: average
         agg_time_dimension: date_day
-    #Dimensions. Either categorical or time. These add additional context to metrics. The typical querying pattern is Metric by Dimension.
-    dimensions:
-      - name: date_day
-        type: time
-        type_params:
-          time_granularity: day
+
 
   - name: dim_customer
     description: "{{ doc('dim_customer') }}"
@@ -89,6 +99,24 @@ semantic_models:
     entities:
       - name: customer_key
         type: primary
+  - name: dim_product
+    description: "{{ doc('dim_product') }}"
+    model: ref('dim_product')
+    entities:
+      - name: product_key
+        type: primary
+    dimensions:
+      - name: product_category
+        type: categorical
+  - name: dim_order
+    description: "{{ doc('dim_order') }}"
+    model: ref('dim_order')
+    entities:
+      - name: order_key
+        type: primary
+    dimensions:
+      - name: status
+        type: categorical
 
 metrics:
   - name: sales_to_target
@@ -97,6 +125,30 @@ metrics:
     description: Percentage of actual sales to target sales
     type_params:
       measure: sales_to_target
+  - name: large_orders
+    description: "Count of orders with order total over 20."
+    type: simple
+    label: Large Orders
+    type_params:
+      measure: order_count
+    filter: |
+      {{ Dimension('order_key__row_count') }} >= 5
+  - name: cancelled_orders
+    description: "Count of orders with status of cancelled"
+    type: simple
+    label: Cancelled Orders
+    type_params:
+      measure: order_count
+    filter: |
+      {{ Dimension('order_key__status') }} == 'Cancelled'
+  - name: aviation_orders
+    description: "Count of orders for aviation products"
+    type: simple
+    label: Aviation Orders
+    type_params:
+      measure: order_count
+    filter: |
+      {{ Dimension('product_key__product_category') }} == 'Aviation'
 
 saved_queries:
   - name: order_metrics
