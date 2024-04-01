@@ -29,6 +29,9 @@ semantic_models:
       - name: sales_dim
         type: categorical
         expr: sales
+      - name: row_count_dim
+        type: categorical
+        expr: row_count
     #Measures. These are the aggregations on the columns in the table.
     measures:
       - name: price
@@ -99,6 +102,7 @@ semantic_models:
     entities:
       - name: customer_key
         type: primary
+
   - name: dim_product
     description: "{{ doc('dim_product') }}"
     model: ref('dim_product')
@@ -106,8 +110,10 @@ semantic_models:
       - name: product_key
         type: primary
     dimensions:
-      - name: product_category
+      - name: product_category_dim
         type: categorical
+        expr: product_category
+
   - name: dim_order
     description: "{{ doc('dim_order') }}"
     model: ref('dim_order')
@@ -115,8 +121,9 @@ semantic_models:
       - name: order_key
         type: primary
     dimensions:
-      - name: status
+      - name: order_status_dim
         type: categorical
+        expr: status
 
 metrics:
   - name: sales_to_target
@@ -132,7 +139,7 @@ metrics:
     type_params:
       measure: order_count
     filter: |
-      {{ Dimension('fact_sales__row_count') }} >= 5
+      {{ Dimension('fact_sales_key__row_count_dim') }} >= 5
   - name: cancelled_orders
     description: "Count of orders with status of cancelled"
     type: simple
@@ -140,7 +147,7 @@ metrics:
     type_params:
       measure: order_count
     filter: |
-      {{ Dimension('dim_order__status') }} == 'Cancelled'
+      {{ Dimension('order_key__order_status_dim') }} == 'Cancelled'
   - name: aviation_orders
     description: "Count of orders for aviation products"
     type: simple
@@ -148,7 +155,7 @@ metrics:
     type_params:
       measure: order_count
     filter: |
-      {{ Dimension('dim_product__product_category') }} == 'Aviation'
+      {{ Dimension('product_key__product_category_dim') }} == 'Aviation'
 
 saved_queries:
   - name: order_metrics
