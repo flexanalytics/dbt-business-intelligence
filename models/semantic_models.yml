@@ -94,15 +94,18 @@ semantic_models:
     description: "{{ doc('dim_customer') }}"
     model: ref('dim_customer')
     entities:
-      - name: customer_key
+      - name: customer
         type: primary
+        expr: customer_key
 
   - name: dim_product
     description: "{{ doc('dim_product') }}"
     model: ref('dim_product')
     entities:
-      - name: product_key
+      - name: product
         type: primary
+        expr: product_key
+
     dimensions:
       - name: product_category_dim
         type: categorical
@@ -115,16 +118,14 @@ semantic_models:
     description: "{{ doc('dim_order') }}"
     model: ref('dim_order')
     entities:
-      - name: order_key
+      - name: order
         type: primary
+        expr: order_key
     dimensions:
       - name: order_status_dim
         type: categorical
         expr: status
       - name: is_cancelled_order
-        type: categorical
-        expr: case when status = 'Cancelled' then 1 else 0 end
-      - name: is_large_order
         type: categorical
         expr: case when status = 'Cancelled' then 1 else 0 end
 
