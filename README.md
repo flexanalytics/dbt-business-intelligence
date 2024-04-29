@@ -412,6 +412,20 @@ Here is a list of concepts that were covered in this repo.
 * **Fact and Dimension tables** - create standard fact (measure) and dimension tables with constraints
 
 
+### Semantic Models
+
+* **Semantic Model Configuration** - define semantic models in [semantic_models.yml](./models/semantic_models.yml) allow for unified analytics through standardized metrics.
+* This has [a few pre-requisites](https://docs.getdbt.com/docs/use-dbt-semantic-layer/setup-sl#prerequisites), including using dbt cloud on at least a Team level
+* - expr
+- entities
+- measures
+- dimensions
+- metrics
+- saved_queries
+- exports
+- (obviously) have to push and run from cloud
+
+
 ## [beta] Observability
 
 This project includes [observability](https://www.ibm.com/topics/data-observability) via the new [flex_observability](https://github.com/flexanalytics/flex_observability) package, which is built on top of the robust [elementary](https://www.elementary-data.com/) observability environment. This is disabled by default, but can be enabled by changing `enabled` to `true` in the `dbt_project.yml` file. The schemas can also be modified to fit your project's needs.
