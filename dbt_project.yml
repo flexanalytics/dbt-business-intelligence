@@ -29,6 +29,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 vars:
   company_name: 'Bigstore Enterprises'
   company_start_date: '2019-01-01'
+  "dbt_observability:enabled": true
+  "dbt_observability:column_stats_type": "METRIC"
+  "dbt_observability:column_values_max": 10
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -44,24 +47,11 @@ models:
     staging:
       +schema: staging
       +materialized: view
-  observability:
+  dbt_observability:
     +enabled: true
-    +materialized: table
-    tags: ['observability']
     +schema: observability
-    staging:
-      +materialized: view
-      tags: ['observability']
-      +schema: observability
-    views:
-      +materialized: view
-      tags: ['observability']
-      +schema: observability
-  elementary:
-    +enabled: true
-    +materialized: table
-    tags: ['observability']
-    +schema: 'observability_base'
+    sources:
+      +enabled: true
 
 seeds:
   dbt_business_intelligence:
@@ -72,3 +62,6 @@ dispatch:
     search_order: ['tsql_utils', 'dbt_utils']
   - macro_namespace: dbt_date
     search_order: ['tsql_utils', 'dbt_date']
+
+on-run-end:
+  - "{{ dbt_observability.upload_results(results) }}"
