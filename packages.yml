@@ -6,4 +6,4 @@
   - package: dbt-msft/tsql_utils
     version: 0.9.0
   - git: "https://github.com/flexanalytics/dbt_observability.git"
-    revision: 1.4.4
+    revision: 1.4.5
