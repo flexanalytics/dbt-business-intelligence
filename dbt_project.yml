@@ -30,7 +30,7 @@ vars:
   company_name: 'Bigstore Enterprises'
   company_start_date: '2019-01-01'
   "dbt_observability:enabled": true
-  "dbt_observability:column_stats_type": "METRIC"
+  "dbt_observability:column_stats_type": "DOC"
   "dbt_observability:column_values_max": 10
 
 # Configuring models
@@ -52,6 +52,8 @@ models:
     +schema: observability
     sources:
       +enabled: true
+  +grants:
+    select: ['business_analyst_role']
 
 seeds:
   dbt_business_intelligence:
