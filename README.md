@@ -428,29 +428,25 @@ Here is a list of concepts that were covered in this repo.
 
 ## [beta] Observability
 
-This project includes [observability](https://www.ibm.com/topics/data-observability) via the new [flex_observability](https://github.com/flexanalytics/flex_observability) package, which is built on top of the robust [elementary](https://www.elementary-data.com/) observability environment. This is disabled by default, but can be enabled by changing `enabled` to `true` in the `dbt_project.yml` file. The schemas can also be modified to fit your project's needs.
+This project includes [observability](https://www.ibm.com/topics/data-observability) via the [dbt_observability](https://github.com/flexanalytics/dbt_observability) package for a robust observability environment. This is disabled by default, but can be enabled by changing `enabled` to `true` in the `dbt_project.yml` file. The schemas can also be modified to fit your project's needs.
 
 ```yml
 ...
-  observability:
-    +enabled: true # <- enable here
-    tags: ['observability']
-    materialized: table
-    schema: observability
-    staging:
-      materialized: table
-      schema: observability_staging
-    views:
-      materialized: view
-      schema: observability_views
-  elementary:
-    +enabled: true # <- enable here
-    tags: ['observability']
-    schema: observability_base
+vars:
+  "dbt_observability:enabled": true
+  "dbt_observability:column_stats_type": "DOC"
+  "dbt_observability:column_values_max": 10
 ...
+models:
+  ...
+  dbt_observability:
+    +enabled: true
+    +schema: observability
+    sources:
+      +enabled: true
 ```
 
-This will enable elementary base tables to get metadata on your dbt models, tests, seeds, snapshots, and runs. `flex_observability` then creates a set of staging tables and kimball-style dimension and fact tables as well as canned observability reports via views which can be built upon for your own observability reporting. Make sure to keep an eye on new releases from [flex_observability](https://github.com/flexanalytics/flex_observability/releases) as new (and potentially breaking) changes are introduced.
+This will enable elementary base tables to get metadata on your dbt models, tests, seeds, snapshots, and runs. `dbt_observability` then creates a set of staging tables and kimball-style dimension and fact tables as well as canned observability reports via views which can be built upon for your own observability reporting. Make sure to keep an eye on new releases from [dbt_observability](https://github.com/flexanalytics/dbt_observability/releases) as new (and potentially breaking) changes are introduced.
 
 ## Let's Collaborate
 
