@@ -23,6 +23,7 @@ with sales_data as (
         price,
         sales,
         target,
+        target - sales as sales_to_target,
         data_loaded_at
     from {{ ref('stg_sales_data') }}
 ),
@@ -46,7 +47,8 @@ final as (
         quantity,
         price,
         sales,
-        target
+        target,
+        sales_to_target
     from sales_data
 
 )
