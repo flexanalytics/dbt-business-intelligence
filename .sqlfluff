@@ -1,0 +1,74 @@
+[sqlfluff]
+# One of [raw|jinja|python|placeholder]
+dialect = redshift
+templater = dbt
+sql_file_exts = .sql
+max_line_length = 120
+exclude_rules = ST06
+
+# If using the dbt templater, we recommend setting the project dir.
+[sqlfluff:templater:dbt]
+project_dir = ./
+
+[sqlfluff:layout:type:comma]
+spacing_before = touch
+line_position = trailing
+
+[sqlfluff:indentation]
+#See https://docs.sqlfluff.com/en/stable/layout.html#configuring-indent-locations
+# https://docs.sqlfluff.com/en/stable/layout.html#implicitindents
+allow_implicit_indents = True
+indented_ctes = True
+
+#class Rule_CP01  Alias L010
+[sqlfluff:rules:capitalisation.keywords]
+# https://docs.sqlfluff.com/en/latest/rules.html#sqlfluff.rules.sphinx.Rule_CP01
+#The capitalisation policy to enforce
+capitalisation_policy = lower
+
+#class Rule_CP02 Alias L014
+[sqlfluff:rules:capitalisation.identifiers]
+# https://docs.sqlfluff.com/en/latest/rules.html#sqlfluff.rules.sphinx.Rule_CP02
+capitalisation_policy = lower
+unquoted_identifiers_policy = all
+
+#class Rule_CP03 Alias L030
+[sqlfluff:rules:capitalisation.functions]
+# https://docs.sqlfluff.com/en/latest/rules.html#sqlfluff.rules.sphinx.Rule_CP02
+#The capitalisation policy to enforce
+extended_capitalisation_policy = lower
+#Types of unquoted identifiers to flag violations for.
+unquoted_identifiers_policy = all
+
+#class Rule_AL06 Alias L030
+[sqlfluff:rules:aliasing.length]
+# https://docs.sqlfluff.com/en/latest/rules.html#sqlfluff.rules.sphinx.Rule_AL06
+# AL07 is too rigid, but also do not allow 1 character aliases
+min_alias_length = 3
+max_alias_length = 100
+
+#class Rule_AM05 Alias L051
+[sqlfluff:rules:ambiguous.join]
+# https://docs.sqlfluff.com/en/latest/rules.html#sqlfluff.rules.sphinx.Rule_AM05
+# Join clauses should be fully qualified.
+fully_qualify_join_types = both
+
+#class Rule_AM06 Alias L054
+[sqlfluff:rules:ambiguous.column_references]
+# https://docs.sqlfluff.com/en/latest/rules.html#sqlfluff.rules.sphinx.Rule_AM06
+# Inconsistent column references in GROUP BY/ORDER BY clauses.
+# GROUP BY/ORDER BY column references
+group_by_and_order_by_style = implicit
+
+#class CVB10  Alias L064
+[sqlfluff:rules:convention.quoted_literals]
+# https://docs.sqlfluff.com/en/stable/rules.html#rule-CV10
+# Consistent usage of preferred quotes for quoted literals
+force_enable = True
+preferred_quoted_literal_style = single_quotes
+
+#class LT03  Alias L007
+[sqlfluff:rules:layout.operators]
+# https://docs.sqlfluff.com/en/stable/rules.html#rule-LT03
+# Operators should follow a standard for being after newlines
+foperator_new_lines = after

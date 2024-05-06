@@ -5,3 +5,4 @@ logs/
 .DS_Store
 .user.yml
 package-lock.yml
+*pre-commit*

@@ -1,0 +1,11 @@
+# dbt output files
+target/
+# dbt <1.0.0
+dbt_modules/
+# dbt >=1.0.0
+dbt_packages/
+
+# other
+analyses/
+macros/
+.venv/
