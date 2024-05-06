@@ -141,6 +141,17 @@ models:
               format:
                 type: number
                 decimalPlaces: 2
+      - name: sales_to_target
+        data_type: float
+        meta:
+          metrics:
+            sales_to_target:
+              label: 'Sales to Target'
+              type: sum
+              description: "Sum of target less actual sales revenue"
+              format:
+                type: number
+                decimalPlaces: 2
 
   - name: dim_customer
     description: "{{ doc('dim_customer') }}"
