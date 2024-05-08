@@ -44,7 +44,6 @@ with
             {{ dbt_utils.generate_surrogate_key(['product_code']) }} as product_key,
             {{ dbt_utils.generate_surrogate_key(['order_date']) }} as date_key,
             order_date as date_day,
-            quantity::float,
             price,
             sales,
             target,
