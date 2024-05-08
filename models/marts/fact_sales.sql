@@ -47,9 +47,7 @@ with
             quantity,
             price,
             sales,
-            target,
-            (target - sales) as sales_to_target,
-            (sales / target) as sales_to_target_ratio
+            target
         from sales_data
 
     )
