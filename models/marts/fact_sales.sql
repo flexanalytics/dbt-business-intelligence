@@ -47,7 +47,8 @@ with
             quantity,
             price,
             sales,
-            target
+            target,
+            (target - sales) as actual_vs_target
         from sales_data
 
     )
