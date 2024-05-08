@@ -56,7 +56,7 @@ semantic_models:
         expr: target
         create_metric: true
       - name: actual_vs_target
-        label: Target
+        label: Actual vs Target
         description: Target minus actual sales revenue
         agg: sum
         agg_time_dimension: date_day
