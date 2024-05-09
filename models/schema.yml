@@ -141,17 +141,6 @@ models:
               format:
                 type: number
                 decimalPlaces: 2
-      - name: actual_vs_target
-        data_type: float
-        meta:
-          metrics:
-            actual_vs_target:
-              label: 'Target vs Actual'
-              type: sum
-              description: "Target minus actual sales revenue"
-              format:
-                type: number
-                decimalPlaces: 2
 
   - name: dim_customer
     description: "{{ doc('dim_customer') }}"
