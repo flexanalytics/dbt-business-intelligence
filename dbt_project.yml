@@ -32,7 +32,7 @@ vars:
   "dbt_observability:enabled": true
   "dbt_observability:column_stats_type": "DOC"
   "dbt_observability:column_values_max": 10
-   dbt_observability_path: "models/marts/" # must be in the form of "dbt_observability_path": "path/subpath/" or "dbt_observability_path":
+  dbt_observability_path: "models/marts/" # must be in the form of "dbt_observability_path": "path/subpath/" or "dbt_observability_path":
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
