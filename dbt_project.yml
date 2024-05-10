@@ -32,6 +32,7 @@ vars:
   "dbt_observability:enabled": true
   "dbt_observability:column_stats_type": "DOC"
   "dbt_observability:column_values_max": 10
+  dbt_observability_path: 
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
