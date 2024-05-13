@@ -29,11 +29,11 @@ clean-targets:         # directories to be removed by `dbt clean`
 vars:
   company_name: 'Bigstore Enterprises'
   company_start_date: '2019-01-01'
-  "dbt_observability:enabled": true
+  "dbt_observability:enabled": false
   "dbt_observability:column_stats_type": "DOC"
   "dbt_observability:column_values_max": 10
   "dbt_observability:path": "models/marts/" # must be in the form of "dbt_observability_path": "path/subpath/" or "dbt_observability_path":
-  "dbt_observability:materialization": "table" # must be one of "table", "view", "incremental", "ephemeral" or "dbt_observability:materialization": 
+  "dbt_observability:materialization": "table" # must be one of "table", "view", "incremental", "ephemeral" or "dbt_observability:materialization":
 
 
 # Configuring models
@@ -51,10 +51,10 @@ models:
       +schema: staging
       +materialized: view
   dbt_observability:
-    +enabled: true
+    +enabled: false
     +schema: observability
     sources:
-      +enabled: true
+      +enabled: false
   +grants:
     select: ['business_analyst_role']
 
