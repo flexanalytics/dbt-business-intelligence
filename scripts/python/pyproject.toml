@@ -1,0 +1,16 @@
+[project]
+name = "afs-example"
+version = "0.1.0"
+description = "Example for using ADBC to query Semantic Layer."
+python = ">=3.9"
+
+dependencies = [
+  "adbc-driver-flightsql",
+  "pyarrow",
+  "pandas",
+  "httpx[http2]"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

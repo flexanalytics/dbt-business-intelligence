@@ -1,9 +1,9 @@
-packages:
+ packages:
   - package: dbt-labs/dbt_utils
     version: 1.1.1
   - package: calogica/dbt_date
     version: 0.10.0
   - package: dbt-msft/tsql_utils
     version: 0.9.0
-  - git: "https://github.com/flexanalytics/flex_observability.git"
-    revision: v0.2.0
+  - git: "https://github.com/flexanalytics/dbt_observability.git"
+    revision: 1.4.0
