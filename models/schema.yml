@@ -93,6 +93,7 @@ models:
         data_type: date
         meta:
           hidden: true
+      #column yaml not required and meta.metrics is ignored if it is a dbt metric
       - name: price
         data_type: float
         meta:
