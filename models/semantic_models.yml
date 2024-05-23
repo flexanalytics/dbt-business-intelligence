@@ -37,7 +37,7 @@ semantic_models:
         create_metric: true
       - name: quantity
         label: Quantity
-        expr: 1
+        expr: quantity
         agg: sum
         agg_time_dimension: date_day
         create_metric: true
@@ -136,6 +136,13 @@ metrics:
     description: Percentage of actual sales to target sales
     type_params:
       measure: sales_to_target
+    meta:
+      format:
+        type: percent
+        decimalPlaces: 1
+        suffix: "%"
+      synonyms:
+        - Sales Coverage Ratio
 
 saved_queries:
   - name: order_metrics
