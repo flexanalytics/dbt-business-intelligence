@@ -1,544 +1,545 @@
 version: 2
 
-models:
-  - name: fact_sales
-    description: "{{ doc('fact_sales') }}"
-    config:
-      contract:
-        enforced: true
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - customer_key
-            - order_key
-            - product_key
-            - date_key
-    meta:
-      label: Sales Fact
-      display_index: 1
-      # columns.tests.relationships will override meta.joins, but tests are not available in the cloud Metadata API
-      joins:
-        - to: dim_customer
-          type: inner #inner, left, right, full; default 'inner'
-          join_on:
-            - from_field: customer_key
-              exp: '=' #optional; default '='; '=','<>'
-              to_field: customer_key
-        - to: dim_order
-          type: inner
-          join_on:
-            - from_field: order_key
-              to_field: order_key
-        - to: dim_product
-          type: inner
-          join_on:
-            - from_field: product_key
-              to_field: product_key
-        - to: dim_date
-          type: inner
-          join_on:
-            - from_field: date_key
-              to_field: date_key
-    columns:
-      - name: fact_sales_key
-        data_type: text
-        meta:
-          hidden: true
-        constraints:
-          - type: not_null
-          - type: primary_key
-            warn_unenforced: false
-      - name: customer_key
-        data_type: text
-        meta:
-          hidden: true
-        constraints:
-          - type: not_null
-        tests:
-          - not_null
-          - relationships: #JOINS the dbt integrity way
-              to: ref('dim_customer')
-              field: customer_key
-      - name: order_key
-        data_type: text
-        meta:
-          hidden: true
-        constraints:
-          - type: not_null
-        tests:
-          - relationships:
-              to: ref('dim_order')
-              field: order_key
-      - name: product_key
-        data_type: text
-        meta:
-          hidden: true
-        constraints:
-          - type: not_null
-        tests:
-          - relationships:
-              to: ref('dim_product')
-              field: product_key
-      - name: date_key
-        data_type: text
-        meta:
-          hidden: true
-        constraints:
-          - type: not_null
-        tests:
-          - relationships:
-              to: ref('dim_date')
-              field: date_key
-      - name: date_day
-        data_type: date
-        meta:
-          hidden: true
-      #column yaml not required and meta.metrics is ignored if it is a dbt metric
-      - name: price
-        data_type: float
-        meta:
-          metrics:
-            price:
-              label: 'Price'
-              type: average
-              description: "Average price"
-              format:
-                type: number
-                decimalPlaces: 2
-      - name: quantity
-        data_type: integer
-        meta:
-          metrics:
-            quantity:
-              label: 'Quantity'
-              type: sum
-              description: "Sum of quantity sold"
-              format:
-                type: number
-                decimalPlaces: 0
-      - name: sales
-        data_type: float
-        meta:
-          metrics:
-            sales:
-              label: 'Sales'
-              type: sum
-              description: "Sum of total sales revenue"
-              format:
-                type: number
-                decimalPlaces: 2
-              synonyms: # for business searching and natural language processing
-                - Revenue
-                - Proceeds
-                - Receipts
-      - name: target
-        data_type: float
-        meta:
-          metrics:
-            target:
-              label: 'Target'
-              type: sum
-              description: "Sum of target sales revenue"
-              format:
-                type: number
-                decimalPlaces: 2
+dbt_business_intelligence:
+  models:
+    - name: fact_sales
+      description: "{{ doc('fact_sales') }}"
+      config:
+        contract:
+          enforced: true
+      tests:
+        - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - customer_key
+              - order_key
+              - product_key
+              - date_key
+      meta:
+        label: Sales Fact
+        display_index: 1
+        # columns.tests.relationships will override meta.joins, but tests are not available in the cloud Metadata API
+        joins:
+          - to: dim_customer
+            type: inner #inner, left, right, full; default 'inner'
+            join_on:
+              - from_field: customer_key
+                exp: '=' #optional; default '='; '=','<>'
+                to_field: customer_key
+          - to: dim_order
+            type: inner
+            join_on:
+              - from_field: order_key
+                to_field: order_key
+          - to: dim_product
+            type: inner
+            join_on:
+              - from_field: product_key
+                to_field: product_key
+          - to: dim_date
+            type: inner
+            join_on:
+              - from_field: date_key
+                to_field: date_key
+      columns:
+        - name: fact_sales_key
+          data_type: text
+          meta:
+            hidden: true
+          constraints:
+            - type: not_null
+            - type: primary_key
+              warn_unenforced: false
+        - name: customer_key
+          data_type: text
+          meta:
+            hidden: true
+          constraints:
+            - type: not_null
+          tests:
+            - not_null
+            - relationships: #JOINS the dbt integrity way
+                to: ref('dim_customer')
+                field: customer_key
+        - name: order_key
+          data_type: text
+          meta:
+            hidden: true
+          constraints:
+            - type: not_null
+          tests:
+            - relationships:
+                to: ref('dim_order')
+                field: order_key
+        - name: product_key
+          data_type: text
+          meta:
+            hidden: true
+          constraints:
+            - type: not_null
+          tests:
+            - relationships:
+                to: ref('dim_product')
+                field: product_key
+        - name: date_key
+          data_type: text
+          meta:
+            hidden: true
+          constraints:
+            - type: not_null
+          tests:
+            - relationships:
+                to: ref('dim_date')
+                field: date_key
+        - name: date_day
+          data_type: date
+          meta:
+            hidden: true
+        #column yaml not required and meta.metrics is ignored if it is a dbt metric
+        - name: price
+          data_type: float
+          meta:
+            metrics:
+              price:
+                label: 'Price'
+                type: average
+                description: "Average price"
+                format:
+                  type: number
+                  decimalPlaces: 2
+        - name: quantity
+          data_type: integer
+          meta:
+            metrics:
+              quantity:
+                label: 'Quantity'
+                type: sum
+                description: "Sum of quantity sold"
+                format:
+                  type: number
+                  decimalPlaces: 0
+        - name: sales
+          data_type: float
+          meta:
+            metrics:
+              sales:
+                label: 'Sales'
+                type: sum
+                description: "Sum of total sales revenue"
+                format:
+                  type: number
+                  decimalPlaces: 2
+                synonyms: # for business searching and natural language processing
+                  - Revenue
+                  - Proceeds
+                  - Receipts
+        - name: target
+          data_type: float
+          meta:
+            metrics:
+              target:
+                label: 'Target'
+                type: sum
+                description: "Sum of target sales revenue"
+                format:
+                  type: number
+                  decimalPlaces: 2
 
-  - name: dim_customer
-    description: "{{ doc('dim_customer') }}"
-    config:
-      contract:
-        enforced: true
-    meta:
-      label: Customer
-      display_index: 4
-    columns:
-      - name: customer_key
-        data_type: text
-        meta:
-          label: customer_key
-          hidden: true
-        constraints:
-          - type: not_null
-          - type: primary_key
-            warn_unenforced: false
-      - name: customer_code
-        data_type: text
-        meta:
-          label: Customer Id
-      - name: customer_name
-        data_type: text
-        meta:
-          label: Customer Name
-          synonyms: # for business searching and natural language processing
-            - Customer
-            - Who
-      - name: address
-        data_type: text
-        meta:
-          label: Address
-      - name: postal_code
-        data_type: text
-        meta:
-          label: Postal Code
-      - name: country
-        data_type: text
-        meta:
-          label: Country
-      - name: latitude
-        data_type: text
-        meta:
-          label: Latitude
-      - name: longitude
-        data_type: text
-        meta:
-          label: Longitude
-      - name: contact_name
-        data_type: text
-        meta:
-          label: Contact Name
-      - name: phone
-        data_type: text
-        meta:
-          label: Phone
-      - name: email
-        data_type: text
-        meta:
-          label: Email
+    - name: dim_customer
+      description: "{{ doc('dim_customer') }}"
+      config:
+        contract:
+          enforced: true
+      meta:
+        label: Customer
+        display_index: 4
+      columns:
+        - name: customer_key
+          data_type: text
+          meta:
+            label: customer_key
+            hidden: true
+          constraints:
+            - type: not_null
+            - type: primary_key
+              warn_unenforced: false
+        - name: customer_code
+          data_type: text
+          meta:
+            label: Customer Id
+        - name: customer_name
+          data_type: text
+          meta:
+            label: Customer Name
+            synonyms: # for business searching and natural language processing
+              - Customer
+              - Who
+        - name: address
+          data_type: text
+          meta:
+            label: Address
+        - name: postal_code
+          data_type: text
+          meta:
+            label: Postal Code
+        - name: country
+          data_type: text
+          meta:
+            label: Country
+        - name: latitude
+          data_type: text
+          meta:
+            label: Latitude
+        - name: longitude
+          data_type: text
+          meta:
+            label: Longitude
+        - name: contact_name
+          data_type: text
+          meta:
+            label: Contact Name
+        - name: phone
+          data_type: text
+          meta:
+            label: Phone
+        - name: email
+          data_type: text
+          meta:
+            label: Email
 
-  - name: dim_order
-    description: "{{ doc('dim_order') }}"
-    config:
-      contract:
-        enforced: true
-    meta:
-      label: Order
-      display_index: 2
-    columns:
-      - name: order_key
-        data_type: text
-        meta:
-          label: order_key
-          hidden: true
-        constraints:
-          - type: not_null
-          - type: primary_key
-            warn_unenforced: false
-      - name: order_number
-        data_type: integer
-        meta:
-          label: Order Number
-      - name: order_line_number
-        data_type: integer
-        meta:
-          label: Order Line Number
-      - name: order_date
-        data_type: date
-        description: "Date of the order after {{ var('company_name') }} started on {{ var('company_start_date') }}"
-        meta:
-          label: Order Date
-      - name: status
-        data_type: text
-        description: "Status can be one of the following values: 'Cancelled', 'Delivered', 'Shipped'"
-        meta:
-          label: Order Status
-        tests:
-          - accepted_values:
-              values: ['Cancelled','Delivered','Shipped']
+    - name: dim_order
+      description: "{{ doc('dim_order') }}"
+      config:
+        contract:
+          enforced: true
+      meta:
+        label: Order
+        display_index: 2
+      columns:
+        - name: order_key
+          data_type: text
+          meta:
+            label: order_key
+            hidden: true
+          constraints:
+            - type: not_null
+            - type: primary_key
+              warn_unenforced: false
+        - name: order_number
+          data_type: integer
+          meta:
+            label: Order Number
+        - name: order_line_number
+          data_type: integer
+          meta:
+            label: Order Line Number
+        - name: order_date
+          data_type: date
+          description: "Date of the order after {{ var('company_name') }} started on {{ var('company_start_date') }}"
+          meta:
+            label: Order Date
+        - name: status
+          data_type: text
+          description: "Status can be one of the following values: 'Cancelled', 'Delivered', 'Shipped'"
+          meta:
+            label: Order Status
+          tests:
+            - accepted_values:
+                values: ['Cancelled','Delivered','Shipped']
 
-  - name: dim_product
-    description: "{{ doc('dim_product') }}"
-    config:
-      contract:
-        enforced: true
-    meta:
-      label: Product
-      display_index: 3
-    columns:
-      - name: product_key
-        data_type: text
-        meta:
-          hidden: true
-        constraints:
-          - type: not_null
-          - type: primary_key
-            warn_unenforced: false
-      - name: product_code
-        data_type: text
-        meta:
-          label: Product Code
-      - name: product_name
-        data_type: text
-        meta:
-          label: Product Name
-          synonyms: # for business searching and natural language processing
-            - Product
-            - What
-      - name: product_category
-        data_type: text
-        meta:
-          label: Product Category
-          synonyms: # for business searching and natural language processing
-            - Product Type
-            - Product Line
-      - name: msrp
-        data_type: integer
-        meta:
-          label: MSRP
-          format:
-            type: number
-            decimalPlaces: 2
-            prefix: "$"
-      - name: recent_order_date
-        data_type: date
-        meta:
-          label: Recent Order Date
-      - name: first_order_date
-        data_type: date
-        meta:
-          label: First Order Date
+    - name: dim_product
+      description: "{{ doc('dim_product') }}"
+      config:
+        contract:
+          enforced: true
+      meta:
+        label: Product
+        display_index: 3
+      columns:
+        - name: product_key
+          data_type: text
+          meta:
+            hidden: true
+          constraints:
+            - type: not_null
+            - type: primary_key
+              warn_unenforced: false
+        - name: product_code
+          data_type: text
+          meta:
+            label: Product Code
+        - name: product_name
+          data_type: text
+          meta:
+            label: Product Name
+            synonyms: # for business searching and natural language processing
+              - Product
+              - What
+        - name: product_category
+          data_type: text
+          meta:
+            label: Product Category
+            synonyms: # for business searching and natural language processing
+              - Product Type
+              - Product Line
+        - name: msrp
+          data_type: integer
+          meta:
+            label: MSRP
+            format:
+              type: number
+              decimalPlaces: 2
+              prefix: "$"
+        - name: recent_order_date
+          data_type: date
+          meta:
+            label: Recent Order Date
+        - name: first_order_date
+          data_type: date
+          meta:
+            label: First Order Date
 
-  - name: dim_date
-    description: The Order Date dimension allows you to analyze metrics across time periods at many levels of granularity (year, quarter, month, day).
-    config:
-      contract:
-        enforced: true
-    meta:
-      label: Order Date
-      display_index: 5
-    columns:
-      - name: date_key
-        data_type: text
-        meta:
-          label: date_key
-          hidden: true
-        constraints:
-          - type: not_null
-          - type: primary_key
-            warn_unenforced: false
-      - name: date_day
-        data_type: date
-        meta:
-          label: Order Date
-          display_index: 1
-      - name: prior_date_day
-        data_type: date
-        meta:
-          label: Prior Date Day
-          hidden: true
-          format:
-            type: date
-            pattern: 'MMM D, YYYY'
-      - name: next_date_day
-        data_type: date
-        meta:
-          hidden: true
-          label: Next Date Day
-      - name: prior_year_date_day
-        data_type: date
-        meta:
-          hidden: true
-          label: Prior Year Date Day
-          grain: off # time interval grain; values 'off', 'day', 'week', 'month', 'quarter', 'year'
-      - name: prior_year_over_year_date_day
-        data_type: date
-        meta:
-          hidden: true
-          label: Prior Year Over Year Date Day
-      - name: day_of_week
-        data_type: integer
-        meta:
-          hidden: true
-          label: Day Of Week
-      - name: day_of_week_name
-        data_type: text
-        meta:
-          hidden: true
-          label: Day Of Week Name
-      - name: day_of_week_name_short
-        data_type: text
-        meta:
-          hidden: true
-          label: Day Of Week Name Short
-      - name: day_of_month
-        data_type: float
-        meta:
-          label: Day Of Month
-      - name: day_of_year
-        data_type: bigint
-        meta:
-          label: Day Of Year
-      - name: date_week # week_start_date
-        data_type: date
-        meta:
-          label: Week Start Date
-          grain: off
-      - name: week_end_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Week End Date
-      - name: prior_year_week_start_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Prior Year Week Start Date
-      - name: prior_year_week_end_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Prior Year Week End Date
-      - name: week_of_year
-        data_type: integer
-        meta:
-          hidden: true
-          label: Week Of Year
-      - name: iso_week_start_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Iso Week Start Date
-      - name: iso_week_end_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Iso Week End Date
-      - name: prior_year_iso_week_start_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Prior Year Iso Week Start Date
-      - name: prior_year_iso_week_end_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Prior Year Iso Week End Date
-      - name: iso_week_of_year
-        data_type: integer
-        meta:
-          hidden: true
-          label: Iso Week Of Year
-      - name: prior_year_week_of_year
-        data_type: integer
-        meta:
-          hidden: true
-          label: Prior Year Week Of Year
-      - name: prior_year_iso_week_of_year
-        data_type: integer
-        meta:
-          hidden: true
-          label: Prior Year Iso Week Of Year
-      - name: month_of_year
-        data_type: integer
-        meta:
-          label: Month Num
-      - name: month_name
-        data_type: text
-        meta:
-          label: Month Name
-      - name: month_name_short
-        data_type: text
-        meta:
-          label: Month Name Short
-      - name: date_month # month_start_date
-        data_type: date
-        meta:
-          label: Month Start Date
-          grain: off
-      - name: month_end_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Month End Date
-      - name: prior_year_month_start_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Prior Year Month Start Date
-      - name: prior_year_month_end_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Prior Year Month End Date
-      - name: quarter_of_year
-        data_type: integer
-        meta:
-          label: Quarter Num
-      - name: date_quarter # quarter_start_date
-        data_type: date
-        meta:
-          label: Quarter Start Date
-          grain: off
-      - name: quarter_end_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Quarter End Date
-      - name: year_number
-        data_type: integer
-        meta:
-          label: Year Num
-          display_index: 2
-      - name: date_year # year_start_date
-        data_type: date
-        meta:
-          label: Year Start Date
-          grain: off
-      - name: year_end_date
-        data_type: date
-        meta:
-          hidden: true
-          label: Year End Date
+    - name: dim_date
+      description: The Order Date dimension allows you to analyze metrics across time periods at many levels of granularity (year, quarter, month, day).
+      config:
+        contract:
+          enforced: true
+      meta:
+        label: Order Date
+        display_index: 5
+      columns:
+        - name: date_key
+          data_type: text
+          meta:
+            label: date_key
+            hidden: true
+          constraints:
+            - type: not_null
+            - type: primary_key
+              warn_unenforced: false
+        - name: date_day
+          data_type: date
+          meta:
+            label: Order Date
+            display_index: 1
+        - name: prior_date_day
+          data_type: date
+          meta:
+            label: Prior Date Day
+            hidden: true
+            format:
+              type: date
+              pattern: 'MMM D, YYYY'
+        - name: next_date_day
+          data_type: date
+          meta:
+            hidden: true
+            label: Next Date Day
+        - name: prior_year_date_day
+          data_type: date
+          meta:
+            hidden: true
+            label: Prior Year Date Day
+            grain: off # time interval grain; values 'off', 'day', 'week', 'month', 'quarter', 'year'
+        - name: prior_year_over_year_date_day
+          data_type: date
+          meta:
+            hidden: true
+            label: Prior Year Over Year Date Day
+        - name: day_of_week
+          data_type: integer
+          meta:
+            hidden: true
+            label: Day Of Week
+        - name: day_of_week_name
+          data_type: text
+          meta:
+            hidden: true
+            label: Day Of Week Name
+        - name: day_of_week_name_short
+          data_type: text
+          meta:
+            hidden: true
+            label: Day Of Week Name Short
+        - name: day_of_month
+          data_type: float
+          meta:
+            label: Day Of Month
+        - name: day_of_year
+          data_type: bigint
+          meta:
+            label: Day Of Year
+        - name: date_week # week_start_date
+          data_type: date
+          meta:
+            label: Week Start Date
+            grain: off
+        - name: week_end_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Week End Date
+        - name: prior_year_week_start_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Prior Year Week Start Date
+        - name: prior_year_week_end_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Prior Year Week End Date
+        - name: week_of_year
+          data_type: integer
+          meta:
+            hidden: true
+            label: Week Of Year
+        - name: iso_week_start_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Iso Week Start Date
+        - name: iso_week_end_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Iso Week End Date
+        - name: prior_year_iso_week_start_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Prior Year Iso Week Start Date
+        - name: prior_year_iso_week_end_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Prior Year Iso Week End Date
+        - name: iso_week_of_year
+          data_type: integer
+          meta:
+            hidden: true
+            label: Iso Week Of Year
+        - name: prior_year_week_of_year
+          data_type: integer
+          meta:
+            hidden: true
+            label: Prior Year Week Of Year
+        - name: prior_year_iso_week_of_year
+          data_type: integer
+          meta:
+            hidden: true
+            label: Prior Year Iso Week Of Year
+        - name: month_of_year
+          data_type: integer
+          meta:
+            label: Month Num
+        - name: month_name
+          data_type: text
+          meta:
+            label: Month Name
+        - name: month_name_short
+          data_type: text
+          meta:
+            label: Month Name Short
+        - name: date_month # month_start_date
+          data_type: date
+          meta:
+            label: Month Start Date
+            grain: off
+        - name: month_end_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Month End Date
+        - name: prior_year_month_start_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Prior Year Month Start Date
+        - name: prior_year_month_end_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Prior Year Month End Date
+        - name: quarter_of_year
+          data_type: integer
+          meta:
+            label: Quarter Num
+        - name: date_quarter # quarter_start_date
+          data_type: date
+          meta:
+            label: Quarter Start Date
+            grain: off
+        - name: quarter_end_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Quarter End Date
+        - name: year_number
+          data_type: integer
+          meta:
+            label: Year Num
+            display_index: 2
+        - name: date_year # year_start_date
+          data_type: date
+          meta:
+            label: Year Start Date
+            grain: off
+        - name: year_end_date
+          data_type: date
+          meta:
+            hidden: true
+            label: Year End Date
 
-  - name: stg_customer
-    meta:
-      hidden: true
+    - name: stg_customer
+      meta:
+        hidden: true
 
-  - name: stg_order
-    meta:
-      hidden: true
+    - name: stg_order
+      meta:
+        hidden: true
 
-  - name: stg_product
-    meta:
-      hidden: true
+    - name: stg_product
+      meta:
+        hidden: true
 
-  - name: stg_date_dimension
-    meta:
-      hidden: true
+    - name: stg_date_dimension
+      meta:
+        hidden: true
 
-  - name: stg_sales_data
-    meta:
-      hidden: true
-      # these joins are only to demonstrate the possibilities; the stg models will be hidden in BI tool;
-      joins:
-        - to: stg_customer
-          type: left #inner, left, right, full
-          join_on: #allows for multiple columns
-            - from_field: customer_name
-              exp: '=' #optional; default '='; '=','<>'
-              to_field: customer_name
-            - to_field: phone
-              exp: '='
-              from_field: 'phone'
-              operator: OR #optional; default 'AND'; 'AND', 'OR' 'NOT'; TODO: grouping
-        - to: stg_order
-          type: right
-          join_on:
-            - from_field: order_number
-              exp: '='
-              to_field: order_number
-            - to_field: order_line_number
-              exp: '='
-              from_field: order_line_number
-              operator: AND
-        - to: stg_product
-          type: inner
-          join_on:
-            - from_field: product_code
-              exp: '='
-              to_field: product_code
-        - to: stg_date_dimension
-          type: full
-          join_on:
-            - from_field: order_date
-              exp: '='
-              to_field: date_day
+    - name: stg_sales_data
+      meta:
+        hidden: true
+        # these joins are only to demonstrate the possibilities; the stg models will be hidden in BI tool;
+        joins:
+          - to: stg_customer
+            type: left #inner, left, right, full
+            join_on: #allows for multiple columns
+              - from_field: customer_name
+                exp: '=' #optional; default '='; '=','<>'
+                to_field: customer_name
+              - to_field: phone
+                exp: '='
+                from_field: 'phone'
+                operator: OR #optional; default 'AND'; 'AND', 'OR' 'NOT'; TODO: grouping
+          - to: stg_order
+            type: right
+            join_on:
+              - from_field: order_number
+                exp: '='
+                to_field: order_number
+              - to_field: order_line_number
+                exp: '='
+                from_field: order_line_number
+                operator: AND
+          - to: stg_product
+            type: inner
+            join_on:
+              - from_field: product_code
+                exp: '='
+                to_field: product_code
+          - to: stg_date_dimension
+            type: full
+            join_on:
+              - from_field: order_date
+                exp: '='
+                to_field: date_day
