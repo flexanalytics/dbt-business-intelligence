@@ -93,8 +93,9 @@ semantic_models:
     dimensions:
       - name: product_category
         type: categorical
-      - name: product_name
+      - name: product_name_dbt
         type: categorical
+        expr: product_name
         label: Product Title
       - name: is_aviation_order
         type: categorical

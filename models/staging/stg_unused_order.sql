@@ -6,4 +6,3 @@ select distinct
     order_date,
     status
 from {{ source('salesforce', 'stg_sales_data') }}
-
