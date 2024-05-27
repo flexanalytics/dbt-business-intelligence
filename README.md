@@ -80,6 +80,13 @@ To run this project (assuming you have dbt installed):
 12. Run the new job
 
 
+## Branching Strategy
+
+As shown below, our branching strategy allows for quick iteration in the uat branch from feature branches, which will build out changes in its own schema. Once changes pass uat, a PR will be open against the main branch and then reflected in production.
+
+![Branching Strategy](/assets/branching%20strategy.jpg)
+
+
 ## Connect Business Intelligence tool
 
 To see how a Business Intelligence tool can integrate with dbt using these standards, check out one of these:
