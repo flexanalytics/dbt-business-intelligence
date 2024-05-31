@@ -1,14 +1,14 @@
 [sqlfluff]
 # One of [raw|jinja|python|placeholder]
 dialect = redshift
-templater = dbt
+templater = jinja
 sql_file_exts = .sql
 max_line_length = 120
 exclude_rules = ST06
 
-# If using the dbt templater, we recommend setting the project dir.
-[sqlfluff:templater:dbt]
-project_dir = ./
+; # If using the dbt templater, we recommend setting the project dir.
+; [sqlfluff:templater:dbt]
+; project_dir = ./
 
 [sqlfluff:layout:type:comma]
 spacing_before = touch
