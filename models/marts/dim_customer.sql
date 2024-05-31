@@ -8,6 +8,10 @@ select
     latitude,
     longitude,
     contact_name,
-    phone,
-    email
+
+    phone,email
+
+
+
+    
 from {{ ref('stg_customer') }}
