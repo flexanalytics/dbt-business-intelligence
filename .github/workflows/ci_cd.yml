@@ -8,17 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Install Python
-        uses: "actions/setup-python@v2"
+        uses: "actions/setup-python@v5"
         with:
-          python-version: "3.7"
+          python-version: "3.10"
       - name: install sqlfluff
         run: "pip install -U pip && pip install sqlfluff sqlfluff-templater-dbt"
 
       - name: Lint dbt models
         id: sqlfluff_json
         shell: bash -l {0}
-        # run: git diff --name-only | egrep '\.sql' | {      while read -r file; do export DBT_PROFILES_DIR=.        sqlfluff lint --config ./.sqlfluff --dialect redshift "$file";     done; }
-        run: sqlfluff lint --config ./.sqlfluff --dialect redshift --templater jinja `git diff --name-only --cached | egrep '\.sql' | tee >([ $(wc -m) -gt 0 ] || echo 'Nothing_to_do')`
-
+        run: git diff --name-only --cached | egrep '\.sql' | { while read -r file; do sqlfluff lint --config ./.sqlfluff --dialect redshift "$file"; done; }

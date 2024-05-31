@@ -5,10 +5,10 @@ templater = jinja
 sql_file_exts = .sql
 max_line_length = 120
 exclude_rules = ST06
+ignore = templating
 
-; # If using the dbt templater, we recommend setting the project dir.
-; [sqlfluff:templater:dbt]
-; project_dir = ./
+[sqlfluff:templater:jinja]
+apply_dbt_builtins = True
 
 [sqlfluff:layout:type:comma]
 spacing_before = touch
