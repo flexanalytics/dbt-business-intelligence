@@ -21,4 +21,4 @@ jobs:
       - name: Lint dbt models
         id: sqlfluff_json
         shell: bash -l {0}
-        run: git diff --name-only --diff-filter=AMRT main HEAD | egrep '\.sql' | { while read -r file; do sqlfluff lint --config ./.sqlfluff --dialect redshift "$file"; done; }
+        run: git diff --name-only --diff-filter=AMRT refs/head/main HEAD | egrep '\.sql' | { while read -r file; do sqlfluff lint --config ./.sqlfluff --dialect redshift "$file"; done; }
