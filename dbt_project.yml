@@ -55,8 +55,6 @@ models:
     +schema: observability
     sources:
       +enabled: false
-  +grants:
-    select: ['business_analyst_role']
 
 seeds:
   dbt_business_intelligence:
@@ -64,9 +62,6 @@ seeds:
 
 dispatch:
   - macro_namespace: dbt_utils
-    search_order: ['tsql_utils', 'dbt_utils']
+    search_order: ['dbt_business_intelligence', 'tsql_utils', 'dbt_utils']
   - macro_namespace: dbt_date
-    search_order: ['tsql_utils', 'dbt_date']
-
-on-run-end:
-  - "{{ dbt_observability.upload_results(results) }}"
+    search_order: ['dbt_business_intelligence', 'tsql_utils', 'dbt_date']
