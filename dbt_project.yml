@@ -27,6 +27,7 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 vars:
+  dbt_constraints_enabled: true
   company_name: 'Bigstore Enterprises'
   company_start_date: '2019-01-01'
   "dbt_observability:enabled": false
@@ -55,8 +56,6 @@ models:
     +schema: observability
     sources:
       +enabled: false
-  +grants:
-    select: ['business_analyst_role']
 
 seeds:
   dbt_business_intelligence:
@@ -64,9 +63,9 @@ seeds:
 
 dispatch:
   - macro_namespace: dbt_utils
-    search_order: ['tsql_utils', 'dbt_utils']
+    search_order: ['dbt_business_intelligence', 'tsql_utils', 'dbt_utils']
   - macro_namespace: dbt_date
-    search_order: ['tsql_utils', 'dbt_date']
+    search_order: ['dbt_business_intelligence', 'tsql_utils', 'dbt_date']
 
 on-run-end:
   - "{{ dbt_observability.upload_results(results) }}"

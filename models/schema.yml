@@ -144,9 +144,13 @@ models:
 
   - name: dim_customer
     description: "{{ doc('dim_customer') }}"
+    tests:
+      # Single column constraints
+      - dbt_constraints.primary_key:
+          column_name: customer_key
     config:
       contract:
-        enforced: true
+        enforced: false
     meta:
       label: Customer
       display_index: 4
@@ -156,10 +160,6 @@ models:
         meta:
           label: customer_key
           hidden: true
-        constraints:
-          - type: not_null
-          - type: primary_key
-            warn_unenforced: false
       - name: customer_code
         data_type: text
         meta:

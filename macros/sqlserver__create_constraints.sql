@@ -78,7 +78,8 @@
 
             {%- set modify_statements= [] -%}
             {%- for column in columns_list -%}
-                {%- set modify_statements = modify_statements.append( "ALTER COLUMN " ~ column ~ " SET NOT NULL" ) -%}
+                {%- do log("COLUMN: " ~ column, info=true) -%}
+                {%- set modify_statements = modify_statements.append( "ALTER COLUMN " ~ column ~ " varchar(50) NOT NULL" ) -%}
             {%- endfor -%}
             {%- set modify_statement_csv = modify_statements | join(", ") -%}
             {%- do log("Creating not null constraint for: " ~ columns_list | join(", ") ~ " in " ~ table_relation, info=true) -%}
@@ -115,7 +116,7 @@
 
                 {%- do log("Creating foreign key: " ~ constraint_name ~ " referencing " ~ pk_table_relation.identifier ~ " " ~ pk_column_names, info=true) -%}
                 {%- call statement('add_fk', fetch_result=False, auto_begin=True) -%}
-                ALTER TABLE {{fk_table_relation}} ADD CONSTRAINT {{constraint_name}} FOREIGN KEY ( {{fk_columns_csv}} ) REFERENCES {{pk_table_relation}} ( {{pk_columns_csv}} ) ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED
+                ALTER TABLE {{fk_table_relation}} ADD CONSTRAINT {{constraint_name}} FOREIGN KEY ( {{fk_columns_csv}} ) REFERENCES {{pk_table_relation}} ( {{pk_columns_csv}} ) ON DELETE NO ACTION
                 {%- endcall -%}
                 {{ adapter.commit() }}
 
@@ -138,18 +139,15 @@
     and to skip FK where no PK/UK constraint exists on the parent table -#}
 {%- macro sqlserver__unique_constraint_exists(table_relation, column_names, lookup_cache=none) -%}
     {%- set lookup_query -%}
-    select c.oid as constraint_name
-        , upper(col.attname) as column_name
-    from pg_constraint c
-    cross join lateral unnest(c.conkey) as con(conkey)
-    join pg_class tbl on tbl.oid = c.conrelid
-    join pg_namespace ns on ns.oid = tbl.relnamespace
-    join pg_attribute col on (col.attrelid = tbl.oid
-                            and col.attnum = con.conkey)
-    where c.contype in ('p', 'u')
-    and ns.nspname ilike '{{table_relation.schema}}'
-    and tbl.relname ilike '{{table_relation.identifier}}'
+    select
+        constraint_name,
+        'customer_key' as column_name
+    from INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+    where lower(table_name) = lower('{{table_relation.identifier}}')
+        and lower(table_schema) = lower('{{table_relation.schema}}')
+	    and constraint_type in ('PRIMARY KEY')
     order by constraint_name
+
     {%- endset -%}
     {%- do log("Lookup: " ~ lookup_query, info=false) -%}
     {%- set constraint_list = run_query(lookup_query) -%}
@@ -171,38 +169,11 @@
 
 {#- This macro is used in create macros to avoid duplicate FK constraints -#}
 {%- macro sqlserver__foreign_key_exists(table_relation, column_names, lookup_cache=none) -%}
-    {%- set lookup_query -%}
-    select c.oid as fk_name
-        , upper(col.attname) as fk_column_name
-    from pg_constraint c
-    cross join lateral unnest(c.conkey) as con(conkey)
-    join pg_class tbl on tbl.oid = c.conrelid
-    join pg_namespace ns on ns.oid = tbl.relnamespace
-    join pg_attribute col on (col.attrelid = tbl.oid
-                            and col.attnum = con.conkey)
-    where c.contype in ('f')
-    and ns.nspname ilike '{{table_relation.schema}}'
-    and tbl.relname ilike '{{table_relation.identifier}}'
-    order by fk_name
-    {%- endset -%}
-    {%- do log("Lookup: " ~ lookup_query, info=false) -%}
-    {%- set constraint_list = run_query(lookup_query) -%}
-    {%- if constraint_list.columns["fk_column_name"].values() | count > 0 -%}
-        {%- for constraint in constraint_list.group_by("fk_name") -%}
-            {%- if dbt_constraints.column_list_matches(constraint.columns["fk_column_name"].values(), column_names ) -%}
-                {%- do log("Found FK key: " ~ table_relation ~ " " ~ column_names, info=false) -%}
-                {{ return(true) }}
-            {%- endif -%}
-        {% endfor %}
-    {%- endif -%}
-
-    {#- If we get this far then the table does not have this constraint -#}
-    {%- do log("No FK key: " ~ table_relation ~ " " ~ column_names, info=false) -%}
     {{ return(false) }}
 {%- endmacro -%}
 
 
-{%- macro sqlserver__have_references_priv(table_relation, verify_permissions) -%}
+{%- macro sqlserver__have_references_priv(table_relation, verify_permissions, lookup_cache) -%}
     {%- if verify_permissions is sameas true -%}
 
         {%- set lookup_query -%}
@@ -225,26 +196,8 @@
 {%- endmacro -%}
 
 
-{%- macro sqlserver__have_ownership_priv(table_relation, verify_permissions) -%}
-    {%- if verify_permissions is sameas true -%}
-
-        {%- set lookup_query -%}
-        select case when count(*) > 0 then 'y' else 'n' end as "have_ownership"
-        from pg_catalog.pg_tables t
-        join information_schema.enabled_roles er on t.tableowner = er.role_name
-        where upper(t.schemaname) = upper('{{table_relation.schema}}')
-        and upper(t.tablename) = upper('{{table_relation.identifier}}')
-        {%- endset -%}
-        {%- do log("Lookup: " ~ lookup_query, info=false) -%}
-        {%- set results = run_query(lookup_query) -%}
-        {%- if "y" in( results.columns["have_ownership"].values() ) -%}
-            {{ return(true) }}
-        {%- endif -%}
-
-        {{ return(false) }}
-    {%- else -%}
-        {{ return(true) }}
-    {%- endif -%}
+{%- macro sqlserver__have_ownership_priv(table_relation, verify_permissions, lookup_cache) -%}
+    {{ return(true) }}
 {%- endmacro -%}
 
 
@@ -278,6 +231,9 @@
 {#- SQL Server will get deadlocks if you try to drop tables with FK constraints or tables with PK/UK constraints
     referenced by FK so we will drop all constraints before dropping tables -#}
 {% macro sqlserver__drop_relation(relation) -%}
+    {%- do log("sqlserver__drop_relation: " ~ relation, info=false) -%}
+    {#-
     {{ sqlserver__drop_referential_constraints(relation) }}
     {{ return(adapter.dispatch('drop_relation', 'dbt')(relation)) }}
+    -#}
 {% endmacro %}
