@@ -363,7 +363,7 @@ models:
         meta:
           label: Day Of Month
       - name: day_of_year
-        data_type: bigint
+        data_type: float
         meta:
           label: Day Of Year
       - name: date_week # week_start_date
