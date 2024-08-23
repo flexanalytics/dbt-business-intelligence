@@ -50,6 +50,9 @@ models:
     staging:
       +schema: staging
       +materialized: view
+      stg_customer:
+        +tags:
+          - "contains_pii"
   dbt_observability:
     +enabled: false
     +schema: observability
