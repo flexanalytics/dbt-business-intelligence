@@ -1,5 +1,6 @@
 semantic_models:
   - name: fact_sales
+    label: Sales Fact
     defaults:
       agg_time_dimension: date_day
     description: "{{ doc('fact_sales') }}"
@@ -88,24 +89,22 @@ semantic_models:
         expr: sales / target
         agg: average
         agg_time_dimension: date_day
-
-
   - name: dim_customer
+    label: Customer
     description: "{{ doc('dim_customer') }}"
     model: ref('dim_customer')
     entities:
       - name: customer
         type: primary
         expr: customer_key
-
   - name: dim_product
+    label: Product
     description: "{{ doc('dim_product') }}"
     model: ref('dim_product')
     entities:
       - name: product
         type: primary
         expr: product_key
-
     dimensions:
       - name: product_category_dim
         type: categorical
@@ -113,8 +112,8 @@ semantic_models:
       - name: is_aviation_order
         type: categorical
         expr: case when product_category = 'Aviaiton' then 1 else 0 end
-
   - name: dim_order
+    label: Order
     description: "{{ doc('dim_order') }}"
     model: ref('dim_order')
     entities:
@@ -128,7 +127,6 @@ semantic_models:
       - name: is_cancelled_order
         type: categorical
         expr: case when status = 'Cancelled' then 1 else 0 end
-
 metrics:
   - name: sales_to_target
     label: Sales to Target Ratio
@@ -143,7 +141,6 @@ metrics:
         suffix: "%"
       synonyms:
         - Sales Coverage Ratio
-
 saved_queries:
   - name: order_metrics
     description: Relevant order metrics
@@ -157,8 +154,8 @@ saved_queries:
         - target
       group_by:
         - TimeDimension('fact_sales_key__date_day', 'day')
-      # where:
-      #   - "{{TimeDimension('fact_sales_key__date_day')}} > current_timestamp - interval '1 month'"
+        # where:
+        #   - "{{TimeDimension('fact_sales_key__date_day')}} > current_timestamp - interval '1 month'"
     exports:
       - name: order_metrics
         config:
