@@ -428,25 +428,33 @@ Here is a list of concepts that were covered in this repo.
 
 ## [beta] Observability
 
-This project includes [observability](https://www.ibm.com/topics/data-observability) via the [dbt_observability](https://github.com/flexanalytics/dbt_observability) package for a robust observability environment. This is disabled by default, but can be enabled by changing `enabled` to `true` in the `dbt_project.yml` file. The schemas can also be modified to fit your project's needs.
+This project includes [observability](https://www.ibm.com/topics/data-observability) via the [dbt_observability](https://github.com/flexanalytics/dbt_observability) and [dbt_observability_marts](https://github.com/flexanalytics/dbt_observability_marts) packages for a robust observability environment. This is set to only run in a `prod` environment by default, but can be modified by updating the `dbt_observability:environments` variable. A full observability-related example config is below.
 
 ```yml
-...
 vars:
-  "dbt_observability:enabled": true
-  "dbt_observability:column_stats_type": "DOC"
-  "dbt_observability:column_values_max": 10
 ...
+  "dbt_observability:tracking_enabled": true # optional, create observability base tables - default is true
+  "dbt_observability:environments": ["prod"] # optional, default is ["prod"]
+  "dbt_observability:path": "models/marts/" # optional, which paths should observability monitor. must be in the form of "dbt_observability:path": "path/subpath/" - default is `None`, will run on all paths in the project
+  "dbt_observability:materialization": ["table","incremental"] # optional, which model materialization should observability run on. must be array of "table", "view", "incremental", "ephemeral" - default is ["table","incremental"]
+  "dbt_observability:track_source_rowcounts": false # optional, track source rowcounts - default is false [depending on your dbms, this can be slow and resource intensive as it may require a full table scan if the dbms does not store rowcounts in information_schema.tables]
+  "dbt_observability:rowcount_diff_threshold_pct": .05 # optional, set threshold for no_anomaly test
+...
+
 models:
   ...
   dbt_observability:
-    +enabled: true
-    +schema: observability
+    +database: your_destination_database # optional, default is your target database
+    +schema: your_destination_schema # optional, default is `observability`
+    staging:
+      +database: your_destination_database # optional, default is your target database
+      +schema: your_destination_schema # optional, default is `observability`
     sources:
-      +enabled: true
+      +database: your_sources_database # optional, default is your target database
+      +schema: your sources_database # optional, default is `observability`
 ```
 
-This will enable observability base tables to get metadata on your dbt models, tests, seeds, snapshots, and runs. `dbt_observability` then creates a set of staging tables and kimball-style dimension and fact tables as well as canned observability reports via views which can be built upon for your own observability reporting. Make sure to keep an eye on new releases from [dbt_observability](https://github.com/flexanalytics/dbt_observability/releases) as new (and potentially breaking) changes are introduced.
+This will enable observability base tables to get metadata on your dbt models, tests, seeds, snapshots, and runs. `dbt_observability_marts` then creates a set of staging tables and kimball-style dimension and fact tables as well as canned observability reports via views which can be built upon for your own observability reporting. Make sure to keep an eye on new releases from [dbt_observability](https://github.com/flexanalytics/dbt_observability/releases) and [dbt_observability_marts](https://github.com/flexanalytics/dbt_observability_marts/releases) as new (and potentially breaking) changes are introduced.
 
 ## Let's Collaborate
 
