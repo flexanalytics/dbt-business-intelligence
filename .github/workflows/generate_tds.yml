@@ -19,7 +19,7 @@ jobs:
           -l LOCAL \
           -M "dim_customer, dim_date, dim_order, dim_product, fact_sales" \
           -A ${{ secrets.DBT_ACCOUNT_ID }} \
-          -j ${{ secrets.DBT_JOB_ID }} \
+          -j ${{ secrets.DBT_UAT_JOB_ID }} \
           -T ${{ secrets.DBT_TOKEN }} \
           -s "./output/sales.tds"
       - name: Upload generated artifacts
