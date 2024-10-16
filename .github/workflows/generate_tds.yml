@@ -1,32 +1,12 @@
 name: Run File Generator and Download TDS File
 on:
-  repository_dispatch:
-    types: [job.run.completed]
+  workflow_dispatch:
 jobs:
   run-file-generator:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Validate Webhook Signature
-        id: validate_signature
-        run: |
-          echo "Validating webhook..."
-          # Extract the authorization header from GitHub event
-          AUTH_HEADER="${{ github.event.headers.authorization }}"
-          SECRET_TOKEN="${{ secrets.DBT_CLOUD_AUTH_TOKEN }}"
-          # Get the raw request body
-          REQUEST_BODY=$(jq -c . < $GITHUB_EVENT_PATH)
-
-          # Calculate the HMAC SHA256 hash of the request body using the secret token
-          EXPECTED_SIGNATURE=$(echo -n "$REQUEST_BODY" | openssl dgst -sha256 -hmac "$SECRET_TOKEN" | sed 's/^.* //')
-
-          # Check if the authorization header matches the expected signature
-          if [[ "$EXPECTED_SIGNATURE" != "$AUTH_HEADER" ]]; then
-            echo "Webhook validation failed! Exiting."
-            exit 1
-          fi
-          echo "Webhook validated successfully!"
       - name: Run file generator
         run: |
           mkdir -p output && \
@@ -38,8 +18,8 @@ jobs:
           -P 5439 \
           -l LOCAL \
           -M "dim_customer, dim_date, dim_order, dim_product, fact_sales" \
-          -A ${{ github.event.accountId }} \
-          -j ${{ github.event.data.jobId }} \
+          -A ${{ secrets.DBT_ACCOUNT_ID }} \
+          -j ${{ secrets.DBT_JOB_ID }} \
           -T ${{ secrets.DBT_TOKEN }} \
           -s "./output/sales.tds"
       - name: Upload generated artifacts
