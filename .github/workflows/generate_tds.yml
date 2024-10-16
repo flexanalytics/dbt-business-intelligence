@@ -1,13 +1,16 @@
 name: Run File Generator and Download TDS File
 on:
   workflow_dispatch:
+  check_suite:
+    types: [completed]
 jobs:
   run-file-generator:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Run file generator
+      - name: Run file generator if dbt Cloud CI passed
+        if: ${{ github.event_name == 'workflow_dispatch' || (github.event.check_suite.app.name == 'dbt Cloud' && github.event.check_suite.conclusion == 'success') }}
         run: |
           mkdir -p output && \
           ./file_generator_linux \
