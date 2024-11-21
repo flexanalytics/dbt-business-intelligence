@@ -1,19 +1,19 @@
-name: Run File Generator and Download TDS File
+name: Run Semantic Converter and Download TDS File
 on:
   workflow_dispatch:
   check_suite:
     types: [completed]
 jobs:
-  run-file-generator:
+  run-semantic-converter:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Run file generator if dbt Cloud CI passed
+      - name: Run semantic converter if dbt Cloud CI passed
         if: ${{ github.event_name == 'workflow_dispatch' || (github.event.check_suite.app.name == 'dbt Cloud' && github.event.check_suite.conclusion == 'success') }}
         run: |
           mkdir -p output && \
-          ./file_generator_linux \
+          ./semantic_converter \
           -H ${{ secrets.REDSHIFT_HOST_URL }} \
           -d redshift \
           -a password \
@@ -32,7 +32,7 @@ jobs:
           path: ./output/
   download-artifacts:
     runs-on: ubuntu-latest
-    needs: run-file-generator
+    needs: run-semantic-converter
     steps:
       - name: Download generated artifacts
         uses: actions/download-artifact@v3
