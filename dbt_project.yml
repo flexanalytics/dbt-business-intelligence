@@ -44,8 +44,7 @@ models:
       stg_customer:
         +tags:
           - "contains_pii"
-  +grants:
-    select: ["business_analyst_role"]
+
 seeds:
   dbt_business_intelligence:
     schema: staging # all seeds in this project will use the mapping schema by default
