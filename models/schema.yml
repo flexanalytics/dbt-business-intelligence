@@ -298,6 +298,8 @@ models:
 
   - name: dim_date
     description: The Order Date dimension allows you to analyze metrics across time periods at many levels of granularity (year, quarter, month, day).
+    time_spine:
+      standard_granularity_column: date_day
     config:
       contract:
         enforced: false
@@ -315,6 +317,7 @@ models:
           - type: primary_key
             warn_unenforced: false
       - name: date_day
+        granularity: day
         data_type: date
         meta:
           label: Order Date
