@@ -130,6 +130,11 @@ models:
                 - Revenue
                 - Proceeds
                 - Receipts
+              certification:
+                status: certified
+                note: Data has been fully validated by the data team
+                user: someone@gmail.com
+                date: 2025-02-25
       - name: target
         data_type: float
         meta:
@@ -166,6 +171,8 @@ models:
           label: Customer Id
       - name: customer_name
         data_type: text
+        tags:
+          - pii_column
         meta:
           label: Customer Name
           synonyms: # for business searching and natural language processing
@@ -240,6 +247,11 @@ models:
         description: "Status can be one of the following values: 'Cancelled', 'Delivered', 'Shipped'"
         meta:
           label: Order Status
+          certification:
+            status: certified
+            note: Data has been fully validated by the data team
+            user: someone@gmail.com
+            date: 2025-02-25
         tests:
           - accepted_values:
               values: ['Cancelled','Delivered','Shipped']
@@ -494,6 +506,22 @@ models:
   - name: stg_customer
     meta:
       hidden: true
+    config:
+      tags:
+        - pii_table
+    columns:
+      - name: customer_code
+      - name: customer_name
+      - name: address
+      - name: postal_code
+      - name: country
+      - name: latitude
+      - name: longitude
+      - name: contact_name
+        tags:
+          - pii_column
+      - name: phone
+      - name: email
 
   - name: stg_order
     meta:
