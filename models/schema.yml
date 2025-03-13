@@ -531,11 +531,11 @@ models:
     meta:
       hidden: true
 
-  - name: stg_date_dimension
+  - name: stg_date
     meta:
       hidden: true
 
-  - name: stg_sales_data
+  - name: stg_sales
     meta:
       hidden: true
       # these joins are only to demonstrate the possibilities; the stg models will be hidden in BI tool;
@@ -566,7 +566,7 @@ models:
             - from_field: product_code
               exp: '='
               to_field: product_code
-        - to: stg_date_dimension
+        - to: stg_date
           type: full
           join_on:
             - from_field: order_date
