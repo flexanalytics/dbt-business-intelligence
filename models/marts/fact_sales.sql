@@ -25,7 +25,7 @@ with
             sales,
             target,
             data_loaded_at
-        from {{ ref('stg_sales_data') }}
+        from {{ ref('int_sales') }}
     ),
 
     final as (

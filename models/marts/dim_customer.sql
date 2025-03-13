@@ -10,4 +10,4 @@ select
     contact_name,
     phone,
     email
-from {{ ref('stg_customer') }}
+from {{ ref('int_customer') }}

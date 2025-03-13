@@ -6,8 +6,8 @@ select
     year_start_date as date_year,
     {{
       dbt_utils.star(
-        from=ref('stg_date_dimension'),
+        from=ref('int_date'),
         except=["week_start_date", "month_start_date", "quarter_start_date", "year_start_date"]
       )
     }}
-from {{ ref('stg_date_dimension') }}
+from {{ ref('int_date') }}

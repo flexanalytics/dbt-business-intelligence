@@ -8,5 +8,11 @@ sources:
     loaded_at_field: data_loaded_at
     description: Data loaded from source systems
     tables:
-      - name: stg_sales_data
+      - name: sales_data_raw
         description: 'Sales data from the master system'
+      - name: order_data_raw
+        description: 'Order data from the master system'
+      - name: product_data_raw
+        description: 'Product data from the master system'
+      - name: customer_data_raw
+        description: 'Customer data from the master system'

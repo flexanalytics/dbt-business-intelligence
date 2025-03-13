@@ -4,8 +4,9 @@ select distinct
     address,
     postal_code,
     country,
-    latlng,
+    {{ split_part('latlng', "','", 1) }} latitude,
+    {{ split_part('latlng', "','", 2) }} longitude,
     contact_name,
     phone,
     email
-from {{ source('salesforce', 'customer_data_raw') }}
+from {{ ref('stg_customer') }}

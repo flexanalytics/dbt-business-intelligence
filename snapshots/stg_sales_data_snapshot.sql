@@ -9,13 +9,13 @@
             invalidate_hard_deletes=True
         )
     }}
-    
-    SELECT
+
+    select
     {{
         dbt_utils.star(
-            from=ref('stg_sales_data')
+            from=ref('int_sales')
         )
     }}
-    FROM {{ ref('stg_sales_data') }}
+    from {{ ref('int_sales') }}
 
 {% endsnapshot %}

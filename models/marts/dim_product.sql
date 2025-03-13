@@ -6,4 +6,4 @@ select
     msrp,
     recent_order_date,
     first_order_date
-from {{ ref('stg_product') }}
+from {{ ref('int_product') }}

@@ -8,4 +8,4 @@ select
     order_line_number,
     order_date,
     status
-from {{ ref('stg_order') }}
+from {{ ref('int_order') }}
