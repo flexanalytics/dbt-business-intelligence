@@ -46,6 +46,7 @@ models:
           - "contains_pii"
 
 seeds:
+  +enabled: false
   dbt_business_intelligence:
     schema: staging # all seeds in this project will use the mapping schema by default
 dispatch:
