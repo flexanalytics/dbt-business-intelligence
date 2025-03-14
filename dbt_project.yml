@@ -44,6 +44,8 @@ models:
       stg_customer:
         +tags:
           - "contains_pii"
+    intermediate:
+      +materialized: view
 
 seeds:
   +enabled: false
