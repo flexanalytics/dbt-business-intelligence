@@ -1,0 +1,5 @@
+dbt_business_intelligence:
+    duck:
+      type: duckdb
+      schema: edw
+      path: '/path/to/dbt_business_intelligence.duckdb'
