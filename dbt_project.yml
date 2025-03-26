@@ -21,6 +21,7 @@ clean-targets: # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 vars:
+  external_location: ""  # set this to the location of your parquet files for duckdb
   company_name: "Bigstore Enterprises"
   company_start_date: "2019-01-01"
   # "dbt_observability:environments": ["prod"] # optional, default is ["prod"]
@@ -48,9 +49,8 @@ models:
       +materialized: view
 
 seeds:
-  +enabled: false
   dbt_business_intelligence:
-    schema: staging # all seeds in this project will use the mapping schema by default
+    schema: "raw"
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ["tsql_utils", "dbt_utils"]
