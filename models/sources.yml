@@ -10,17 +10,29 @@ sources:
     tables:
       - name: sales_data_raw
         description: 'Sales data from the master system'
-        meta:
-          external_location: ./demo_staging/sales_data_raw.parquet
+        # to use parquet files as sources instead of seeded files for duckdb,
+        # uncomment the following line and update the path
+        # to the absolute path of the parquet file
+        # meta:
+        #   external_location: ./demo_staging/sales_data_raw.parquet'
       - name: order_data_raw
         description: 'Order data from the master system'
-        meta:
-          external_location: ./demo_staging/order_data_raw.parquet
+        # to use parquet files as sources instead of seeded files for duckdb,
+        # uncomment the following line and update the path
+        # to the absolute path of the parquet file
+        # meta:
+        #   external_location: ./demo_staging/order_data_raw.parquet'
       - name: product_data_raw
         description: 'Product data from the master system'
-        meta:
-          external_location: ./demo_staging/product_data_raw.parquet
+        # to use parquet files as sources instead of seeded files for duckdb,
+        # uncomment the following line and update the path
+        # to the absolute path of the parquet file
+        # meta:
+        #   external_location: ./demo_staging/product_data_raw.parquet'
       - name: customer_data_raw
         description: 'Customer data from the master system'
-        meta:
-          external_location: ./demo_staging/customer_data_raw.parquet
+        # to use parquet files as sources instead of seeded files for duckdb,
+        # uncomment the following line and update the path
+        # to the absolute path of the parquet file
+        # meta:
+        #   external_location: ./demo_staging/customer_data_raw.parquet'
