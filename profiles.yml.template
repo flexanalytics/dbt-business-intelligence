@@ -2,4 +2,4 @@ dbt_business_intelligence:
     duck:
       type: duckdb
       schema: edw
-      path: '/path/to/dbt_business_intelligence.duckdb'
+      path: './dbt_business_intelligence.duckdb'  # database is defaulted to project dir, change if necessary
