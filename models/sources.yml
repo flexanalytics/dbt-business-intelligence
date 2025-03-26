@@ -1,7 +1,7 @@
 sources:
   - name: salesforce
     # database: dbname/project, uses project database if not specified
-    schema: "{{ target.schema }}_staging"
+    schema: "{{ target.schema }}_raw"
     freshness:
       warn_after: {count: 12, period: hour}
       error_after: {count: 24, period: hour}
