@@ -1,5 +1,3 @@
--- depends_on: {{ ref('stg_sales_data') }}
-
 select distinct
     customer_code,
     customer_name,
@@ -11,4 +9,4 @@ select distinct
     contact_name,
     phone,
     email
-from {{ source('salesforce', 'stg_sales_data') }}
+from {{ source('salesforce', 'sales_data') }}

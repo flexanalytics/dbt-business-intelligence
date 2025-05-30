@@ -47,7 +47,7 @@ models:
 
 seeds:
   dbt_business_intelligence:
-    schema: staging # all seeds in this project will use the mapping schema by default
+    schema: raw # all seeds in this project will use the mapping schema by default
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ["tsql_utils", "dbt_utils"]

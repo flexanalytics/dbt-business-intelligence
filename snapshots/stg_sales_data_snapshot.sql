@@ -1,4 +1,4 @@
-{% snapshot stg_sales_data_snapshot %}
+{% snapshot sales_data_snapshot %}
 -- Using dbt updated at field as we want a new set of data everyday.
     {{
         config(
@@ -9,13 +9,13 @@
             invalidate_hard_deletes=True
         )
     }}
-    
-    SELECT
+
+    select
     {{
         dbt_utils.star(
             from=ref('stg_sales_data')
         )
     }}
-    FROM {{ ref('stg_sales_data') }}
+    from {{ ref('stg_sales_data') }}
 
 {% endsnapshot %}
