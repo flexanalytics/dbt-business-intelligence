@@ -1,3 +1,5 @@
+{{ config(materialized='external', location='/db/edw/fact_sales.parquet') }}
+
 with
     sales_data as (
         select

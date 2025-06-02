@@ -1,3 +1,5 @@
+{{ config(materialized='external', location='/db/edw/dim_product.parquet') }}
+
 select
     {{ dbt_utils.generate_surrogate_key(['product_code']) }} product_key,
     product_code,

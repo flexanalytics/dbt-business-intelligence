@@ -1,3 +1,5 @@
+{{ config(materialized='external', location='/db/edw/dim_order.parquet') }}
+
 select
     {{
         dbt_utils.generate_surrogate_key(

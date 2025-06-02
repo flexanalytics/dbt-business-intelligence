@@ -1,3 +1,5 @@
+{{ config(materialized='external', location='/db/edw/dim_date.parquet') }}
+
 select
     {{ dbt_utils.generate_surrogate_key(['date_day']) }} date_key,
     week_start_date as date_week,

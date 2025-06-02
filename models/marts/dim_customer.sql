@@ -1,3 +1,5 @@
+{{ config(materialized='external', location='/db/edw/dim_customer.parquet') }}
+
 select
     {{ dbt_utils.generate_surrogate_key(['customer_code']) }} customer_key,
     customer_code,
