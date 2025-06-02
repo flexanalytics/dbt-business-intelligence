@@ -3,4 +3,4 @@ select distinct
     order_line_number,
     order_date,
     status
-from {{ source('salesforce', 'sales_data') }}
+from {{ source('salesforce', 'order') }}

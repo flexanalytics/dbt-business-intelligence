@@ -28,4 +28,4 @@ select
     sales,
     target,
     {{ current_timestamp() }} data_loaded_at
-from {{ source('salesforce', 'sales_data') }}
+from {{ source('salesforce', 'sales') }}
