@@ -9,5 +9,7 @@ select
     longitude,
     contact_name,
     phone,
-    email
+    email,
+    recent_order_date,
+    first_order_date
 from {{ ref('stg_customer') }}

@@ -210,6 +210,16 @@ models:
         data_type: text
         meta:
           label: Email
+      - name: recent_order_date
+        data_type: date
+        description: "Date of the most recent order placed by the customer, used for customer relationship management"
+        meta:
+          label: Recent Order Date
+      - name: first_order_date
+        data_type: date
+        description: "Date of the first order placed by the customer, used for historical analysis"
+        meta:
+          label: First Order Date
 
   - name: dim_order
     description: "{{ doc('dim_order') }}"
