@@ -95,6 +95,7 @@ models:
           hidden: true
       - name: price
         data_type: float
+        description: "Price of the product in USD at the time of sale, used for revenue calculations"
         meta:
           metrics:
             price:
@@ -106,6 +107,7 @@ models:
                 decimalPlaces: 2
       - name: quantity
         data_type: integer
+        description: "Quantity of the product sold in the order, used for inventory and sales analysis"
         meta:
           metrics:
             quantity:
@@ -117,6 +119,7 @@ models:
                 decimalPlaces: 0
       - name: sales
         data_type: float
+        description: "Total sales revenue for the order, calculated as price multiplied by quantity"
         meta:
           metrics:
             sales:
@@ -137,6 +140,7 @@ models:
                 date: 2025-02-25
       - name: target
         data_type: float
+        description: "Target sales revenue for the order, used for performance analysis"
         meta:
           metrics:
             target:
@@ -167,10 +171,12 @@ models:
             warn_unenforced: false
       - name: customer_code
         data_type: text
+        description: "Unique code for the customer, used for internal tracking. Stored as hexadecimal string, examples include '00972BBE', '03AFC2C9', '343C1F1A'."
         meta:
           label: Customer Id
       - name: customer_name
         data_type: text
+        description: "Full name of the corporate customer, used for display purposes. Examples include 'Enim Sit Corp.', 'Vivamus Rhoncus Corporation'."
         tags:
           - pii_column
         meta:
@@ -180,34 +186,47 @@ models:
             - Who
       - name: address
         data_type: text
+        description: "Full corporate address of the customer, used for shipping and billing. Examples include 'P.O. Box 915, 7624 Mauris Rd.', '1105 Ullamcorper St.'."
         meta:
           label: Address
       - name: postal_code
         data_type: text
+        description: "Postal code of the customer's address, used for shipping and billing. Examples include 'L0X 2E1', '15341'."
         meta:
           label: Postal Code
+      - name: region
+        data_type: text
+        description: "Region or state of the customer's address, used for shipping and billing. Examples include 'North Holland', 'Leinster'."
+        meta:
+          label: Region
       - name: country
         data_type: text
+        description: "Country Name of the customer, used for shipping and billing. Examples include 'Ulyanovsk Oblast', 'Connacht'."
         meta:
           label: Country
       - name: latitude
         data_type: text
+        description: "Latitude of the customer's address, used for geolocation and mapping. Examples include '-38.1762574336', '68.3046142976'"
         meta:
           label: Latitude
       - name: longitude
         data_type: text
+        description: "Longitude of the customer's address, used for geolocation and mapping. Examples include '99.5885843456', '46.0953581568'"
         meta:
           label: Longitude
       - name: contact_name
         data_type: text
+        description: "Name of the primary contact person for the customer, used for communication. Examples include 'Cora Gomez', 'Keiko Blair'."
         meta:
           label: Contact Name
       - name: phone
         data_type: text
+        description: "Phone number of the customer, used for communication. Examples include '1-822-207-7116', '327-1582'."
         meta:
           label: Phone
       - name: email
         data_type: text
+        description: "Email address of the customer, used for communication and marketing. Examples include 'id@aol.ca', 'nulla.in@hotmail.edu'"
         meta:
           label: Email
 
@@ -231,20 +250,22 @@ models:
             warn_unenforced: false
       - name: order_number
         data_type: integer
+        description: "Unique identifier for the order, used for tracking and reference. Examples include '939396', '951393'."
         meta:
           label: Order Number
       - name: order_line_number
         data_type: integer
+        description: "Unique identifier for the order line, used for tracking and reference. Examples include '1', '2'."
         meta:
           label: Order Line Number
       - name: order_date
         data_type: date
-        description: "Date of the order after {{ var('company_name') }} started on {{ var('company_start_date') }}"
+        description: "Date of the order after {{ var('company_name') }} started on {{ var('company_start_date') }}. Examples include '2024-01-01', '2024-01-02'."
         meta:
           label: Order Date
       - name: status
         data_type: text
-        description: "Status can be one of the following values: 'Cancelled', 'Delivered', 'Shipped'"
+        description: "Status of the order, used for tracking and reporting. Can be one of the following values: 'Cancelled', 'Delivered', 'Shipped'"
         meta:
           label: Order Status
           certification:
@@ -275,10 +296,12 @@ models:
             warn_unenforced: false
       - name: product_code
         data_type: text
+        description: "Unique code for the product, used for internal tracking. Examples include 'PC22449-5536', 'PC9744-8650'."
         meta:
           label: Product Code
       - name: product_name
         data_type: text
+        description: "Full name of the product, used for display purposes. Examples include 'Maserati Quattroporte', 'Airbus A340-600', 'Oceanic', 'Bullet Train', 'Honda GL1000 Gold Wing'"
         meta:
           label: Product Name
           synonyms: # for business searching and natural language processing
@@ -286,6 +309,7 @@ models:
             - What
       - name: product_category
         data_type: text
+        description: "Category of the product, used for grouping and analysis. Examples include 'Automobiles', 'Aviation', 'Marine', 'Mass Transit', 'Motorcycles'"
         meta:
           label: Product Category
           synonyms: # for business searching and natural language processing
@@ -293,6 +317,7 @@ models:
             - Product Line
       - name: msrp
         data_type: integer
+        description: "Manufacturer's suggested retail price for the product, used for pricing analysis"
         meta:
           label: MSRP
           format:
@@ -301,10 +326,12 @@ models:
             prefix: "$"
       - name: recent_order_date
         data_type: date
+        description: "Date of the most recent order for the product, used for inventory management"
         meta:
           label: Recent Order Date
       - name: first_order_date
         data_type: date
+        description: "Date of the first order for the product, used for historical analysis"
         meta:
           label: First Order Date
 
