@@ -346,7 +346,7 @@ models:
           label: First Order Date
 
   - name: dim_date
-    description: The Order Date dimension allows you to analyze metrics across time periods at many levels of granularity (year, quarter, month, day).
+    description: "{{ doc('dim_date') }}"
     time_spine:
       standard_granularity_column: date_day
     config:
@@ -368,11 +368,13 @@ models:
       - name: date_day
         granularity: day
         data_type: date
+        description: "{{ doc('dim_date__date_day') }}"
         meta:
           label: Order Date
           display_index: 1
       - name: prior_date_day
         data_type: date
+        description: "{{ doc('dim_date__prior_date_day') }}"
         meta:
           label: Prior Date Day
           hidden: true
@@ -381,161 +383,194 @@ models:
             pattern: 'MMM D, YYYY'
       - name: next_date_day
         data_type: date
+        description: "{{ doc('dim_date__next_date_day') }}"
         meta:
           hidden: true
           label: Next Date Day
       - name: prior_year_date_day
         data_type: date
+        description: "{{ doc('dim_date__prior_year_date_day') }}"
         meta:
           hidden: true
           label: Prior Year Date Day
           grain: off # time interval grain; values 'off', 'day', 'week', 'month', 'quarter', 'year'
       - name: prior_year_over_year_date_day
         data_type: date
+        description: "{{ doc('dim_date__prior_year_over_year_date_day') }}"
         meta:
           hidden: true
           label: Prior Year Over Year Date Day
       - name: day_of_week
         data_type: integer
+        description: "{{ doc('dim_date__day_of_week') }}"
         meta:
           hidden: true
           label: Day Of Week
       - name: day_of_week_name
         data_type: text
+        description: "{{ doc('dim_date__day_of_week_name') }}"
         meta:
           hidden: true
           label: Day Of Week Name
       - name: day_of_week_name_short
         data_type: text
+        description: "{{ doc('dim_date__day_of_week_name_short') }}"
         meta:
           hidden: true
           label: Day Of Week Name Short
       - name: day_of_month
         data_type: float
+        description: "{{ doc('dim_date__day_of_month') }}"
         meta:
           label: Day Of Month
       - name: day_of_year
         data_type: bigint
+        description: "{{ doc('dim_date__day_of_year') }}"
         meta:
           label: Day Of Year
       - name: date_week # week_start_date
         data_type: date
+        description: "{{ doc('dim_date__date_week') }}"
         meta:
           label: Week Start Date
           grain: off
       - name: week_end_date
         data_type: date
+        description: "{{ doc('dim_date__week_end_date') }}"
         meta:
           hidden: true
           label: Week End Date
       - name: prior_year_week_start_date
         data_type: date
+        description: "{{ doc('dim_date__prior_year_week_start_date') }}"
         meta:
           hidden: true
           label: Prior Year Week Start Date
       - name: prior_year_week_end_date
         data_type: date
+        description: "{{ doc('dim_date__prior_year_week_end_date') }}"
         meta:
           hidden: true
           label: Prior Year Week End Date
       - name: week_of_year
         data_type: integer
+        description: "{{ doc('dim_date__week_of_year') }}"
         meta:
           hidden: true
           label: Week Of Year
       - name: iso_week_start_date
         data_type: date
+        description: "{{ doc('dim_date__iso_week_start_date') }}"
         meta:
           hidden: true
           label: Iso Week Start Date
       - name: iso_week_end_date
         data_type: date
+        description: "{{ doc('dim_date__iso_week_end_date') }}"
         meta:
           hidden: true
           label: Iso Week End Date
       - name: prior_year_iso_week_start_date
         data_type: date
+        description: "{{ doc('dim_date__prior_year_iso_week_start_date') }}"
         meta:
           hidden: true
           label: Prior Year Iso Week Start Date
       - name: prior_year_iso_week_end_date
         data_type: date
+        description: "{{ doc('dim_date__prior_year_iso_week_end_date') }}"
         meta:
           hidden: true
           label: Prior Year Iso Week End Date
       - name: iso_week_of_year
         data_type: integer
+        description: "{{ doc('dim_date__iso_week_of_year') }}"
         meta:
           hidden: true
           label: Iso Week Of Year
       - name: prior_year_week_of_year
         data_type: integer
+        description: "{{ doc('dim_date__prior_year_week_of_year') }}"
         meta:
           hidden: true
           label: Prior Year Week Of Year
       - name: prior_year_iso_week_of_year
         data_type: integer
+        description: "{{ doc('dim_date__prior_year_iso_week_of_year') }}"
         meta:
           hidden: true
           label: Prior Year Iso Week Of Year
       - name: month_of_year
         data_type: integer
+        description: "{{ doc('dim_date__month_of_year') }}"
         meta:
           label: Month Num
       - name: month_name
         data_type: text
+        description: "{{ doc('dim_date__month_name') }}"
         meta:
           label: Month Name
       - name: month_name_short
         data_type: text
+        description: "{{ doc('dim_date__month_name_short') }}"
         meta:
           label: Month Name Short
       - name: date_month # month_start_date
         data_type: date
+        description: "{{ doc('dim_date__date_month') }}"
         meta:
           label: Month Start Date
           grain: off
       - name: month_end_date
         data_type: date
+        description: "{{ doc('dim_date__month_end_date') }}"
         meta:
           hidden: true
           label: Month End Date
       - name: prior_year_month_start_date
         data_type: date
+        description: "{{ doc('dim_date__prior_year_month_start_date') }}"
         meta:
           hidden: true
           label: Prior Year Month Start Date
       - name: prior_year_month_end_date
         data_type: date
+        description: "{{ doc('dim_date__prior_year_month_end_date') }}"
         meta:
           hidden: true
           label: Prior Year Month End Date
       - name: quarter_of_year
         data_type: integer
+        description: "{{ doc('dim_date__quarter_of_year') }}"
         meta:
           label: Quarter Num
       - name: date_quarter # quarter_start_date
         data_type: date
+        description: "{{ doc('dim_date__date_quarter') }}"
         meta:
           label: Quarter Start Date
           grain: off
       - name: quarter_end_date
         data_type: date
+        description: "{{ doc('dim_date__quarter_end_date') }}"
         meta:
           hidden: true
           label: Quarter End Date
       - name: year_number
         data_type: integer
+        description: "{{ doc('dim_date__year_number') }}"
         meta:
           label: Year Num
           display_index: 2
       - name: date_year # year_start_date
         data_type: date
+        description: "{{ doc('dim_date__date_year') }}"
         meta:
           label: Year Start Date
           grain: off
       - name: year_end_date
         data_type: date
+        description: "{{ doc('dim_date__year_end_date') }}"
         meta:
           hidden: true
           label: Year End Date
