@@ -39,22 +39,22 @@ with
         select
             {{
                 dbt_utils.generate_surrogate_key(
-                    ['customer_code','order_number','order_line_number','product_code','order_date']
+                    ['sales_data.customer_code','sales_data.order_number','sales_data.order_line_number','sales_data.product_code','sales_data.order_date']
                 )
             }} as fact_sales_key,
-            {{ dbt_utils.generate_surrogate_key(['customer_code']) }} as customer_key,
+            {{ dbt_utils.generate_surrogate_key(['sales_data.customer_code']) }} as customer_key,
             {{
                 dbt_utils.generate_surrogate_key(
-                    ['order_number','order_line_number']
+                    ['sales_data.order_number','sales_data.order_line_number']
                 )
             }} as order_key,
-            {{ dbt_utils.generate_surrogate_key(['product_code']) }} as product_key,
-            {{ dbt_utils.generate_surrogate_key(['order_date']) }} as date_key,
-            order_date as date_day,
-            quantity,
-            price,
-            sales,
-            target
+            {{ dbt_utils.generate_surrogate_key(['sales_data.product_code']) }} as product_key,
+            {{ dbt_utils.generate_surrogate_key(['sales_data.order_date']) }} as date_key,
+            sales_data.order_date as date_day,
+            sales_data.quantity,
+            sales_data.price,
+            sales_data.sales,
+            sales_data.target
         from sales_data
         inner join repeat_customers
             on sales_data.customer_code = repeat_customers.customer_code
