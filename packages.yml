@@ -2,6 +2,6 @@ packages:
   - package: dbt-msft/tsql_utils
     version: [">=1.2.0", "<1.3.0"]
   - git: "https://github.com/flexanalytics/dbt_observability.git"
-    revision: v2-stable
+    revision: v3-stable
   - git: "https://github.com/flexanalytics/dbt_observability_marts.git"
-    revision: v2-stable
+    revision: v3-stable
