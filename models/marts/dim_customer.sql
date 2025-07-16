@@ -4,6 +4,7 @@ select
     customer_name,
     address,
     postal_code,
+    region,
     country,
     latitude,
     longitude,
