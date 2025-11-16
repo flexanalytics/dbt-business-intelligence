@@ -19,13 +19,13 @@ Detailed information about a customer purchase of product(s) such as order date 
 
 {% docs dim_product %}
 Detailed information about products in the following categories:
-* Classic Cars
-* Motorcycles
-* Planes
-* Ships
-* Trains
-* Trucks and Buses
-* Vintage Cars
+* Classic Cars ('Automobiles' in the source data)
+* Motorcycles ('Motorcycles' in the source data)
+* Planes ('Aviation' in the source data)
+* Ships ('Marine' in the source data)
+* Trains ('Mass Transit' in the source data)
+* Trucks and Buses ('Mass Transit' in the source data)
+* Vintage Cars ('Automobiles' in the source data)
 {% enddocs %}
 
 {% docs dim_date %}
