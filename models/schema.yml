@@ -434,6 +434,9 @@ models:
         meta:
           label: Week Start Date
           grain: off
+          format:
+            type: date
+            pattern: 'YYYY-MM-DD hh:mm'
       - name: week_end_date
         data_type: date
         description: "{{ doc('dim_date__week_end_date') }}"
