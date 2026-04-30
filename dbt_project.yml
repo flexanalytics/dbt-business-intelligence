@@ -53,5 +53,5 @@ dispatch:
     search_order: ["tsql_utils", "dbt_utils"]
   - macro_namespace: dbt_date
     search_order: ["tsql_utils", "dbt_date"]
-on-run-end:
-  - "{{ dbt_observability.upload_results(results) }}"
+#on-run-end:
+#  - "{{ dbt_observability.upload_results(results) }}"
